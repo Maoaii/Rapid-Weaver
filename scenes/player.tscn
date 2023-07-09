@@ -8,8 +8,13 @@ size = Vector2(12, 11)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_msrj2")
-SPEED = 200.0
-JUMP_VELOCITY = 350.0
+max_speed = 200.0
+move_acceleration = 10.0
+move_deceleration = 10.0
+jump_height = 80.0
+jump_time_to_peak = 0.3
+jump_time_to_descent = 0.4
+terminal_velocity = 500.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.5)
@@ -17,3 +22,11 @@ shape = SubResource("RectangleShape2D_k2drm")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_3qwnl")
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[node name="JumpBufferTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
