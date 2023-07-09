@@ -64,8 +64,10 @@ func get_gravity():
 
 
 func move(direction, delta):
+	# Accelerate
 	if direction:
 		velocity.x += direction * move_acceleration * max_speed * delta
+	# Decelerate
 	elif velocity.x < 0:
 		velocity.x += move_deceleration * max_speed * delta
 		velocity.x = min(velocity.x, 0)
