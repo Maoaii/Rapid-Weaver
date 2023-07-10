@@ -1,6 +1,9 @@
 class_name Player
 extends CharacterBody2D
 
+"""
+	Export variables
+"""
 # Movement variables
 @export var max_speed : float
 @export var move_acceleration : float
@@ -12,13 +15,25 @@ extends CharacterBody2D
 @export var jump_time_to_descent : float
 @export var terminal_velocity : float
 
+
+"""
+	Onready variables
+"""
+# Jumping variables
 @onready var jump_velocity : float = ((2.0 * jump_height) / jump_time_to_peak) * -1.0
 @onready var jump_gravity : float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
 @onready var fall_gravity : float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
+
+# Timers
 @onready var coyote_timer : Timer = $CoyoteTimer
 @onready var jump_buffer_timer : Timer = $JumpBufferTimer
 
+
+"""
+	Normal instance variables
+"""
 var was_on_floor : bool
+
 
 func _physics_process(delta):
 	# Add the gravity
