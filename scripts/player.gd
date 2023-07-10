@@ -13,8 +13,12 @@ extends CharacterBody2D
 @export var jump_height : float
 @export var jump_time_to_peak : float
 @export var jump_time_to_descent : float
-@export var terminal_velocity : float
 
+# Wall Jumping variables
+@export var wall_jump_velocity : float
+
+# Falling variables
+@export var terminal_velocity : float
 
 """
 	Onready variables
@@ -23,6 +27,7 @@ extends CharacterBody2D
 @onready var jump_velocity : float = ((2.0 * jump_height) / jump_time_to_peak) * -1.0
 @onready var jump_gravity : float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
 @onready var fall_gravity : float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
+
 
 # Raycasts
 @onready var sticky_up : RayCast2D = $StickyUp
@@ -43,8 +48,6 @@ var is_sticky : bool = false
 
 func _physics_process(delta):
 	# Add the gravity
-	# TODO: Remove boolean condition
-	# TODO: make gravity apply depending on raycasts
 	if not is_sticky:
 		apply_gravity(delta)
 

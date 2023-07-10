@@ -29,14 +29,14 @@ func handle_jump():
 		if player.is_on_floor() or player.is_sticky or not player.coyote_timer.is_stopped():
 			
 			# Different jumping directions based on stickiness
-			if player.sticky_down.is_colliding():
-				player.velocity.y = player.jump_velocity
-			elif player.sticky_up.is_colliding():
+			if player.sticky_up.is_colliding():
 				player.velocity.y = -player.jump_velocity
-			elif player.sticky_left.is_colliding():
-				player.velocity.x = -player.jump_velocity
 			elif player.sticky_right.is_colliding():
-				player.velocity.x = player.jump_velocity
+				player.velocity = Vector2(player.jump_velocity, -player.wall_jump_velocity)
+			elif player.sticky_down.is_colliding():
+				player.velocity.y = player.jump_velocity
+			elif player.sticky_left.is_colliding():
+				player.velocity = Vector2(-player.jump_velocity, -player.wall_jump_velocity)
 		elif not player.is_on_floor():
 			player.jump_buffer_timer.start()
 	

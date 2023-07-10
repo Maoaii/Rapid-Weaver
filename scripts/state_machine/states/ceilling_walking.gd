@@ -3,7 +3,7 @@ extends PlayerState
 func _enter(msg := {}):
 	player.is_sticky = true
 
-func _physics_update(delta: float) -> void:	
+func _physics_update(delta: float) -> void:
 	# Colliders
 	var x_direction = Input.get_axis("left", "right")
 	var y_direction = Input.get_axis("up", "down")
