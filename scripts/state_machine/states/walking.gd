@@ -1,5 +1,7 @@
 extends PlayerState
 
+func _enter(msg := {}):
+	player.is_sticky = false
 
 func _physics_update(delta: float) -> void:
 	if not player.is_on_floor():
@@ -20,6 +22,13 @@ func _physics_update(delta: float) -> void:
 	# Transition to idle
 	if player.velocity.x == 0:
 		state_machine.transition_to("Idle")
+	
+	# Transition to Wall walking
+	direction = Input.get_axis("up", "down")
+	var colliding_left = player.sticky_left.is_colliding()
+	var colliding_right = player.sticky_right.is_colliding()
+	if (colliding_left or colliding_right) and direction:
+		state_machine.transition_to("WallWalking")
 
 func move(direction, delta):
 	# Accelerate
@@ -39,10 +48,7 @@ func move(direction, delta):
 
 
 func cap_velocity():
-	if player.velocity.x > player.max_speed:
-		player.velocity.x = player.max_speed
-	elif player.velocity.x < -player.max_speed:
-		player.velocity.x = -player.max_speed
+	player.velocity.x = clampf(player.velocity.x, -player.max_speed, player.max_speed)
 
 
 func handle_coyote_time():

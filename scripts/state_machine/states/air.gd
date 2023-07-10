@@ -2,12 +2,14 @@ extends PlayerState
 
 
 func _enter(msg := {}) -> void:
-	if msg.has("jump"): 
+	if msg.has("jump"):
 		handle_jump()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_update(delta: float) -> void:
+	player.is_sticky = false
+	
 	var direction = Input.get_axis("left", "right")
 	move(direction, delta)
 	
@@ -25,9 +27,18 @@ func _physics_update(delta: float) -> void:
 
 func handle_jump():
 	if Input.is_action_just_pressed("jump"):
+		
 		# Coyote time
-		if player.is_on_floor() or not player.coyote_timer.is_stopped():
-			player.velocity.y = player.jump_velocity
+		if player.is_on_floor() or player.is_sticky or not player.coyote_timer.is_stopped():
+			
+			if player.sticky_down.is_colliding():
+				player.velocity.y = player.jump_velocity
+			elif player.sticky_up.is_colliding():
+				player.velocity.y = -player.jump_velocity
+			elif player.sticky_left.is_colliding():
+				player.velocity.x = -player.jump_velocity
+			elif player.sticky_right.is_colliding():
+				player.velocity.x = player.jump_velocity
 		elif not player.is_on_floor():
 			player.jump_buffer_timer.start()
 	
