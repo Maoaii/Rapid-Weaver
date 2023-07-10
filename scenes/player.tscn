@@ -31,7 +31,6 @@ shape = SubResource("RectangleShape2D_k2drm")
 texture = ExtResource("1_3qwnl")
 
 [node name="CoyoteTimer" type="Timer" parent="."]
-wait_time = 0.1
 one_shot = true
 
 [node name="JumpBufferTimer" type="Timer" parent="."]

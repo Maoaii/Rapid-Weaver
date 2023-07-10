@@ -10,13 +10,29 @@ func _enter(msg := {}) -> void:
 func _physics_update(delta: float) -> void:
 	player.is_sticky = false
 	
-	var direction = Input.get_axis("left", "right")
+	# Colliders
+	var colliding_up = player.sticky_up.is_colliding()
+	var colliding_right = player.sticky_right.is_colliding()
+	var collider_down = player.sticky_down.is_colliding()
+	var colliding_left = player.sticky_left.is_colliding()
 	
-	move(direction, delta)
+	# Movement Input
+	var x_direction = Input.get_axis("left", "right")
+	var y_direction = Input.get_axis("up", "down")
+	
+	move(x_direction, delta)
 	
 	cap_velocity()
 	
 	handle_jump()
+	
+	# Stick to ceiling
+	if colliding_up and y_direction:
+		state_machine.transition_to("CeilingWalk") 
+	
+	# Stick to walls
+	if (colliding_left or colliding_right) and x_direction: 
+		state_machine.transition_to("WallWalking") 
 	
 	# Landing
 	if player.is_on_floor() and player.jump_buffer_timer.is_stopped():
@@ -25,16 +41,14 @@ func _physics_update(delta: float) -> void:
 
 func handle_jump():
 	if Input.is_action_just_pressed("jump"):
-		# Coyote time
 		if player.is_on_floor() or player.is_sticky or not player.coyote_timer.is_stopped():
-			
 			# Different jumping directions based on stickiness
-			if player.sticky_up.is_colliding():
+			if player.sticky_down.is_colliding() or not player.coyote_timer.is_stopped():
+				player.velocity.y = player.jump_velocity
+			elif player.sticky_up.is_colliding():
 				player.velocity.y = -player.jump_velocity
 			elif player.sticky_right.is_colliding():
 				player.velocity = Vector2(player.jump_velocity, -player.wall_jump_velocity)
-			elif player.sticky_down.is_colliding():
-				player.velocity.y = player.jump_velocity
 			elif player.sticky_left.is_colliding():
 				player.velocity = Vector2(-player.jump_velocity, -player.wall_jump_velocity)
 		elif not player.is_on_floor():

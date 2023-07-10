@@ -6,6 +6,8 @@ func _enter(msg := {}):
 func _physics_update(delta: float) -> void:
 	# This is used for breakable ground, or when the player goes off the ground
 	if not player.is_on_floor():
+		if player.was_on_floor:
+			player.coyote_timer.start()
 		state_machine.transition_to("Air")
 		return
 	
@@ -20,8 +22,6 @@ func _physics_update(delta: float) -> void:
 	move(x_direction, delta)
 	
 	cap_velocity()
-	
-	handle_coyote_time()
 	
 	# Transition to Jumping
 	if Input.is_action_just_pressed("jump"):
