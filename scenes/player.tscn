@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="3_csjel"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/idle.gd" id="4_pdfwi"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/walking.gd" id="5_wxytd"]
-[ext_resource type="Script" path="res://scripts/state_machine/states/jumping.gd" id="6_7anae"]
+[ext_resource type="Script" path="res://scripts/state_machine/states/air.gd" id="7_wirpb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k2drm"]
 size = Vector2(12, 11)
@@ -28,7 +28,7 @@ shape = SubResource("RectangleShape2D_k2drm")
 texture = ExtResource("1_3qwnl")
 
 [node name="CoyoteTimer" type="Timer" parent="."]
-wait_time = 0.05
+wait_time = 0.1
 one_shot = true
 
 [node name="JumpBufferTimer" type="Timer" parent="."]
@@ -37,7 +37,7 @@ one_shot = true
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("3_csjel")
-initial_state = NodePath("Idle")
+initial_state = NodePath("Air")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("4_pdfwi")
@@ -45,5 +45,5 @@ script = ExtResource("4_pdfwi")
 [node name="Walking" type="Node" parent="StateMachine"]
 script = ExtResource("5_wxytd")
 
-[node name="Jumping" type="Node" parent="StateMachine"]
-script = ExtResource("6_7anae")
+[node name="Air" type="Node" parent="StateMachine"]
+script = ExtResource("7_wirpb")

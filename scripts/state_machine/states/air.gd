@@ -1,25 +1,44 @@
 extends PlayerState
 
 
+func _enter(msg := {}) -> void:
+	if msg.has("jump"): 
+		handle_jump()
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_update(delta: float) -> void:
-	if not player.is_on_floor():
-		state_machine.transition_to("Air")
-		return
-	
 	var direction = Input.get_axis("left", "right")
 	move(direction, delta)
 	
 	cap_velocity()
 	
-	handle_coyote_time()
+	handle_jump()
 	
-	# Transition to Jumping
+	# Landing
+	if player.is_on_floor() and player.jump_buffer_timer.is_stopped():
+		if player.velocity.x == 0:
+			state_machine.transition_to("Idle")
+		else:
+			state_machine.transition_to("Walking")
+
+
+func handle_jump():
 	if Input.is_action_just_pressed("jump"):
-		state_machine.transition_to("Air", {jump = true})
+		# Coyote time
+		if player.is_on_floor() or not player.coyote_timer.is_stopped():
+			player.velocity.y = player.jump_velocity
+		elif not player.is_on_floor():
+			player.jump_buffer_timer.start()
 	
-	# Transition to idle
-	if player.velocity.x == 0:
-		state_machine.transition_to("Idle")
+	# Jump buffer
+	if player.is_on_floor() and not player.jump_buffer_timer.is_stopped():
+		player.velocity.y = player.jump_velocity
+	
+	# Variable jump height
+	if Input.is_action_just_released("jump") and player.velocity.y < 0.0:
+		player.velocity.y *= 0.5
+
 
 func move(direction, delta):
 	# Accelerate
@@ -43,8 +62,3 @@ func cap_velocity():
 		player.velocity.x = player.max_speed
 	elif player.velocity.x < -player.max_speed:
 		player.velocity.x = -player.max_speed
-
-
-func handle_coyote_time():
-	if player.was_on_floor and !player.is_on_floor():
-		player.coyote_timer.start()
