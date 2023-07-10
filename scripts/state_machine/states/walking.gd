@@ -8,18 +8,11 @@ func _physics_update(delta: float) -> void:
 	if not player.is_on_floor():
 		if player.was_on_floor:
 			player.coyote_timer.start()
+		
 		state_machine.transition_to("Air")
 		return
 	
-	# Coliders
-	var colliding_left = player.sticky_left.is_colliding()
-	var colliding_right = player.sticky_right.is_colliding()
-	
-	# Movement input
-	var x_direction = Input.get_axis("left", "right")
-	var y_direction = Input.get_axis("up", "down")
-	
-	move(x_direction, delta)
+	move(player.x_direction, delta)
 	
 	cap_velocity()
 	
@@ -32,7 +25,7 @@ func _physics_update(delta: float) -> void:
 		state_machine.transition_to("Idle")
 	
 	# Transition to wall walking
-	if (colliding_left or colliding_right) and y_direction:
+	if (player.is_colliding_left or player.is_colliding_right) and player.y_direction:
 		state_machine.transition_to("WallWalking")
 
 func move(direction, delta):

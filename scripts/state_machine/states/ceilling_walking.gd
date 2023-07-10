@@ -4,25 +4,16 @@ func _enter(msg := {}):
 	player.is_sticky = true
 
 func _physics_update(delta: float) -> void:
-	# Colliders
-	var x_direction = Input.get_axis("left", "right")
-	var y_direction = Input.get_axis("up", "down")
-	
-	# Movement Input
-	var colliding_up = player.sticky_up.is_colliding()
-	var colliding_right = player.sticky_right.is_colliding()
-	var colliding_left = player.sticky_left.is_colliding()
-	
-	move(x_direction, delta)
+	move(player.x_direction, delta)
 	
 	cap_velocity()
 	
 	# Transition to idle
-	if player.velocity.x == 0:
+	if player.velocity.x == Vector2.ZERO.x:
 		state_machine.transition_to("Idle")
 	
 	# Transition to Wall walking
-	if (colliding_left or colliding_right) and y_direction:
+	if (player.is_colliding_left or player.is_colliding_right) and player.y_direction:
 		state_machine.transition_to("WallWalking")
 	
 	# Transition to Air (with jump)
@@ -30,7 +21,7 @@ func _physics_update(delta: float) -> void:
 		state_machine.transition_to("Air", {jump = true})
 	
 	# Transition to Air (without jump)
-	if not colliding_up:
+	if not player.is_colliding_up:
 		state_machine.transition_to("Air")
 
 func move(direction, delta):

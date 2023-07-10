@@ -10,28 +10,20 @@ func _enter(msg := {}) -> void:
 func _physics_update(delta: float) -> void:
 	player.is_sticky = false
 	
-	# Colliders
-	var colliding_up = player.sticky_up.is_colliding()
-	var colliding_right = player.sticky_right.is_colliding()
-	var collider_down = player.sticky_down.is_colliding()
-	var colliding_left = player.sticky_left.is_colliding()
-	
-	# Movement Input
-	var x_direction = Input.get_axis("left", "right")
-	var y_direction = Input.get_axis("up", "down")
-	
-	move(x_direction, delta)
+	move(player.x_direction, delta)
 	
 	cap_velocity()
 	
 	handle_jump()
 	
 	# Stick to ceiling
-	if colliding_up and y_direction:
+	if player.is_colliding_up and player.y_direction == Vector2.UP.y:
 		state_machine.transition_to("CeilingWalk") 
 	
 	# Stick to walls
-	if (colliding_left or colliding_right) and x_direction: 
+	if player.is_colliding_left and player.x_direction == Vector2.LEFT.x:
+		state_machine.transition_to("WallWalking") 
+	if player.is_colliding_right and player.x_direction == Vector2.RIGHT.x:
 		state_machine.transition_to("WallWalking") 
 	
 	# Landing
