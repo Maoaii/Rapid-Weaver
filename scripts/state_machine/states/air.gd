@@ -11,6 +11,7 @@ func _physics_update(delta: float) -> void:
 	player.is_sticky = false
 	
 	var direction = Input.get_axis("left", "right")
+	
 	move(direction, delta)
 	
 	cap_velocity()
@@ -19,18 +20,15 @@ func _physics_update(delta: float) -> void:
 	
 	# Landing
 	if player.is_on_floor() and player.jump_buffer_timer.is_stopped():
-		if player.velocity.x == 0:
-			state_machine.transition_to("Idle")
-		else:
-			state_machine.transition_to("Walking")
+		state_machine.transition_to("Idle" if player.velocity.x == 0 else "Walking")
 
 
 func handle_jump():
 	if Input.is_action_just_pressed("jump"):
-		
 		# Coyote time
 		if player.is_on_floor() or player.is_sticky or not player.coyote_timer.is_stopped():
 			
+			# Different jumping directions based on stickiness
 			if player.sticky_down.is_colliding():
 				player.velocity.y = player.jump_velocity
 			elif player.sticky_up.is_colliding():
@@ -69,7 +67,4 @@ func move(direction, delta):
 
 
 func cap_velocity():
-	if player.velocity.x > player.max_speed:
-		player.velocity.x = player.max_speed
-	elif player.velocity.x < -player.max_speed:
-		player.velocity.x = -player.max_speed
+	player.velocity.x = clampf(player.velocity.x, -player.max_speed, player.max_speed)

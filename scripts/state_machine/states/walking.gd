@@ -4,12 +4,20 @@ func _enter(msg := {}):
 	player.is_sticky = false
 
 func _physics_update(delta: float) -> void:
+	# This is used for breakable ground, or when the player goes off the ground
 	if not player.is_on_floor():
 		state_machine.transition_to("Air")
 		return
 	
-	var direction = Input.get_axis("left", "right")
-	move(direction, delta)
+	# Coliders
+	var colliding_left = player.sticky_left.is_colliding()
+	var colliding_right = player.sticky_right.is_colliding()
+	
+	# Movement input
+	var x_direction = Input.get_axis("left", "right")
+	var y_direction = Input.get_axis("up", "down")
+	
+	move(x_direction, delta)
 	
 	cap_velocity()
 	
@@ -23,11 +31,8 @@ func _physics_update(delta: float) -> void:
 	if player.velocity.x == 0:
 		state_machine.transition_to("Idle")
 	
-	# Transition to Wall walking
-	direction = Input.get_axis("up", "down")
-	var colliding_left = player.sticky_left.is_colliding()
-	var colliding_right = player.sticky_right.is_colliding()
-	if (colliding_left or colliding_right) and direction:
+	# Transition to wall walking
+	if (colliding_left or colliding_right) and y_direction:
 		state_machine.transition_to("WallWalking")
 
 func move(direction, delta):
@@ -41,7 +46,7 @@ func move(direction, delta):
 	elif player.velocity.x > 0:
 		player.velocity.x -= player.move_deceleration * player.max_speed * delta
 		player.velocity.x = max(player.velocity.x, 0)
-	
+
 	player.was_on_floor = player.is_on_floor()
 	
 	player.move_and_slide()
