@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 
 # Movement variables
@@ -23,11 +24,7 @@ func _physics_process(delta):
 	
 	# Handle Jump.
 	handle_jump()
-	
-	# Get the input direction and handle the movement/deceleration
-	var direction = Input.get_axis("left", "right")
-	move(direction, delta)
-	
+
 	# Cap velocity
 	cap_velocity()
 	
@@ -61,19 +58,6 @@ func apply_gravity(delta):
 
 func get_gravity():
 	return jump_gravity if velocity.y < 0.0 else fall_gravity
-
-
-func move(direction, delta):
-	# Accelerate
-	if direction:
-		velocity.x += direction * move_acceleration * max_speed * delta
-	# Decelerate
-	elif velocity.x < 0:
-		velocity.x += move_deceleration * max_speed * delta
-		velocity.x = min(velocity.x, 0)
-	elif velocity.x > 0:
-		velocity.x -= move_deceleration * max_speed * delta
-		velocity.x = max(velocity.x, 0)
 
 
 func cap_velocity():
