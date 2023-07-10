@@ -18,37 +18,11 @@ extends CharacterBody2D
 @onready var coyote_timer : Timer = $CoyoteTimer
 @onready var jump_buffer_timer : Timer = $JumpBufferTimer
 
+var was_on_floor : bool
+
 func _physics_process(delta):
 	# Add the gravity
 	apply_gravity(delta)
-	
-	# Handle Jump.
-	handle_jump()
-
-	# Cap velocity
-	cap_velocity()
-	
-	var was_on_floor = is_on_floor()
-	move_and_slide()
-	
-	handle_coyote_time(was_on_floor)
-
-
-func handle_jump():
-	if Input.is_action_just_pressed("jump"):
-		# Coyote time
-		if is_on_floor() or !coyote_timer.is_stopped():
-			velocity.y = jump_velocity
-		elif !is_on_floor():
-			jump_buffer_timer.start()
-	
-	# Jump buffer
-	if is_on_floor() and !jump_buffer_timer.is_stopped():
-		velocity.y = jump_velocity
-	
-	# Variable jump height
-	if Input.is_action_just_released("jump"):
-		velocity.y *= 0.5
 
 
 func apply_gravity(delta): 
@@ -58,15 +32,3 @@ func apply_gravity(delta):
 
 func get_gravity():
 	return jump_gravity if velocity.y < 0.0 else fall_gravity
-
-
-func cap_velocity():
-	if velocity.x > max_speed:
-		velocity.x = max_speed
-	elif velocity.x < -max_speed:
-		velocity.x = -max_speed
-
-
-func handle_coyote_time(was_on_floor):
-	if was_on_floor and !is_on_floor():
-		coyote_timer.start()
