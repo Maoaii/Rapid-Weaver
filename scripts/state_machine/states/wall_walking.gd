@@ -1,11 +1,16 @@
 extends PlayerState
 
 
-func _enter(msg := {}):
+func _enter(_msg := {}):
 	player.is_sticky = true
+	
+	if player.is_colliding_left:
+		player.current_up = Vector2.RIGHT
+	else:
+		player.current_up = Vector2.LEFT
 
 
-func _physics_update(delta: float) -> void:	
+func _physics_update(delta: float) -> void:
 	move(player.y_direction, delta)
 	
 	cap_velocity()

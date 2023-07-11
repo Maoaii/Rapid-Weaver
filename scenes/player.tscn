@@ -1,16 +1,16 @@
 [gd_scene load_steps=10 format=3 uid="uid://f8gpg354qygw"]
 
-[ext_resource type="Texture2D" uid="uid://cyrpfqc4dcb1j" path="res://assets/Tiles/Transparent/tile_0240.png" id="1_3qwnl"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_msrj2"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="3_csjel"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/idle.gd" id="4_pdfwi"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/walking.gd" id="5_wxytd"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/wall_walking.gd" id="7_veyo4"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/air.gd" id="7_wirpb"]
+[ext_resource type="PackedScene" uid="uid://b15e884jttetp" path="res://assets/Player/player.ase" id="8_0oofm"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/ceilling_walking.gd" id="8_2qcww"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k2drm"]
-size = Vector2(12, 11)
+size = Vector2(14, 8)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_msrj2")
@@ -23,12 +23,13 @@ jump_time_to_descent = 0.4
 wall_jump_velocity = 400.0
 terminal_velocity = 500.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2.5)
-shape = SubResource("RectangleShape2D_k2drm")
+[node name="AnimatedSprite2D" parent="." instance=ExtResource("8_0oofm")]
+animation = &"Idle"
+speed_scale = 0.5
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_3qwnl")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_k2drm")
 
 [node name="CoyoteTimer" type="Timer" parent="."]
 one_shot = true
@@ -57,17 +58,17 @@ script = ExtResource("7_veyo4")
 script = ExtResource("8_2qcww")
 
 [node name="StickyUp" type="RayCast2D" parent="."]
-target_position = Vector2(2.08165e-12, -8)
+target_position = Vector2(0, -5)
 collide_with_areas = true
 
 [node name="StickyRight" type="RayCast2D" parent="."]
-target_position = Vector2(10, 2.08165e-12)
+target_position = Vector2(9, 0)
 collide_with_areas = true
 
 [node name="StickyDown" type="RayCast2D" parent="."]
-target_position = Vector2(2.08165e-12, 12)
+target_position = Vector2(0, 7)
 collide_with_areas = true
 
 [node name="StickyLeft" type="RayCast2D" parent="."]
-target_position = Vector2(-10, 2.08165e-12)
+target_position = Vector2(-9, 0)
 collide_with_areas = true
