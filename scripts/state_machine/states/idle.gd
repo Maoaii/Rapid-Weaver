@@ -7,7 +7,7 @@ func _physics_update(_delta: float) -> void:
 		state_machine.transition_to("Air", {jump = true})
 	
 	# Move left and right on ground
-	if player.is_colliding_down and player.x_direction:
+	if (player.is_colliding_down or player.is_on_floor()) and player.x_direction:
 		state_machine.transition_to("Walking")
 	
 	# Move left and right on ceiling
