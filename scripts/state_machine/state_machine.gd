@@ -27,13 +27,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	state._update(delta)
-	
-	print(state)
 
 
 func _physics_process(delta: float) -> void:
 	state._physics_update(delta)
-
 
 # This function calls the current state's exit() function, then changes the active state,
 # and calls its enter function.

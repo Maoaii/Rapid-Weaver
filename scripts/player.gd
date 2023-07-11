@@ -13,8 +13,12 @@ extends CharacterBody2D
 @export var jump_height : float
 @export var jump_time_to_peak : float
 @export var jump_time_to_descent : float
-@export var terminal_velocity : float
 
+# Wall Jumping variables
+@export var wall_jump_velocity : float
+
+# Falling variables
+@export var terminal_velocity : float
 
 """
 	Onready variables
@@ -24,6 +28,13 @@ extends CharacterBody2D
 @onready var jump_gravity : float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
 @onready var fall_gravity : float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
 
+
+# Raycasts !TODO: remove them
+@onready var sticky_up : RayCast2D = $StickyUp
+@onready var sticky_right : RayCast2D = $StickyRight
+@onready var sticky_down : RayCast2D = $StickyDown
+@onready var sticky_left : RayCast2D = $StickyLeft
+
 # Timers
 @onready var coyote_timer : Timer = $CoyoteTimer
 @onready var jump_buffer_timer : Timer = $JumpBufferTimer
@@ -32,12 +43,34 @@ extends CharacterBody2D
 """
 	Normal instance variables
 """
+# Small state variables
 var was_on_floor : bool
+var is_sticky : bool = false
 
+# Colliders
+var is_colliding_up : bool
+var is_colliding_right : bool
+var is_colliding_down : bool
+var is_colliding_left : bool
+
+# Movement Input
+var x_direction : float
+var y_direction : float
 
 func _physics_process(delta):
 	# Add the gravity
-	apply_gravity(delta)
+	if not is_sticky:
+		apply_gravity(delta)
+	
+	# Update colliders
+	is_colliding_up = $StickyUp.is_colliding()
+	is_colliding_right = $StickyRight.is_colliding()
+	is_colliding_down = $StickyDown.is_colliding()
+	is_colliding_left = $StickyLeft.is_colliding()
+	
+	# Update Movement Input
+	x_direction = Input.get_axis("left", "right")
+	y_direction = Input.get_axis("up", "down")
 
 
 func apply_gravity(delta): 

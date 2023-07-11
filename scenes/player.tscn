@@ -1,11 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://f8gpg354qygw"]
+[gd_scene load_steps=10 format=3 uid="uid://f8gpg354qygw"]
 
 [ext_resource type="Texture2D" uid="uid://cyrpfqc4dcb1j" path="res://assets/Tiles/Transparent/tile_0240.png" id="1_3qwnl"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_msrj2"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="3_csjel"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/idle.gd" id="4_pdfwi"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/walking.gd" id="5_wxytd"]
+[ext_resource type="Script" path="res://scripts/state_machine/states/wall_walking.gd" id="7_veyo4"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/air.gd" id="7_wirpb"]
+[ext_resource type="Script" path="res://scripts/state_machine/states/ceilling_walking.gd" id="8_2qcww"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k2drm"]
 size = Vector2(12, 11)
@@ -18,6 +20,7 @@ move_deceleration = 10.0
 jump_height = 80.0
 jump_time_to_peak = 0.3
 jump_time_to_descent = 0.4
+wall_jump_velocity = 400.0
 terminal_velocity = 500.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -28,7 +31,6 @@ shape = SubResource("RectangleShape2D_k2drm")
 texture = ExtResource("1_3qwnl")
 
 [node name="CoyoteTimer" type="Timer" parent="."]
-wait_time = 0.1
 one_shot = true
 
 [node name="JumpBufferTimer" type="Timer" parent="."]
@@ -47,3 +49,25 @@ script = ExtResource("5_wxytd")
 
 [node name="Air" type="Node" parent="StateMachine"]
 script = ExtResource("7_wirpb")
+
+[node name="WallWalking" type="Node" parent="StateMachine"]
+script = ExtResource("7_veyo4")
+
+[node name="CeilingWalk" type="Node" parent="StateMachine"]
+script = ExtResource("8_2qcww")
+
+[node name="StickyUp" type="RayCast2D" parent="."]
+target_position = Vector2(2.08165e-12, -8)
+collide_with_areas = true
+
+[node name="StickyRight" type="RayCast2D" parent="."]
+target_position = Vector2(10, 2.08165e-12)
+collide_with_areas = true
+
+[node name="StickyDown" type="RayCast2D" parent="."]
+target_position = Vector2(2.08165e-12, 12)
+collide_with_areas = true
+
+[node name="StickyLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-10, 2.08165e-12)
+collide_with_areas = true
