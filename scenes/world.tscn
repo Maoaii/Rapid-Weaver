@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dwrwq0svk1grr"]
 
 [ext_resource type="TileSet" uid="uid://drap3i3m8y6tj" path="res://assets/tileset/tileset.tres" id="1_nlb14"]
-[ext_resource type="PackedScene" uid="uid://f8gpg354qygw" path="res://scenes/player.tscn" id="2_2abnr"]
 [ext_resource type="PackedScene" uid="uid://bsv6277ple8ro" path="res://scenes/game_controller.tscn" id="3_lvjia"]
+[ext_resource type="PackedScene" uid="uid://lmt4yjrdw8kk" path="res://scenes/player_2.tscn" id="4_1iyyg"]
 [ext_resource type="PackedScene" uid="uid://b2cfcxn7occ3y" path="res://scenes/background.tscn" id="4_w37g8"]
 
 [node name="World" type="Node2D"]
@@ -16,5 +16,5 @@ layer_0/tile_data = PackedInt32Array(1441809, 720896, 7, 1376273, 720896, 6, 131
 
 [node name="Background" parent="." instance=ExtResource("4_w37g8")]
 
-[node name="Player" parent="." instance=ExtResource("2_2abnr")]
-position = Vector2(74, 168)
+[node name="Player2" parent="." instance=ExtResource("4_1iyyg")]
+position = Vector2(99, 174)
