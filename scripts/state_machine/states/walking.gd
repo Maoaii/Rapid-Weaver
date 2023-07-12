@@ -1,9 +1,13 @@
 extends PlayerState
 
-func _enter(msg := {}):
+func _enter(_msg := {}):
 	player.is_sticky = false
+	player.current_up = Vector2.UP
 
 func _physics_update(delta: float) -> void:
+	# Play animation
+	player.set_animation("Walking")
+	
 	# This is used for breakable ground, or when the player goes off the ground
 	if not player.is_on_floor():
 		if player.was_on_floor:
@@ -47,8 +51,3 @@ func move(direction, delta):
 
 func cap_velocity():
 	player.velocity.x = clampf(player.velocity.x, -player.max_speed, player.max_speed)
-
-
-func handle_coyote_time():
-	if player.was_on_floor and !player.is_on_floor():
-		player.coyote_timer.start()

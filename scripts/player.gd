@@ -28,25 +28,16 @@ extends CharacterBody2D
 @onready var jump_gravity : float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
 @onready var fall_gravity : float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
 
-
-# Raycasts !TODO: remove them
-@onready var sticky_up : RayCast2D = $StickyUp
-@onready var sticky_right : RayCast2D = $StickyRight
-@onready var sticky_down : RayCast2D = $StickyDown
-@onready var sticky_left : RayCast2D = $StickyLeft
-
 # Timers
 @onready var coyote_timer : Timer = $CoyoteTimer
 @onready var jump_buffer_timer : Timer = $JumpBufferTimer
 
-<<<<<<< Updated upstream
-=======
 # Animations
 @onready var animation_sprite : AnimatedSprite2D = $AnimatedSprite2D
 
 # Camera
 @onready var camera : Camera2D = $Camera
->>>>>>> Stashed changes
+
 
 """
 	Normal instance variables
@@ -54,6 +45,8 @@ extends CharacterBody2D
 # Small state variables
 var was_on_floor : bool
 var is_sticky : bool = false
+@onready var current_up : Vector2 = Vector2.UP
+var current_animation : String
 
 # Colliders
 var is_colliding_up : bool
@@ -79,14 +72,10 @@ func _physics_process(delta):
 	# Update Movement Input
 	x_direction = Input.get_axis("left", "right")
 	y_direction = Input.get_axis("up", "down")
-<<<<<<< Updated upstream
-=======
-	
+
 	# Play animation
 	animation_sprite.play(current_animation)
-	
 
->>>>>>> Stashed changes
 
 
 func apply_gravity(delta): 
@@ -96,8 +85,6 @@ func apply_gravity(delta):
 
 func get_gravity():
 	return jump_gravity if velocity.y < 0.0 else fall_gravity
-<<<<<<< Updated upstream
-=======
 
 
 func set_animation(animation_name):
@@ -120,4 +107,3 @@ func set_animation(animation_name):
 			animation_sprite.rotation_degrees = -90
 			animation_sprite.flip_h = false
 			animation_sprite.flip_v = false
->>>>>>> Stashed changes

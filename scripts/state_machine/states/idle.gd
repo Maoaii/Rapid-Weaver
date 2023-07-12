@@ -2,6 +2,9 @@ extends PlayerState
 
 
 func _physics_update(_delta: float) -> void:
+	# Play animation
+	player.set_animation("Idle")
+	
 	# Jump from idle
 	if Input.is_action_just_pressed("jump"):
 		state_machine.transition_to("Air", {jump = true})
