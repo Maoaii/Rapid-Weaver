@@ -1,7 +1,8 @@
 extends PlayerState
 
-func _enter(msg := {}):
+func _enter(_msg := {}):
 	player.is_sticky = true
+	player.current_up = Vector2.DOWN
 
 func _physics_update(delta: float) -> void:
 	move(player.x_direction, delta)

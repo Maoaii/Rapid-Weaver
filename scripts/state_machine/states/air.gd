@@ -9,6 +9,11 @@ func _enter(msg := {}) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_update(delta: float) -> void:
 	player.is_sticky = false
+	player.current_up = Vector2.UP
+	
+	# Play animation
+	# !TODO: change to Air
+	player.set_animation("Idle")
 	
 	move(player.x_direction, delta)
 	
@@ -34,14 +39,16 @@ func _physics_update(delta: float) -> void:
 func handle_jump():
 	if Input.is_action_just_pressed("jump"):
 		if player.is_on_floor() or player.is_sticky or not player.coyote_timer.is_stopped():
+			print("Outside")
 			# Different jumping directions based on stickiness
-			if player.sticky_down.is_colliding() or not player.coyote_timer.is_stopped():
+			if player.is_colliding_down or not player.coyote_timer.is_stopped():
+				print("Inside")
 				player.velocity.y = player.jump_velocity
-			elif player.sticky_up.is_colliding():
+			elif player.is_colliding_up:
 				player.velocity.y = -player.jump_velocity
-			elif player.sticky_right.is_colliding():
+			elif player.is_colliding_right:
 				player.velocity = Vector2(player.jump_velocity, -player.wall_jump_velocity)
-			elif player.sticky_left.is_colliding():
+			elif player.is_colliding_left:
 				player.velocity = Vector2(-player.jump_velocity, -player.wall_jump_velocity)
 		elif not player.is_on_floor():
 			player.jump_buffer_timer.start()
