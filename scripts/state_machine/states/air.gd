@@ -35,7 +35,11 @@ func handle_jump():
 	if Input.is_action_just_pressed("jump"):
 		if player.is_on_floor() or player.is_sticky or not player.coyote_timer.is_stopped():
 			# Different jumping directions based on stickiness
+<<<<<<< Updated upstream
 			if player.sticky_down.is_colliding() or not player.coyote_timer.is_stopped():
+=======
+			if player.is_colliding_down or not player.coyote_timer.is_stopped():
+>>>>>>> Stashed changes
 				player.velocity.y = player.jump_velocity
 			elif player.sticky_up.is_colliding():
 				player.velocity.y = -player.jump_velocity

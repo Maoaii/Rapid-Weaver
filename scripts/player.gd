@@ -39,6 +39,14 @@ extends CharacterBody2D
 @onready var coyote_timer : Timer = $CoyoteTimer
 @onready var jump_buffer_timer : Timer = $JumpBufferTimer
 
+<<<<<<< Updated upstream
+=======
+# Animations
+@onready var animation_sprite : AnimatedSprite2D = $AnimatedSprite2D
+
+# Camera
+@onready var camera : Camera2D = $Camera
+>>>>>>> Stashed changes
 
 """
 	Normal instance variables
@@ -71,6 +79,14 @@ func _physics_process(delta):
 	# Update Movement Input
 	x_direction = Input.get_axis("left", "right")
 	y_direction = Input.get_axis("up", "down")
+<<<<<<< Updated upstream
+=======
+	
+	# Play animation
+	animation_sprite.play(current_animation)
+	
+
+>>>>>>> Stashed changes
 
 
 func apply_gravity(delta): 
@@ -80,3 +96,28 @@ func apply_gravity(delta):
 
 func get_gravity():
 	return jump_gravity if velocity.y < 0.0 else fall_gravity
+<<<<<<< Updated upstream
+=======
+
+
+func set_animation(animation_name):
+	current_animation = animation_name
+	
+	match current_up:
+		Vector2.UP:
+			animation_sprite.rotation_degrees = 0
+			animation_sprite.flip_h = false
+			animation_sprite.flip_v = false
+		Vector2.RIGHT:
+			animation_sprite.rotation_degrees = 90
+			animation_sprite.flip_h = true
+			animation_sprite.flip_v = false
+		Vector2.DOWN:
+			animation_sprite.rotation_degrees = 0
+			animation_sprite.flip_h = false
+			animation_sprite.flip_v = true
+		Vector2.LEFT:
+			animation_sprite.rotation_degrees = -90
+			animation_sprite.flip_h = false
+			animation_sprite.flip_v = false
+>>>>>>> Stashed changes
