@@ -35,6 +35,9 @@ extends CharacterBody2D
 # Animations
 @onready var animation_sprite : AnimatedSprite2D = $AnimatedSprite2D
 
+# Camera
+@onready var camera : Camera2D = $Camera
+
 
 """
 	Normal instance variables
@@ -69,9 +72,10 @@ func _physics_process(delta):
 	# Update Movement Input
 	x_direction = Input.get_axis("left", "right")
 	y_direction = Input.get_axis("up", "down")
-	
+
 	# Play animation
 	animation_sprite.play(current_animation)
+
 
 
 func apply_gravity(delta): 
@@ -103,5 +107,3 @@ func set_animation(animation_name):
 			animation_sprite.rotation_degrees = -90
 			animation_sprite.flip_h = false
 			animation_sprite.flip_v = false
-	
-	
