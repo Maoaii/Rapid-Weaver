@@ -51,8 +51,3 @@ func move(direction, delta):
 
 func cap_velocity():
 	player.velocity.x = clampf(player.velocity.x, -player.max_speed, player.max_speed)
-
-
-func handle_coyote_time():
-	if player.was_on_floor and !player.is_on_floor():
-		player.coyote_timer.start()

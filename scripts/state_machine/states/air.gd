@@ -39,8 +39,10 @@ func _physics_update(delta: float) -> void:
 func handle_jump():
 	if Input.is_action_just_pressed("jump"):
 		if player.is_on_floor() or player.is_sticky or not player.coyote_timer.is_stopped():
+			print("Outside")
 			# Different jumping directions based on stickiness
 			if player.is_colliding_down or not player.coyote_timer.is_stopped():
+				print("Inside")
 				player.velocity.y = player.jump_velocity
 			elif player.is_colliding_up:
 				player.velocity.y = -player.jump_velocity
