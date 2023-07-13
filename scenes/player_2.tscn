@@ -15,7 +15,7 @@ size = Vector2(16, 10)
 
 [node name="Player2" type="CharacterBody2D"]
 script = ExtResource("1_utnx1")
-max_speed = 150.0
+max_speed = 100.0
 move_acceleration = 8.0
 move_deceleration = 10.0
 jump_height = 80.0
@@ -24,7 +24,16 @@ jump_time_to_descent = 0.4
 wall_jump_velocity = 400.0
 terminal_velocity = 500.0
 
+[node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+limit_smoothed = true
+position_smoothing_enabled = true
+script = ExtResource("10_b1w7b")
+dead_zone = 30.0
+limit = Vector2(60, 40)
+
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("2_tsfg8")]
+animation = &"Walking"
 speed_scale = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -72,11 +81,3 @@ collide_with_areas = true
 [node name="StickyLeft" type="RayCast2D" parent="."]
 target_position = Vector2(-10, 0)
 collide_with_areas = true
-
-[node name="Camera" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
-limit_smoothed = true
-position_smoothing_enabled = true
-script = ExtResource("10_b1w7b")
-dead_zone = 30.0
-limit = Vector2(60, 40)
