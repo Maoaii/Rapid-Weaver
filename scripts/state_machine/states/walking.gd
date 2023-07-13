@@ -2,7 +2,7 @@ extends PlayerState
 
 func _enter(_msg := {}):
 	player.is_sticky = false
-	player.current_up = Vector2.UP
+
 
 func _physics_update(delta: float) -> void:
 	# Play animation
@@ -16,20 +16,32 @@ func _physics_update(delta: float) -> void:
 		state_machine.transition_to("Air")
 		return
 	
-	move(player.x_direction, delta)
+	move(player.get_x_input(), delta)
+	
+	# Flip sprite
+	flip_sprite()
 	
 	cap_velocity()
 	
 	# Transition to Jumping
 	if Input.is_action_just_pressed("jump"):
-		state_machine.transition_to("Air", {jump = true})
+		player.set_current_down(Vector2.DOWN)
+		state_machine.transition_to("Air", 
+			{jump = true})
 	
 	# Transition to idle
-	if player.velocity.x == 0:
+	if player.is_x_stationary():
 		state_machine.transition_to("Idle")
 	
 	# Transition to wall walking
-	if (player.is_colliding_left or player.is_colliding_right) and player.y_direction:
+	if player.is_colliding_left() and player.has_input_up():
+		player.set_current_down(Vector2.LEFT)
+		player.velocity.y = 0
+		state_machine.transition_to("WallWalking")
+	
+	if player.is_colliding_right() and player.has_input_up():
+		player.set_current_down(Vector2.RIGHT)
+		player.velocity.y = 0
 		state_machine.transition_to("WallWalking")
 
 func move(direction, delta):
@@ -47,6 +59,13 @@ func move(direction, delta):
 	player.was_on_floor = player.is_on_floor()
 	
 	player.move_and_slide()
+
+
+func flip_sprite():
+	if player.has_input_left():
+		player.flip_sprite("l")
+	elif player.has_input_right():
+		player.flip_sprite("r")
 
 
 func cap_velocity():

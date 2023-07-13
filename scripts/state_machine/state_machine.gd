@@ -41,8 +41,10 @@ func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
 	# but you don't want them all, they won't be able to transition to states that aren't in the scene tree.
 	if not has_node(target_state_name):
 		return
-
+	
+	print("exiting: " + str(state))
 	state._exit()
 	state = get_node(target_state_name)
 	state._enter(msg)
 	emit_signal("transitioned", state.name)
+	print("entering: " + str(state) + "\n")

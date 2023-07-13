@@ -2,6 +2,22 @@ class_name Player
 extends CharacterBody2D
 
 """
+	Dictionaries
+"""
+const ROTATION_CODES = {
+	"t": PI,
+	"r": -PI/2,
+	"l": -PI/2,
+	"b": 0,
+}
+
+const FLIP_CODES = {
+	"r": false,
+	"l": true,
+}
+
+
+"""
 	Export variables
 """
 # Movement variables
@@ -45,51 +61,43 @@ extends CharacterBody2D
 # Small state variables
 var was_on_floor : bool
 var is_sticky : bool = false
-@onready var current_up : Vector2 = Vector2.UP
 var current_animation : String
+var current_down : Vector2 = Vector2.DOWN
 
-# Colliders
-var is_colliding_up : bool
-var is_colliding_right : bool
-var is_colliding_down : bool
-var is_colliding_left : bool
-
-# Movement Input
-var x_direction : float
-var y_direction : float
-
-func _physics_process(delta):
-	# Add the gravity
-	if not is_sticky:
-		apply_gravity(delta)
+func _physics_process(delta: float) -> void:
+	apply_gravity(delta)
 	
-	# Update colliders
-	is_colliding_up = $StickyUp.is_colliding()
-	is_colliding_right = $StickyRight.is_colliding()
-	is_colliding_down = $StickyDown.is_colliding()
-	is_colliding_left = $StickyLeft.is_colliding()
+	# Update rotation
+	update_rotation()
 	
-	# Update Movement Input
-	x_direction = Input.get_axis("left", "right")
-	y_direction = Input.get_axis("up", "down")
-
 	# Play animation
 	animation_sprite.play(current_animation)
 
 
 
-func apply_gravity(delta): 
-	velocity.y += get_gravity() * delta
-	velocity.y = min(velocity.y, terminal_velocity)
+func apply_gravity(delta: float) -> void:
+	if current_down == Vector2.UP:
+		velocity.y -= get_gravity() * delta
+		velocity.y = max(velocity.y, -terminal_velocity)
+	elif current_down == Vector2.RIGHT:
+		velocity.x += get_gravity() * delta
+		velocity.x = min(velocity.x, terminal_velocity)
+	elif current_down == Vector2.DOWN:
+		velocity.y += get_gravity() * delta
+		velocity.y = min(velocity.y, terminal_velocity)
+	else:
+		velocity.x -= get_gravity() * delta
+		velocity.x = max(velocity.x, -terminal_velocity)
 
 
-func get_gravity():
+func get_gravity() -> float:
 	return jump_gravity if velocity.y < 0.0 else fall_gravity
 
 
-func set_animation(animation_name):
+func set_animation(animation_name: String) -> void:
 	current_animation = animation_name
 	
+	"""
 	match current_up:
 		Vector2.UP:
 			animation_sprite.rotation_degrees = 0
@@ -107,3 +115,82 @@ func set_animation(animation_name):
 			animation_sprite.rotation_degrees = -90
 			animation_sprite.flip_h = false
 			animation_sprite.flip_v = false
+	"""
+
+
+func flip_sprite(flip_code : String) -> void:
+	var flip_orientation = FLIP_CODES.get(flip_code.to_lower())
+	
+	animation_sprite.flip_h = flip_orientation
+
+
+func update_rotation():
+	if current_down == Vector2.UP:
+		self.set_rotation(-PI)
+	elif current_down == Vector2.RIGHT:
+		self.set_rotation(-PI/2)
+	elif current_down == Vector2.DOWN:
+		self.set_rotation(0)
+	else:
+		self.set_rotation(PI/2)
+
+
+func set_current_down(new_down: Vector2) -> void:
+	current_down = new_down
+
+func is_x_stationary() -> bool:
+	return velocity.x == 0
+
+func is_y_stationary() -> bool:
+	return velocity.y == 0
+
+func is_colliding_up() -> bool:
+	return $StickyUp.is_colliding()
+
+func is_colliding_right() -> bool:
+	return $StickyRight.is_colliding()
+
+func is_colliding_down() -> bool:
+	return $StickyDown.is_colliding()
+
+func is_colliding_left() -> bool:
+	return $StickyLeft.is_colliding()
+
+func get_y_input() -> float:
+	return Input.get_axis("up", "down")
+
+func get_x_input() -> float:
+	return Input.get_axis("left", "right")
+
+func has_input_left_right() -> bool:
+	return Input.get_axis("left", "right") != 0
+
+func has_input_up_down() -> bool:
+	return Input.get_axis("up", "down") != 0
+
+func has_input_up() -> bool:
+	return Input.get_axis("up", "down") == -1
+
+func has_input_right() -> bool:
+	return Input.get_axis("left", "right") == 1
+
+func has_input_down() -> bool:
+	return Input.get_axis("up", "down") == 1
+
+func has_input_left() -> bool:
+	return Input.get_axis("left", "right") == -1
+
+func is_stuck_up() -> bool:
+	return current_down == Vector2.UP
+
+
+func is_stuck_right() -> bool:
+	return current_down == Vector2.RIGHT
+
+
+func is_stuck_down() -> bool:
+	return current_down == Vector2.DOWN
+
+
+func is_stuck_left() -> bool:
+	return current_down == Vector2.LEFT
