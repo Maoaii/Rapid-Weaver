@@ -1,9 +1,16 @@
 extends PlayerState
 
+const JUMP_DIRECTIONS = {
+	Vector2.UP: "u",
+	Vector2.RIGHT: "r",
+	Vector2.DOWN: "d",
+	Vector2.LEFT: "l"
+}
 
 func _enter(msg := {}) -> void:
+	
 	if msg.has("jump"):
-		handle_jump()
+		handle_jump(JUMP_DIRECTIONS.get(msg.get("direction")))
 	
 	# Play animation
 	# !TODO: change to Air
@@ -17,7 +24,7 @@ func _physics_update(delta: float) -> void:
 	if player.is_on_ceiling() and player.has_input_up():
 		player.set_current_down("t")
 		player.stick_to_surface("t")
-		state_machine.transition_to("CeilingWalk") 
+		state_machine.transition_to("CeilingWalk")
 	
 	"""
 		Stick to the walls
@@ -30,7 +37,7 @@ func _physics_update(delta: float) -> void:
 	if player.is_colliding_right() and player.has_input_right():
 		player.set_current_down("r")
 		player.stick_to_surface("r")
-		state_machine.transition_to("WallWalking") 
+		state_machine.transition_to("WallWalking")
 	
 	"""
 		Stick to the ground
@@ -45,22 +52,27 @@ func _physics_update(delta: float) -> void:
 	
 	cap_velocity()
 	
-	handle_jump()
+	handle_jump(JUMP_DIRECTIONS.get(Vector2.UP))
 
 
-func handle_jump():
+func handle_jump(direction):
 	if Input.is_action_just_pressed("jump"):
-		if player.is_on_floor() or player.is_sticky or not player.coyote_timer.is_stopped():
-			# Different jumping directions based on stickiness
-			if player.is_on_floor() or not player.coyote_timer.is_stopped():
-				player.velocity.y = player.jump_velocity
-			elif player.is_colliding_up:
-				player.velocity.y = -player.jump_velocity
-			elif player.is_colliding_right:
-				player.velocity = Vector2(player.jump_velocity, -player.wall_jump_velocity)
-			elif player.is_colliding_left:
-				player.velocity = Vector2(-player.jump_velocity, -player.wall_jump_velocity)
-		elif not player.is_on_floor():
+		if player.is_on_floor() or not player.coyote_timer.is_stopped():
+			player.velocity.y = player.jump_velocity
+		elif player.is_on_ceiling() or player.is_on_wall():
+			match direction:
+				"d":
+					# Jump down
+					player.velocity.y = -player.jump_velocity
+					
+				"r":
+					# Jump right
+					player.velocity = Vector2(-player.jump_velocity, -player.wall_jump_velocity)
+					
+				"l":
+					# Jump left
+					player.velocity = Vector2(player.jump_velocity, -player.wall_jump_velocity)
+		else:
 			player.jump_buffer_timer.start()
 	
 	# Jump buffer

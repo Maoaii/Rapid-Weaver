@@ -7,7 +7,7 @@ func _enter(_msg := {}):
 
 func _physics_update(delta: float) -> void:
 	# This is used for breakable ground, or when the player goes off the ground
-	if not player.is_on_floor():
+	if not player.is_on_floor() and not player.is_colliding_down():
 		if player.was_on_floor:
 			player.coyote_timer.start()
 		
@@ -16,17 +16,16 @@ func _physics_update(delta: float) -> void:
 	
 	# Transition to Jumping
 	if Input.is_action_just_pressed("jump"):
+		var tmp_current_down = player.current_down
 		player.set_current_down("b")
-		state_machine.transition_to("Air", {jump = true})
+		state_machine.transition_to("Air", 
+			{"jump": true, "direction": (tmp_current_down * Vector2(-1, -1))})
 	
-	# Transition to idle
-	if player.is_x_stationary():
-		state_machine.transition_to("Idle")
 	
 	"""
 		Change from ground to walls
 	"""
-	if player.has_input_up():
+	if player.is_on_floor() and player.has_input_up():
 		# Colliding with left wall
 		if player.is_colliding_left():
 			player.set_current_down("l")
@@ -38,7 +37,6 @@ func _physics_update(delta: float) -> void:
 			player.set_current_down("r")
 			player.stick_to_surface("r")
 			state_machine.transition_to("WallWalking")
-	
 	
 	move(player.get_x_input(), delta)
 	

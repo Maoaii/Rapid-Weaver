@@ -7,19 +7,12 @@ func _enter(_msg := {}):
 
 
 func _physics_update(delta: float) -> void:
-	# Transition to idle
-	if player.is_y_stationary():
-		state_machine.transition_to("Idle")
-	
 	# Transition to air (with jump)
 	if Input.is_action_just_pressed("jump"):
+		var tmp_current_down = player.current_down
 		player.set_current_down("b")
-		state_machine.transition_to("Air", {jump = true})
-	
-	# Transition to air (without jump)
-	#if not player.is_on_wall():
-	#	player.set_current_down("b")
-	#	state_machine.transition_to("Air")
+		state_machine.transition_to("Air", 
+			{"jump": true, "direction": (tmp_current_down * Vector2(-1, -1))})
 	
 	"""
 		Change from walls to ground or ceiling
@@ -34,6 +27,7 @@ func _physics_update(delta: float) -> void:
 		# Colliding with ground
 		elif player.is_colliding_right():
 			player.set_current_down("b")
+			player.stick_to_surface("b")
 			state_machine.transition_to("Walking")
 	elif player.has_input_left() and player.is_stuck_right():
 		# Colliding with ground

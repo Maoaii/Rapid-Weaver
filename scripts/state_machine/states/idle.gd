@@ -7,11 +7,13 @@ func _physics_update(_delta: float) -> void:
 	
 	# Jump from idle
 	if Input.is_action_just_pressed("jump"):
+		var tmp_current_down = player.current_down
 		player.set_current_down("b")
-		state_machine.transition_to("Air", {jump = true})
+		state_machine.transition_to("Air", 
+			{"jump": true, "direction": (tmp_current_down * Vector2(-1, -1))})
 	
 	# If any surface we're standing on breaks, transition to air
-	if not player.is_on_ceiling() and not player.is_on_floor() and not player.is_on_wall():
+	if not player.is_colliding_down():
 		player.set_current_down("b") 
 		state_machine.transition_to("Air")
 	

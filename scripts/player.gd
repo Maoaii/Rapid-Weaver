@@ -6,7 +6,7 @@ extends CharacterBody2D
 """
 const ROTATION_CODES = {
 	"t": PI,
-	"r": -PI/2,
+	"r": PI/2,
 	"l": -PI/2,
 	"b": 0,
 }
@@ -117,12 +117,12 @@ func flip_sprite(flip_code : String) -> void:
 	animation_sprite.flip_h = flip_orientation
 
 
-func update_rotation():
-	if current_down == Vector2.UP:
+func update_rotation() -> void:
+	if self.is_stuck_up():
 		self.set_rotation_degrees(180)
-	elif current_down == Vector2.RIGHT:
-		self.set_rotation_degrees(270)
-	elif current_down == Vector2.DOWN:
+	elif self.is_stuck_right():
+		self.set_rotation_degrees(-90)
+	elif self.is_stuck_down():
 		self.set_rotation_degrees(0)
 	else:
 		self.set_rotation_degrees(90)
@@ -165,16 +165,16 @@ func has_input_up_down() -> bool:
 	return Input.get_axis("up", "down") != 0
 
 func has_input_up() -> bool:
-	return Input.get_axis("up", "down") == -1
+	return Input.is_action_pressed("up")
 
 func has_input_right() -> bool:
-	return Input.get_axis("left", "right") == 1
+	return Input.is_action_pressed("right")
 
 func has_input_down() -> bool:
-	return Input.get_axis("up", "down") == 1
+	return Input.is_action_pressed("down")
 
 func has_input_left() -> bool:
-	return Input.get_axis("left", "right") == -1
+	return Input.is_action_pressed("left")
 
 func is_stuck_up() -> bool:
 	return current_down == Vector2.UP
