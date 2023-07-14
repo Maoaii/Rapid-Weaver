@@ -16,6 +16,20 @@ const FLIP_CODES = {
 	"l": true,
 }
 
+const DIRECTIONS = {
+	"t": Vector2.UP,
+	"r": Vector2.RIGHT,
+	"b": Vector2.DOWN,
+	"l": Vector2.LEFT
+}
+
+const STICK_SURFACE_CODE = {
+	"t": Vector2(0, -500),
+	"r": Vector2(500, 0),
+	"b": Vector2(0, 500),
+	"l": Vector2(-500, 0)
+}
+
 
 """
 	Export variables
@@ -74,20 +88,18 @@ func _physics_process(delta: float) -> void:
 	animation_sprite.play(current_animation)
 
 
-
 func apply_gravity(delta: float) -> void:
-	if current_down == Vector2.UP:
-		velocity.y -= get_gravity() * delta
-		velocity.y = max(velocity.y, -terminal_velocity)
-	elif current_down == Vector2.RIGHT:
-		velocity.x += get_gravity() * delta
-		velocity.x = min(velocity.x, terminal_velocity)
-	elif current_down == Vector2.DOWN:
-		velocity.y += get_gravity() * delta
-		velocity.y = min(velocity.y, terminal_velocity)
+	var gravity : Vector2
+	if self.is_stuck_up():
+		gravity = Vector2(0, -self.get_gravity())
+	elif self.is_stuck_right():
+		gravity = Vector2(self.get_gravity(), 0)
+	elif self.is_stuck_down():
+		gravity = Vector2(0, self.get_gravity())
 	else:
-		velocity.x -= get_gravity() * delta
-		velocity.x = max(velocity.x, -terminal_velocity)
+		gravity = Vector2(-self.get_gravity(), 0)
+	
+	velocity += gravity * delta
 
 
 func get_gravity() -> float:
@@ -97,25 +109,6 @@ func get_gravity() -> float:
 func set_animation(animation_name: String) -> void:
 	current_animation = animation_name
 	
-	"""
-	match current_up:
-		Vector2.UP:
-			animation_sprite.rotation_degrees = 0
-			animation_sprite.flip_h = false
-			animation_sprite.flip_v = false
-		Vector2.RIGHT:
-			animation_sprite.rotation_degrees = 90
-			animation_sprite.flip_h = true
-			animation_sprite.flip_v = false
-		Vector2.DOWN:
-			animation_sprite.rotation_degrees = 0
-			animation_sprite.flip_h = false
-			animation_sprite.flip_v = true
-		Vector2.LEFT:
-			animation_sprite.rotation_degrees = -90
-			animation_sprite.flip_h = false
-			animation_sprite.flip_v = false
-	"""
 
 
 func flip_sprite(flip_code : String) -> void:
@@ -126,17 +119,20 @@ func flip_sprite(flip_code : String) -> void:
 
 func update_rotation():
 	if current_down == Vector2.UP:
-		self.set_rotation(-PI)
+		self.set_rotation_degrees(180)
 	elif current_down == Vector2.RIGHT:
-		self.set_rotation(-PI/2)
+		self.set_rotation_degrees(270)
 	elif current_down == Vector2.DOWN:
-		self.set_rotation(0)
+		self.set_rotation_degrees(0)
 	else:
-		self.set_rotation(PI/2)
+		self.set_rotation_degrees(90)
 
 
-func set_current_down(new_down: Vector2) -> void:
-	current_down = new_down
+func set_current_down(new_down: String) -> void:
+	current_down = DIRECTIONS.get(new_down.to_lower())
+
+func stick_to_surface(surface: String) -> void:
+	velocity = STICK_SURFACE_CODE.get(surface.to_lower())
 
 func is_x_stationary() -> bool:
 	return velocity.x == 0

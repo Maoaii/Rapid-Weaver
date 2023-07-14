@@ -2,49 +2,56 @@ extends PlayerState
 
 
 func _enter(_msg := {}):
-	player.is_sticky = true
+	# Play animation
+	player.set_animation("Walking")
 
 
 func _physics_update(delta: float) -> void:
-	move(player.get_y_input(), delta)
-	
-	flip_sprite()
-	
-	cap_velocity()
-	
 	# Transition to idle
 	if player.is_y_stationary():
 		state_machine.transition_to("Idle")
 	
 	# Transition to air (with jump)
 	if Input.is_action_just_pressed("jump"):
-		player.set_current_down(Vector2.DOWN)
+		player.set_current_down("b")
 		state_machine.transition_to("Air", {jump = true})
 	
 	# Transition to air (without jump)
-	if not player.is_on_wall():
-		player.set_current_down(Vector2.DOWN)
-		state_machine.transition_to("Air")
+	#if not player.is_on_wall():
+	#	player.set_current_down("b")
+	#	state_machine.transition_to("Air")
 	
-	if player.is_on_wall() and player.is_colliding_left() and player.is_stuck_left() and player.has_input_right():
-		player.set_current_down(Vector2.UP)
-		player.velocity.x = 0
-		state_machine.transition_to("CeilingWalk")
-	
-	if player.is_on_wall() and player.is_colliding_right() and player.is_stuck_right() and player.has_input_left():
-		player.set_current_down(Vector2.UP)
-		player.velocity.x = 0
-		state_machine.transition_to("CeilingWalk")
-	
-	if player.is_on_wall() and player.is_colliding_left() and player.is_stuck_right() and player.has_input_left():
-		player.set_current_down(Vector2.DOWN)
-		player.velocity.x = 0
-		state_machine.transition_to("Walking")
+	"""
+		Change from walls to ground or ceiling
+	"""
+	if player.has_input_right() and player.is_stuck_left():
+		# Colliding with ceiling
+		if player.is_colliding_left():
+			player.set_current_down("t")
+			player.stick_to_surface("t")
+			state_machine.transition_to("CeilingWalk")
 		
-	if player.is_on_wall() and player.is_colliding_right() and player.is_stuck_left() and player.has_input_right():
-		player.set_current_down(Vector2.DOWN)
-		player.velocity.x = 0
-		state_machine.transition_to("Walking")
+		# Colliding with ground
+		elif player.is_colliding_right():
+			player.set_current_down("b")
+			state_machine.transition_to("Walking")
+	elif player.has_input_left() and player.is_stuck_right():
+		# Colliding with ground
+		if player.is_colliding_left():
+			player.set_current_down("b")
+			state_machine.transition_to("Walking")
+		
+		# Colliding with ceiling
+		elif player.is_colliding_right():
+			player.set_current_down("t")
+			player.stick_to_surface("t")
+			state_machine.transition_to("CeilingWalk")
+	
+	move(player.get_y_input(), delta)
+	
+	flip_sprite()
+	
+	cap_velocity()
 
 
 func move(direction, delta):

@@ -1,13 +1,11 @@
 extends PlayerState
 
 func _enter(_msg := {}):
-	player.is_sticky = false
+	# Set animation
+	player.set_animation("Walking")
 
 
 func _physics_update(delta: float) -> void:
-	# Play animation
-	player.set_animation("Walking")
-	
 	# This is used for breakable ground, or when the player goes off the ground
 	if not player.is_on_floor():
 		if player.was_on_floor:
@@ -16,33 +14,38 @@ func _physics_update(delta: float) -> void:
 		state_machine.transition_to("Air")
 		return
 	
-	move(player.get_x_input(), delta)
-	
-	# Flip sprite
-	flip_sprite()
-	
-	cap_velocity()
-	
 	# Transition to Jumping
 	if Input.is_action_just_pressed("jump"):
-		player.set_current_down(Vector2.DOWN)
-		state_machine.transition_to("Air", 
-			{jump = true})
+		player.set_current_down("b")
+		state_machine.transition_to("Air", {jump = true})
 	
 	# Transition to idle
 	if player.is_x_stationary():
 		state_machine.transition_to("Idle")
 	
-	# Transition to wall walking
-	if player.is_colliding_left() and player.has_input_up():
-		player.set_current_down(Vector2.LEFT)
-		player.velocity.y = 0
-		state_machine.transition_to("WallWalking")
+	"""
+		Change from ground to walls
+	"""
+	if player.has_input_up():
+		# Colliding with left wall
+		if player.is_colliding_left():
+			player.set_current_down("l")
+			player.stick_to_surface("l")
+			state_machine.transition_to("WallWalking")
+		
+		# Colliding with right wall
+		elif player.is_colliding_right():
+			player.set_current_down("r")
+			player.stick_to_surface("r")
+			state_machine.transition_to("WallWalking")
 	
-	if player.is_colliding_right() and player.has_input_up():
-		player.set_current_down(Vector2.RIGHT)
-		player.velocity.y = 0
-		state_machine.transition_to("WallWalking")
+	
+	move(player.get_x_input(), delta)
+	
+	flip_sprite()
+	
+	cap_velocity()
+
 
 func move(direction, delta):
 	# Accelerate

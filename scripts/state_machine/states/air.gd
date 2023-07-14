@@ -4,15 +4,40 @@ extends PlayerState
 func _enter(msg := {}) -> void:
 	if msg.has("jump"):
 		handle_jump()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_update(delta: float) -> void:
-	player.is_sticky = false
 	
 	# Play animation
 	# !TODO: change to Air
 	#player.set_animation("Idle")
+
+
+func _physics_update(delta: float) -> void:
+	"""
+		Stick to the ceiling
+	"""
+	if player.is_on_ceiling() and player.has_input_up():
+		player.set_current_down("t")
+		player.stick_to_surface("t")
+		state_machine.transition_to("CeilingWalk") 
+	
+	"""
+		Stick to the walls
+	"""
+	if player.is_colliding_left() and player.has_input_left():
+		player.set_current_down("l")
+		player.stick_to_surface("l")
+		state_machine.transition_to("WallWalking")
+	
+	if player.is_colliding_right() and player.has_input_right():
+		player.set_current_down("r")
+		player.stick_to_surface("r")
+		state_machine.transition_to("WallWalking") 
+	
+	"""
+		Stick to the ground
+	"""
+	if player.is_on_floor() and player.jump_buffer_timer.is_stopped():
+		player.set_current_down("b")
+		state_machine.transition_to("Walking")
 	
 	move(player.get_x_input(), delta)
 	
@@ -21,25 +46,6 @@ func _physics_update(delta: float) -> void:
 	cap_velocity()
 	
 	handle_jump()
-	
-	# Stick to ceiling
-	if player.is_on_ceiling() and player.has_input_up():
-		player.set_current_down(Vector2.UP)
-		state_machine.transition_to("CeilingWalk") 
-	
-	# Stick to walls
-	if player.is_colliding_left() and player.has_input_left():
-		player.set_current_down(Vector2.LEFT)
-		state_machine.transition_to("WallWalking")
-	
-	if player.is_colliding_right() and player.has_input_right():
-		player.set_current_down(Vector2.RIGHT)
-		state_machine.transition_to("WallWalking") 
-	
-	# Landing
-	if player.is_on_floor() and player.jump_buffer_timer.is_stopped():
-		player.set_current_down(Vector2.DOWN)
-		state_machine.transition_to("Idle" if player.is_x_stationary() else "Walking")
 
 
 func handle_jump():

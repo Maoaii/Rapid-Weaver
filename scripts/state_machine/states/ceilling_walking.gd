@@ -1,37 +1,45 @@
 extends PlayerState
 
 func _enter(_msg := {}):
-	player.is_sticky = true
+	# Play animation
+	player.set_animation("Walking")
 
 func _physics_update(delta: float) -> void:
+	# Transition to idle
+	if player.is_x_stationary():
+		state_machine.transition_to("Idle")
+	
+	# Transition to Air (with jump)
+	if Input.is_action_just_pressed("jump"):
+		player.set_current_down("b")
+		state_machine.transition_to("Air", {jump = true})
+	
+	# Transition to Air (without jump)
+	if not player.is_colliding_down() and not player.is_on_ceiling():
+		player.set_current_down("b")
+		state_machine.transition_to("Air")
+	
+	"""
+		Change from ceiling to walls
+	"""
+	if player.has_input_down():
+		# Colliding with rifht wall
+		if player.is_colliding_left():
+			player.set_current_down("r")
+			player.stick_to_surface("r")
+			state_machine.transition_to("WallWalking")
+		
+		# Colliding with left wall
+		elif player.is_colliding_right():
+			player.set_current_down("l")
+			player.stick_to_surface("l")
+			state_machine.transition_to("WallWalking")
+	
 	move(player.get_x_input(), delta)
 	
 	flip_sprite()
 	
 	cap_velocity()
-	
-	# Transition to idle
-	if player.is_x_stationary():
-		state_machine.transition_to("Idle")
-	
-	
-	# Transition to Air (with jump)
-	if Input.is_action_just_pressed("jump"):
-		player.set_current_down(Vector2.DOWN)
-		state_machine.transition_to("Air", {jump = true})
-	
-	# Transition to Air (without jump)
-	if not player.is_on_ceiling():
-		player.set_current_down(Vector2.DOWN)
-		state_machine.transition_to("Air")
-	
-	if player.is_colliding_left() and player.has_input_down():
-		player.set_current_down(Vector2.RIGHT)
-		state_machine.transition_to("WallWalking")
-		
-	if player.is_colliding_right() and player.has_input_down():
-		player.set_current_down(Vector2.LEFT)
-		state_machine.transition_to("WallWalking")
 
 func move(direction, delta):
 	# Accelerate

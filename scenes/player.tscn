@@ -60,7 +60,7 @@ script = ExtResource("7_veyo4")
 script = ExtResource("8_2qcww")
 
 [node name="StickyUp" type="RayCast2D" parent="."]
-target_position = Vector2(0, -5)
+target_position = Vector2(0, -6)
 collide_with_areas = true
 
 [node name="StickyRight" type="RayCast2D" parent="."]
