@@ -3,8 +3,16 @@ extends PlayerState
 func _enter(_msg := {}):
 	# Play animation
 	player.set_animation("Walking")
+	
 
 func _physics_update(delta: float) -> void:
+	# Transition to Idle
+	if not player.has_input_left_right() and player.is_x_stationary():
+		state_machine.transition_to("Idle")
+	
+	# Transition to Air (without jump)
+	
+	
 	# Transition to Air (with jump)
 	if Input.is_action_just_pressed("jump"):
 		var tmp_current_down = player.current_down

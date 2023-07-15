@@ -6,6 +6,10 @@ func _enter(_msg := {}):
 
 
 func _physics_update(delta: float) -> void:
+	# Transition to idle
+	if not player.has_input_left_right() and player.is_x_stationary():
+		state_machine.transition_to("Idle")
+	
 	# This is used for breakable ground, or when the player goes off the ground
 	if not player.is_on_floor() and not player.is_colliding_down():
 		if player.was_on_floor:
