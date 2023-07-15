@@ -13,7 +13,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k2drm"]
 size = Vector2(16, 10)
 
-[node name="Player2" type="CharacterBody2D"]
+[node name="Player2" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_utnx1")
 max_speed = 100.0
 move_acceleration = 8.0
