@@ -79,14 +79,78 @@ var current_animation : String
 var current_down : Vector2 = Vector2.DOWN
 
 func _physics_process(delta: float) -> void:
+	# Apply gravity to the player
 	apply_gravity(delta)
 	
-	# Update rotation
-	#update_rotation()
+	# Move the player
+	move_and_slide()
 	
 	# Play animation
 	animation_sprite.play(current_animation)
 
+func move_x(delta):
+	# Accelerate
+	if self.has_input_left_right():
+		self.velocity.x += self.get_x_input() * self.move_acceleration * self.max_speed * delta
+	# Decelerate
+	elif self.velocity.x < 0:
+		self.velocity.x += self.move_deceleration * self.max_speed * delta
+		self.velocity.x = min(self.velocity.x, 0)
+	elif self.velocity.x > 0:
+		self.velocity.x -= self.move_deceleration * self.max_speed * delta
+		self.velocity.x = max(self.velocity.x, 0)
+	
+	self.was_on_floor = self.is_on_floor()
+	
+	cap_velocity_x()
+
+func cap_velocity_x():
+	self.velocity.x = clampf(self.velocity.x, -self.max_speed, self.max_speed)
+
+func move_y(delta):
+	# Accelerate
+	if self.has_input_up_down():
+		self.velocity.y += self.get_y_input() * self.move_acceleration * self.max_speed * delta
+	# Decelerate
+	elif self.velocity.y < 0:
+		self.velocity.y += self.move_deceleration * self.max_speed * delta
+		self.velocity.y = min(self.velocity.y, 0)
+	elif self.velocity.y > 0:
+		self.velocity.y -= self.move_deceleration * self.max_speed * delta
+		self.velocity.y = max(self.velocity.y, 0)
+	
+	cap_velocity_y()
+
+func cap_velocity_y():
+	self.velocity.y = clampf(self.velocity.y, -self.max_speed, self.max_speed)
+
+func handle_jump(direction):
+	if Input.is_action_just_pressed("jump"):
+		if self.is_on_floor() or not self.coyote_timer.is_stopped():
+			self.velocity.y = self.jump_velocity
+		elif self.is_on_ceiling() or self.is_on_wall():
+			match direction:
+				"d":
+					# Jump down
+					self.velocity.y = -self.jump_velocity
+					
+				"r":
+					# Jump right
+					self.velocity = Vector2(-self.jump_velocity, -self.wall_jump_velocity)
+					
+				"l":
+					# Jump left
+					self.velocity = Vector2(self.jump_velocity, -self.wall_jump_velocity)
+		else:
+			self.jump_buffer_timer.start()
+	
+	# Jump buffer
+	if self.is_on_floor() and not self.jump_buffer_timer.is_stopped():
+		self.velocity.y = self.jump_velocity
+	
+	# Variable jump height
+	if Input.is_action_just_released("jump") and self.velocity.y < 0.0:
+		self.velocity.y *= 0.5
 
 func apply_gravity(delta: float) -> void:
 	var gravity : Vector2
@@ -108,7 +172,30 @@ func get_gravity() -> float:
 
 func set_animation(animation_name: String) -> void:
 	current_animation = animation_name
-	
+
+func flip_sprite_ceiling():
+	if self.has_input_right():
+		animation_sprite.flip_h = FLIP_CODES.get("l")
+	elif self.has_input_left():
+		animation_sprite.flip_h = FLIP_CODES.get("r")
+
+func flip_sprite_air_ground():
+	if self.has_input_left():
+		animation_sprite.flip_h = FLIP_CODES.get("l")
+	elif self.has_input_right():
+		animation_sprite.flip_h = FLIP_CODES.get("r")
+
+func flip_sprite_wall():
+	if self.is_stuck_right():
+		if self.has_input_up():
+			animation_sprite.flip_h = FLIP_CODES.get("r")
+		elif self.has_input_down():
+			animation_sprite.flip_h = FLIP_CODES.get("l")
+	elif self.is_stuck_left():
+		if self.has_input_up():
+			animation_sprite.flip_h = FLIP_CODES.get("l")
+		elif self.has_input_down():
+			animation_sprite.flip_h = FLIP_CODES.get("r")
 
 
 func flip_sprite(flip_code : String) -> void:

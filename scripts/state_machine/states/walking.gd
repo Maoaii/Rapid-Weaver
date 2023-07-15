@@ -46,36 +46,6 @@ func _physics_update(delta: float) -> void:
 			player.stick_to_surface("r")
 			state_machine.transition_to("WallWalking")
 	
-	move(player.get_x_input(), delta)
+	player.move_x(delta)
 	
-	flip_sprite()
-	
-	cap_velocity()
-
-
-func move(direction, delta):
-	# Accelerate
-	if direction:
-		player.velocity.x += direction * player.move_acceleration * player.max_speed * delta
-	# Decelerate
-	elif player.velocity.x < 0:
-		player.velocity.x += player.move_deceleration * player.max_speed * delta
-		player.velocity.x = min(player.velocity.x, 0)
-	elif player.velocity.x > 0:
-		player.velocity.x -= player.move_deceleration * player.max_speed * delta
-		player.velocity.x = max(player.velocity.x, 0)
-
-	player.was_on_floor = player.is_on_floor()
-	
-	player.move_and_slide()
-
-
-func flip_sprite():
-	if player.has_input_left():
-		player.flip_sprite("l")
-	elif player.has_input_right():
-		player.flip_sprite("r")
-
-
-func cap_velocity():
-	player.velocity.x = clampf(player.velocity.x, -player.max_speed, player.max_speed)
+	player.flip_sprite_air_ground()

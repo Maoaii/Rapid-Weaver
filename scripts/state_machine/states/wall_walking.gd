@@ -50,40 +50,7 @@ func _physics_update(delta: float) -> void:
 			player.stick_to_surface("t")
 			state_machine.transition_to("CeilingWalk")
 	
-	move(player.get_y_input(), delta)
+	player.move_y(delta)
 	
-	flip_sprite()
-	
-	cap_velocity()
+	player.flip_sprite_wall()
 
-
-func move(direction, delta):
-	# Accelerate
-	if direction:
-		player.velocity.y += direction * player.move_acceleration * player.max_speed * delta
-	# Decelerate
-	elif player.velocity.y < 0:
-		player.velocity.y += player.move_deceleration * player.max_speed * delta
-		player.velocity.y = min(player.velocity.y, 0)
-	elif player.velocity.y > 0:
-		player.velocity.y -= player.move_deceleration * player.max_speed * delta
-		player.velocity.y = max(player.velocity.y, 0)
-	
-	player.move_and_slide()
-
-
-func flip_sprite():
-	if player.is_stuck_right():
-		if player.has_input_up():
-			player.flip_sprite("r")
-		elif player.has_input_down():
-			player.flip_sprite("l")
-	elif player.is_stuck_left():
-		if player.has_input_up():
-			player.flip_sprite("l")
-		elif player.has_input_down():
-			player.flip_sprite("r")
-
-
-func cap_velocity():
-	player.velocity.y = clampf(player.velocity.y, -player.max_speed, player.max_speed)
