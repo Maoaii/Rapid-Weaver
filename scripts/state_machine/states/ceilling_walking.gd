@@ -11,7 +11,9 @@ func _physics_update(delta: float) -> void:
 		state_machine.transition_to("Idle")
 	
 	# Transition to Air (without jump)
-	
+	if not player.is_colliding_down() and not player.is_on_ceiling():
+		player.set_current_down("b")
+		state_machine.transition_to("Air")
 	
 	# Transition to Air (with jump)
 	if Input.is_action_just_pressed("jump"):

@@ -82,7 +82,7 @@ func _physics_process(delta: float) -> void:
 	apply_gravity(delta)
 	
 	# Update rotation
-	update_rotation()
+	#update_rotation()
 	
 	# Play animation
 	animation_sprite.play(current_animation)
@@ -117,12 +117,12 @@ func flip_sprite(flip_code : String) -> void:
 	animation_sprite.flip_h = flip_orientation
 
 
-func update_rotation() -> void:
-	if self.is_stuck_up():
+func update_rotation(new_rotation) -> void:
+	if new_rotation == "t":
 		self.set_rotation_degrees(180)
-	elif self.is_stuck_right():
+	elif new_rotation == "r":
 		self.set_rotation_degrees(-90)
-	elif self.is_stuck_down():
+	elif new_rotation == "b":
 		self.set_rotation_degrees(0)
 	else:
 		self.set_rotation_degrees(90)
@@ -130,6 +130,8 @@ func update_rotation() -> void:
 
 func set_current_down(new_down: String) -> void:
 	current_down = DIRECTIONS.get(new_down.to_lower())
+	
+	update_rotation(new_down)
 
 func stick_to_surface(surface: String) -> void:
 	velocity = STICK_SURFACE_CODE.get(surface.to_lower())

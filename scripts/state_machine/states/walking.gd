@@ -10,6 +10,10 @@ func _physics_update(delta: float) -> void:
 	if not player.has_input_left_right() and player.is_x_stationary():
 		state_machine.transition_to("Idle")
 	
+	if not player.is_colliding_down() and not player.is_on_floor():
+		player.set_current_down("b")
+		state_machine.transition_to("Air")
+	
 	# This is used for breakable ground, or when the player goes off the ground
 	if not player.is_on_floor() and not player.is_colliding_down():
 		if player.was_on_floor:

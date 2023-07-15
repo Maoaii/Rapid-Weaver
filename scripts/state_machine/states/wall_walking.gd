@@ -8,10 +8,13 @@ func _enter(_msg := {}):
 
 func _physics_update(delta: float) -> void:
 	# Transition to Idle
-	if not player.has_input_up_down() and not player.is_y_stationary():
+	if not player.has_input_up_down() and player.is_y_stationary():
 		state_machine.transition_to("Idle")
 	
 	# Transition to Air (without jump)
+	if not player.is_colliding_down() and not player.is_on_wall():
+		player.set_current_down("b")
+		state_machine.transition_to("Air")
 	
 	# Transition to air (with jump)
 	if Input.is_action_just_pressed("jump"):
