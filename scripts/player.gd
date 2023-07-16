@@ -198,12 +198,6 @@ func flip_sprite_wall():
 			animation_sprite.flip_h = FLIP_CODES.get("r")
 
 
-func flip_sprite(flip_code : String) -> void:
-	var flip_orientation = FLIP_CODES.get(flip_code.to_lower())
-	
-	animation_sprite.flip_h = flip_orientation
-
-
 func update_rotation(new_rotation) -> void:
 	if new_rotation == "t":
 		self.set_rotation_degrees(180)
@@ -217,7 +211,7 @@ func update_rotation(new_rotation) -> void:
 
 func set_current_down(new_down: String) -> void:
 	current_down = DIRECTIONS.get(new_down.to_lower())
-	
+	print(new_down)
 	update_rotation(new_down)
 
 func stick_to_surface(surface: String) -> void:
