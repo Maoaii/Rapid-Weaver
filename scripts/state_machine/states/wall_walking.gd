@@ -2,53 +2,64 @@ extends PlayerState
 
 
 func _enter(_msg := {}):
-	player.is_sticky = true
-	
-	if player.is_colliding_left:
-		player.current_up = Vector2.RIGHT
+	# Set direction for gravity to work in
+	print(player.is_on_floor())
+	if not player.is_on_ceiling():
+		if player.is_colliding_right():
+			player.set_current_down("r")
+			player.stick_to_surface("r")
+		else:
+			player.set_current_down("l")
+			player.stick_to_surface("l")
 	else:
-		player.current_up = Vector2.LEFT
+		if player.is_colliding_right():
+			player.set_current_down("l")
+			player.stick_to_surface("l")
+		else:
+			player.set_current_down("r")
+			player.stick_to_surface("r")
+	
+	# Play animation
+	player.set_animation("Walking")
 
 
 func _physics_update(delta: float) -> void:
-	move(player.y_direction, delta)
-	
-	cap_velocity()
-	
-	# Transition to idle
-	if player.velocity.y == 0:
+	# Transition to Idle
+	if not player.has_input_up_down() and player.is_y_stationary():
 		state_machine.transition_to("Idle")
 	
-	# Transition to ground walk
-	if player.is_colliding_down and player.x_direction:
-		state_machine.transition_to("Walking")
-	
-	# Transition to ceiling walk
-	if player.is_colliding_up and player.x_direction:
-		state_machine.transition_to("CeilingWalk")
+	# Transition to Air (without jump)
+	if not player.is_colliding_down() and not player.is_on_wall():
+		state_machine.transition_to("Air")
 	
 	# Transition to air (with jump)
 	if Input.is_action_just_pressed("jump"):
-		state_machine.transition_to("Air", {jump = true})
+		var tmp_current_down = player.current_down
+		
+		state_machine.transition_to("Air", 
+			{"jump": true, "direction": (tmp_current_down * Vector2(-1, -1))})
 	
-	# Transition to air (without jump)
-	if not player.is_colliding_left and not player.is_colliding_right:
-		state_machine.transition_to("Air")
-
-
-func move(direction, delta):
-	# Accelerate
-	if direction:
-		player.velocity.y += direction * player.move_acceleration * player.max_speed * delta
-	# Decelerate
-	elif player.velocity.y < 0:
-		player.velocity.y += player.move_deceleration * player.max_speed * delta
-		player.velocity.y = min(player.velocity.x, 0)
-	elif player.velocity.y > 0:
-		player.velocity.y -= player.move_deceleration * player.max_speed * delta
-		player.velocity.y = max(player.velocity.x, 0)
+	"""
+		Change from walls to ground or ceiling
+	"""
+	if player.has_input_right() and player.is_stuck_left():
+		# Colliding with ceiling
+		if player.is_colliding_left():
+			state_machine.transition_to("CeilingWalk")
+		
+		# Colliding with ground
+		elif player.is_colliding_right():
+			state_machine.transition_to("Walking")
+	elif player.has_input_left() and player.is_stuck_right():
+		# Colliding with ground
+		if player.is_colliding_left():
+			state_machine.transition_to("Walking")
+		
+		# Colliding with ceiling
+		elif player.is_colliding_right():
+			state_machine.transition_to("CeilingWalk")
 	
-	player.move_and_slide()
+	player.move_y(delta)
+	
+	player.flip_sprite_wall()
 
-func cap_velocity():
-	player.velocity.y = clampf(player.velocity.y, -player.max_speed, player.max_speed)

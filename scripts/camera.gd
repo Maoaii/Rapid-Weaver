@@ -11,7 +11,8 @@ func _ready():
 
 
 func _process(_delta):
-	update_camera_pos()
+	#update_camera_pos()
+	pass
 
 
 func set_camera_limits():
@@ -19,9 +20,12 @@ func set_camera_limits():
 	var tilemap_cell_size = get_parent().get_parent().get_node("TileMap").cell_quadrant_size
 	
 	self.limit_top = tilemap_rect.position.y * tilemap_cell_size
-	self.limit_right = tilemap_rect.end.x * tilemap_cell_size
+	self.limit_right = 640
+	#self.limit_right = tilemap_rect.end.x * tilemap_cell_size
 	self.limit_bottom = tilemap_rect.end.y * tilemap_cell_size
-	self.limit_left = tilemap_rect.position.x * tilemap_cell_size
+	self.limit_left = 0
+	#self.limit_left = tilemap_rect.position.x * tilemap_cell_size
+	
 
 
 func update_camera_pos():

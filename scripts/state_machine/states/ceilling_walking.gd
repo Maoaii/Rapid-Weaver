@@ -1,44 +1,42 @@
 extends PlayerState
 
 func _enter(_msg := {}):
-	player.is_sticky = true
-	player.current_up = Vector2.DOWN
+	# Set direction for gravity to work in
+	player.set_current_down("t")
+	player.stick_to_surface("t")
+	
+	# Play animation
+	player.set_animation("Walking")
+	
 
 func _physics_update(delta: float) -> void:
-	move(player.x_direction, delta)
-	
-	cap_velocity()
-	
-	# Transition to idle
-	if player.velocity.x == Vector2.ZERO.x:
+	# Transition to Idle
+	if not player.has_input_left_right() and player.is_x_stationary():
 		state_machine.transition_to("Idle")
 	
-	# Transition to Wall walking
-	if (player.is_colliding_left or player.is_colliding_right) and player.y_direction:
-		state_machine.transition_to("WallWalking")
+	# Transition to Air (without jump)
+	if not player.is_colliding_down() and not player.is_on_ceiling():
+		state_machine.transition_to("Air")
 	
 	# Transition to Air (with jump)
 	if Input.is_action_just_pressed("jump"):
-		state_machine.transition_to("Air", {jump = true})
+		var tmp_current_down = player.current_down
+		
+		state_machine.transition_to("Air", 
+			{"jump": true, "direction": (tmp_current_down * Vector2(-1, -1))})
 	
-	# Transition to Air (without jump)
-	if not player.is_colliding_up:
-		state_machine.transition_to("Air")
-
-func move(direction, delta):
-	# Accelerate
-	if direction:
-		player.velocity.x += direction * player.move_acceleration * player.max_speed * delta
-	# Decelerate
-	elif player.velocity.x < 0:
-		player.velocity.x += player.move_deceleration * player.max_speed * delta
-		player.velocity.x = min(player.velocity.x, 0)
-	elif player.velocity.x > 0:
-		player.velocity.x -= player.move_deceleration * player.max_speed * delta
-		player.velocity.x = max(player.velocity.x, 0)
+	"""
+		Change from ceiling to walls
+	"""
+	if player.has_input_down():
+		# Colliding with rifht wall
+		if player.is_colliding_left():
+			state_machine.transition_to("WallWalking")
+		
+		# Colliding with left wall
+		elif player.is_colliding_right():
+			state_machine.transition_to("WallWalking")
 	
-	player.move_and_slide()
-
-
-func cap_velocity():
-	player.velocity.x = clampf(player.velocity.x, -player.max_speed, player.max_speed)
+	player.move_x(delta)
+	
+	player.flip_sprite_ceiling()

@@ -7,16 +7,73 @@ func _physics_update(_delta: float) -> void:
 	
 	# Jump from idle
 	if Input.is_action_just_pressed("jump"):
-		state_machine.transition_to("Air", {jump = true})
+		var tmp_current_down = player.current_down
+		
+		state_machine.transition_to("Air", 
+			{"jump": true, "direction": (tmp_current_down * Vector2(-1, -1))})
 	
-	# Move left and right on ground
-	if (player.is_colliding_down or player.is_on_floor()) and player.x_direction:
+	# If any surface we're standing on breaks, transition to air
+	if not player.is_colliding_down():
+		state_machine.transition_to("Air")
+	
+	"""
+		Walk on surfaces we're standing on
+	"""
+	if player.is_on_floor() and player.has_input_left_right():
 		state_machine.transition_to("Walking")
 	
-	# Move left and right on ceiling
-	if player.is_colliding_up and player.x_direction:
+	if player.is_on_ceiling() and player.has_input_left_right():
 		state_machine.transition_to("CeilingWalk")
 	
-	# Move up and down in walls
-	if (player.is_colliding_right or player.is_colliding_left) and player.y_direction:
+	if player.is_on_wall() and player.has_input_up_down():
 		state_machine.transition_to("WallWalking")
+	
+	"""
+		Change from ceiling to walls
+	"""
+	if player.is_on_ceiling() and player.has_input_down():
+		# Colliding with right wall
+		if player.is_colliding_left():
+			state_machine.transition_to("WallWalking")
+		
+		# Colliding with left wall
+		elif player.is_colliding_right():
+			state_machine.transition_to("WallWalking")
+	
+	"""
+		Change from ground to walls
+	"""
+	if player.is_on_floor() and player.has_input_up():
+		# Colliding with left wall
+		if player.is_colliding_left():
+			state_machine.transition_to("WallWalking")
+		
+		# Colliding with right wall
+		elif player.is_colliding_right():
+			state_machine.transition_to("WallWalking")
+	
+	"""
+		Change from walls to ground and ceiling
+	"""
+	if player.is_on_wall() and player.has_input_left_right():
+		# Player is on left wall
+		if player.is_stuck_left():
+			
+			# Colliding with the ceiling
+			if player.is_colliding_left():
+				state_machine.transition_to("CeilingWalk")
+			
+			# Colliding with the ground
+			elif player.is_colliding_right():
+				state_machine.transition_to("Walking")
+		
+		# Player is on right wall
+		elif player.is_stuck_right():
+			
+			# Colliding with the ground
+			if player.is_colliding_left():
+				state_machine.transition_to("Walking")
+			
+			# Colliding with the ceiling
+			elif player.is_colliding_right():
+				state_machine.transition_to("CeilingWalk")

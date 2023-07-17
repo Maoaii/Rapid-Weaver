@@ -1,53 +1,49 @@
 extends PlayerState
 
 func _enter(_msg := {}):
-	player.is_sticky = false
-	player.current_up = Vector2.UP
+	# Set direction for gravity to work in
+	player.set_current_down("b")
+	
+	# Set animation
+	player.set_animation("Walking")
+
 
 func _physics_update(delta: float) -> void:
-	# Play animation
-	player.set_animation("Walking")
+	# Transition to idle
+	if not player.has_input_left_right() and player.is_x_stationary():
+		state_machine.transition_to("Idle")
+	
+	if not player.is_colliding_down() and not player.is_on_floor():
+		state_machine.transition_to("Air")
 	
 	# This is used for breakable ground, or when the player goes off the ground
-	if not player.is_on_floor():
+	if not player.is_on_floor() and not player.is_colliding_down():
 		if player.was_on_floor:
 			player.coyote_timer.start()
 		
 		state_machine.transition_to("Air")
 		return
 	
-	move(player.x_direction, delta)
-	
-	cap_velocity()
-	
 	# Transition to Jumping
 	if Input.is_action_just_pressed("jump"):
-		state_machine.transition_to("Air", {jump = true})
+		var tmp_current_down = player.current_down
+		
+		state_machine.transition_to("Air", 
+			{"jump": true, "direction": (tmp_current_down * Vector2(-1, -1))})
 	
-	# Transition to idle
-	if player.velocity.x == 0:
-		state_machine.transition_to("Idle")
 	
-	# Transition to wall walking
-	if (player.is_colliding_left or player.is_colliding_right) and player.y_direction:
-		state_machine.transition_to("WallWalking")
-
-func move(direction, delta):
-	# Accelerate
-	if direction:
-		player.velocity.x += direction * player.move_acceleration * player.max_speed * delta
-	# Decelerate
-	elif player.velocity.x < 0:
-		player.velocity.x += player.move_deceleration * player.max_speed * delta
-		player.velocity.x = min(player.velocity.x, 0)
-	elif player.velocity.x > 0:
-		player.velocity.x -= player.move_deceleration * player.max_speed * delta
-		player.velocity.x = max(player.velocity.x, 0)
-
-	player.was_on_floor = player.is_on_floor()
+	"""
+		Change from ground to walls
+	"""
+	if player.is_on_floor() and player.has_input_up():
+		# Colliding with left wall
+		if player.is_colliding_left():
+			state_machine.transition_to("WallWalking")
+		
+		# Colliding with right wall
+		elif player.is_colliding_right():
+			state_machine.transition_to("WallWalking")
 	
-	player.move_and_slide()
-
-
-func cap_velocity():
-	player.velocity.x = clampf(player.velocity.x, -player.max_speed, player.max_speed)
+	player.move_x(delta)
+	
+	player.flip_sprite_air_ground()
