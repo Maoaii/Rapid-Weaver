@@ -65,9 +65,6 @@ const STICK_SURFACE_CODE = {
 # Animations
 @onready var animation_sprite : AnimatedSprite2D = $AnimatedSprite2D
 
-# Camera
-@onready var camera : Camera2D = $Camera
-
 
 """
 	Normal instance variables
@@ -211,7 +208,7 @@ func update_rotation(new_rotation) -> void:
 
 func set_current_down(new_down: String) -> void:
 	current_down = DIRECTIONS.get(new_down.to_lower())
-	print(new_down)
+	
 	update_rotation(new_down)
 
 func stick_to_surface(surface: String) -> void:
