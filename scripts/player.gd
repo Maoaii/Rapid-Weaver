@@ -34,11 +34,13 @@ const STICK_SURFACE_CODE = {
 """
 	Export variables
 """
+@export_group("Movement Variables")
 # Movement variables
 @export var max_speed : float
 @export var move_acceleration : float
 @export var move_deceleration : float
 
+@export_group("Jumping Variables")
 # Jumping variables
 @export var jump_height : float
 @export var jump_time_to_peak : float
@@ -47,6 +49,7 @@ const STICK_SURFACE_CODE = {
 # Wall Jumping variables
 @export var wall_jump_velocity : float
 
+@export_group("Falling Variables")
 # Falling variables
 @export var terminal_velocity : float
 
@@ -122,24 +125,17 @@ func cap_velocity_y():
 	self.velocity.y = clampf(self.velocity.y, -self.max_speed, self.max_speed)
 
 func handle_jump(direction):
-	if Input.is_action_just_pressed("jump"):
-		if self.is_on_floor() or not self.coyote_timer.is_stopped():
-			self.velocity.y = self.jump_velocity
-		elif self.is_on_ceiling() or self.is_on_wall():
-			match direction:
-				"d":
-					# Jump down
-					self.velocity.y = -self.jump_velocity
-					
-				"r":
-					# Jump right
-					self.velocity = Vector2(-self.jump_velocity, -self.wall_jump_velocity)
-					
-				"l":
-					# Jump left
-					self.velocity = Vector2(self.jump_velocity, -self.wall_jump_velocity)
-		else:
-			self.jump_buffer_timer.start()
+	if self.is_on_floor() or not self.coyote_timer.is_stopped():
+		self.velocity.y = self.jump_velocity
+	elif self.is_on_wall():
+		if direction == "r":
+			# Jump right
+			self.velocity = Vector2(self.wall_jump_velocity, -self.wall_jump_velocity)
+		if direction == "l":
+			# Jump left
+			self.velocity = Vector2(-self.wall_jump_velocity, -self.wall_jump_velocity)
+	else:
+		self.jump_buffer_timer.start()
 	
 	# Jump buffer
 	if self.is_on_floor() and not self.jump_buffer_timer.is_stopped():
