@@ -3,8 +3,15 @@ extends PlayerState
 
 func _enter(_msg := {}):
 	# Set direction for gravity to work in
-	print(player.is_on_floor())
-	if not player.is_on_ceiling():
+
+	if player.is_on_wall():
+		if player.is_stuck_left():
+			player.set_current_down("l")
+			player.stick_to_surface("l")
+		else:
+			player.set_current_down("r")
+			player.stick_to_surface("r")
+	elif not player.is_on_ceiling():
 		if player.is_colliding_right():
 			player.set_current_down("r")
 			player.stick_to_surface("r")
