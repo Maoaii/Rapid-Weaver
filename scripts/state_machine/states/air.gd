@@ -8,11 +8,11 @@ const JUMP_DIRECTIONS = {
 }
 
 func _enter(msg := {}) -> void:
-	# Set direction for gravity to work in
-	player.set_current_down("b")
-	
 	if msg.has("jump"):
 		player.handle_jump(JUMP_DIRECTIONS.get(msg.get("direction")))
+	
+	# Set direction for gravity to work in
+	player.set_current_down("b")
 	
 	# Play animation
 	# !TODO: change to Air
@@ -45,4 +45,5 @@ func _physics_update(delta: float) -> void:
 	
 	player.flip_sprite_air_ground()
 	
-	player.handle_jump(JUMP_DIRECTIONS.get(Vector2.UP))
+	if Input.is_action_just_pressed("jump"):
+		player.handle_jump(JUMP_DIRECTIONS.get(Vector2.UP))

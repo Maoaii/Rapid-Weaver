@@ -4,7 +4,7 @@ extends PlayerState
 func _enter(_msg := {}):
 	# Set direction for gravity to work in
 
-	if player.is_on_wall():
+	if player.is_stuck_left() or player.is_stuck_right():
 		if player.is_stuck_left():
 			player.set_current_down("l")
 			player.stick_to_surface("l")
@@ -45,6 +45,8 @@ func _physics_update(delta: float) -> void:
 		
 		state_machine.transition_to("Air", 
 			{"jump": true, "direction": (tmp_current_down * Vector2(-1, -1))})
+		
+		return 
 	
 	"""
 		Change from walls to ground or ceiling

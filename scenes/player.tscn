@@ -21,7 +21,7 @@ move_deceleration = 10.0
 jump_height = 80.0
 jump_time_to_peak = 0.3
 jump_time_to_descent = 0.4
-wall_jump_velocity = 400.0
+wall_jump_velocity = 450.0
 terminal_velocity = 500.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
