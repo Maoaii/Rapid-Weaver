@@ -18,6 +18,6 @@ func _ready() -> void:
 	assert(player != null)
 
 func _update(_delta: float) -> void:
-	if Input.is_action_just_pressed("shoot_web") and player.web_is_colliding():
+	if Input.is_action_just_pressed("shoot_web") and not player.zooming and player.web_is_colliding():
 		# Transition to new state
 		state_machine.transition_to("Zooming", {"position": player.get_web_collision_pos()})

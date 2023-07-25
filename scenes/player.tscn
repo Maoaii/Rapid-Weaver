@@ -25,7 +25,8 @@ jump_time_to_descent = 0.4
 wall_jump_velocity = 450.0
 terminal_velocity = 500.0
 web_range = 160.0
-zooming_speed = 1200.0
+zooming_max_speed = 500.0
+zooming_acceleration = 3.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
@@ -65,6 +66,10 @@ wait_time = 0.15
 one_shot = true
 
 [node name="JumpBufferTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="ZoomBufferTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
 

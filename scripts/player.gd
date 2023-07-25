@@ -56,7 +56,8 @@ const STICK_SURFACE_CODE = {
 
 @export_group("Web Variables")
 @export var web_range : float
-@export var zooming_speed: float
+@export var zooming_max_speed: float
+@export var zooming_acceleration: float
 
 """
 	Onready variables
@@ -69,6 +70,7 @@ const STICK_SURFACE_CODE = {
 # Timers
 @onready var coyote_timer : Timer = $CoyoteTimer
 @onready var jump_buffer_timer : Timer = $JumpBufferTimer
+@onready var zoom_buffer_timer : Timer = $ZoomBufferTimer
 
 # Animations
 @onready var animation_sprite : AnimatedSprite2D = $AnimatedSprite2D
@@ -86,6 +88,7 @@ var was_on_floor : bool
 var current_animation : String
 var current_down : Vector2 = Vector2.DOWN
 var gravity_on : bool = true
+var zooming : bool = false
 
 func _physics_process(delta: float) -> void:
 	# Apply gravity to the player
@@ -122,8 +125,11 @@ func web_is_colliding() -> bool:
 func get_web_collision_pos() -> Vector2:
 	return web.get_collision_point()
 
-func get_zooming_speed() -> float:
-	return zooming_speed
+func get_zooming_max_speed() -> float:
+	return zooming_max_speed
+
+func get_zooming_acceleration() -> float:
+	return zooming_acceleration
 
 func _draw() -> void:
 	draw_arc(to_local(self.global_position), web_range, 0, 2*PI, 100, Color.WHITE)
@@ -147,10 +153,10 @@ func move_x(delta):
 	
 	self.was_on_floor = self.is_on_floor()
 	
-	cap_velocity_x()
+	cap_velocity_x(max_speed)
 
-func cap_velocity_x():
-	self.velocity.x = clampf(self.velocity.x, -self.max_speed, self.max_speed)
+func cap_velocity_x(max: float):
+	self.velocity.x = clampf(self.velocity.x, -max, max)
 
 func move_y(delta):
 	# Accelerate
@@ -164,10 +170,10 @@ func move_y(delta):
 		self.velocity.y -= self.move_deceleration * self.max_speed * delta
 		self.velocity.y = max(self.velocity.y, 0)
 	
-	cap_velocity_y()
+	cap_velocity_y(max_speed)
 
-func cap_velocity_y():
-	self.velocity.y = clampf(self.velocity.y, -self.max_speed, self.max_speed)
+func cap_velocity_y(max: float):
+	self.velocity.y = clampf(self.velocity.y, -max, max)
 
 func handle_jump(direction):
 	if self.is_on_floor() or not self.coyote_timer.is_stopped():
