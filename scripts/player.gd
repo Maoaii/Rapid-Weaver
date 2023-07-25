@@ -53,6 +53,11 @@ const STICK_SURFACE_CODE = {
 # Falling variables
 @export var terminal_velocity : float
 
+
+@export_group("Web Variables")
+@export var web_range : float
+@export var zooming_speed: float
+
 """
 	Onready variables
 """
@@ -68,15 +73,19 @@ const STICK_SURFACE_CODE = {
 # Animations
 @onready var animation_sprite : AnimatedSprite2D = $AnimatedSprite2D
 
+# Web
+@onready
+var web : RayCast2D = $Web
+
 
 """
 	Normal instance variables
 """
 # Small state variables
 var was_on_floor : bool
-var is_sticky : bool = false
 var current_animation : String
 var current_down : Vector2 = Vector2.DOWN
+var gravity_on : bool = true
 
 func _physics_process(delta: float) -> void:
 	# Apply gravity to the player
@@ -87,6 +96,42 @@ func _physics_process(delta: float) -> void:
 	
 	# Play animation
 	animation_sprite.play(current_animation)
+	
+	# Update web aim
+	web.target_position = web.position.direction_to(get_local_mouse_position()) * web_range
+	queue_redraw()
+
+func toggle_gravity() -> void:
+	gravity_on = not gravity_on
+
+func enable_colliders() -> void:
+	$StickyUp.enabled = true
+	$StickyRight.enabled = true
+	$StickyDown.enabled = true
+	$StickyLeft.enabled = true
+
+func disable_colliders() -> void:
+	$StickyUp.enabled = false
+	$StickyRight.enabled = false
+	$StickyDown.enabled = false
+	$StickyLeft.enabled = false
+
+func web_is_colliding() -> bool:
+	return web.is_colliding()
+
+func get_web_collision_pos() -> Vector2:
+	return web.get_collision_point()
+
+func get_zooming_speed() -> float:
+	return zooming_speed
+
+func _draw() -> void:
+	draw_arc(to_local(self.global_position), web_range, 0, 2*PI, 100, Color.WHITE)
+
+func shoot_web(_delta) -> void:
+	if web.is_colliding():
+		var collision_point = web.get_collision_point()
+		self.position = collision_point - Vector2(8, 8)
 
 func move_x(delta):
 	# Accelerate
@@ -146,6 +191,9 @@ func handle_jump(direction):
 		self.velocity.y *= 0.5
 
 func apply_gravity(delta: float) -> void:
+	if not gravity_on:
+		return
+	
 	var gravity : Vector2
 	if self.is_stuck_up():
 		gravity = Vector2(0, -self.get_gravity())

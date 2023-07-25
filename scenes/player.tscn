@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://lmt4yjrdw8kk"]
+[gd_scene load_steps=12 format=3 uid="uid://lmt4yjrdw8kk"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_utnx1"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="4_32n45"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dfh1g623koyt" path="res://assets/Player/player.ase" id="8_0oofm"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/wall_walking.gd" id="8_sl14v"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/ceilling_walking.gd" id="9_bxddi"]
+[ext_resource type="Script" path="res://scripts/state_machine/states/zooming.gd" id="10_4ayft"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="10_b1w7b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k2drm"]
@@ -23,6 +24,8 @@ jump_time_to_peak = 0.3
 jump_time_to_descent = 0.4
 wall_jump_velocity = 450.0
 terminal_velocity = 500.0
+web_range = 160.0
+zooming_speed = 1200.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
@@ -37,6 +40,9 @@ script = ExtResource("10_b1w7b")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_k2drm")
+
+[node name="Web" type="RayCast2D" parent="."]
+target_position = Vector2(2.08165e-12, 2.08165e-12)
 
 [node name="StickyUp" type="RayCast2D" parent="."]
 target_position = Vector2(0, -7)
@@ -80,3 +86,6 @@ script = ExtResource("8_sl14v")
 
 [node name="CeilingWalk" type="Node" parent="StateMachine"]
 script = ExtResource("9_bxddi")
+
+[node name="Zooming" type="Node" parent="StateMachine"]
+script = ExtResource("10_4ayft")

@@ -8,6 +8,7 @@ const JUMP_DIRECTIONS = {
 }
 
 func _enter(msg := {}) -> void:
+	
 	if msg.has("jump"):
 		player.handle_jump(JUMP_DIRECTIONS.get(msg.get("direction")))
 	
