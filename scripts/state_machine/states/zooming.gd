@@ -16,7 +16,8 @@ func _enter(msg := {}) -> void:
 	player.disable_colliders()
 	
 	# Make zooming not physics based
-	#player.velocity = Vector2.ZERO
+	if player.is_simple_zooming():
+		player.velocity = Vector2.ZERO
 	
 	player.zooming = true
 
@@ -38,12 +39,19 @@ func _physics_update(delta: float) -> void:
 	if player.is_on_floor() or player.is_on_wall() or player.is_on_ceiling():
 		if not player.zoom_buffer_timer.is_stopped():
 			state_machine.transition_to("Zooming", {"position": tmp_zooming_pos})
+			return
 		else:
 			player.enable_colliders()
 			
 			if player.is_colliding_up():
 				state_machine.transition_to("CeilingWalk")
+				return
 			elif player.is_colliding_right() or player.is_colliding_left():
 				state_machine.transition_to("WallWalking")
+				return
 			elif player.is_colliding_down():
 				state_machine.transition_to("Walking")
+				return
+	
+	# Draw line to zooming point
+	player.draw_web(zooming_pos)

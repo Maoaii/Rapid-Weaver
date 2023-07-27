@@ -58,6 +58,7 @@ const STICK_SURFACE_CODE = {
 @export var web_range : float
 @export var zooming_max_speed: float
 @export var zooming_acceleration: float
+@export var simple_zooming: bool
 
 """
 	Onready variables
@@ -131,7 +132,19 @@ func get_zooming_max_speed() -> float:
 func get_zooming_acceleration() -> float:
 	return zooming_acceleration
 
+func is_simple_zooming() -> bool:
+	return simple_zooming
+
+var draw_list: Array = []
+func draw_web(zooming_pos: Vector2) -> void:
+	draw_list.clear()
+	draw_list.append([to_local(self.global_position), to_local(zooming_pos)])
+
 func _draw() -> void:
+	
+	if draw_list.size() != 0:
+		draw_line(draw_list[0][0], draw_list[0][1], Color.WHITE, 1)
+	
 	draw_arc(to_local(self.global_position), web_range, 0, 2*PI, 100, Color.WHITE)
 
 func shoot_web(_delta) -> void:
@@ -155,8 +168,8 @@ func move_x(delta):
 	
 	cap_velocity_x(max_speed)
 
-func cap_velocity_x(max: float):
-	self.velocity.x = clampf(self.velocity.x, -max, max)
+func cap_velocity_x(max_velocity: float):
+	self.velocity.x = clampf(self.velocity.x, -max_velocity, max_velocity)
 
 func move_y(delta):
 	# Accelerate
@@ -172,8 +185,8 @@ func move_y(delta):
 	
 	cap_velocity_y(max_speed)
 
-func cap_velocity_y(max: float):
-	self.velocity.y = clampf(self.velocity.y, -max, max)
+func cap_velocity_y(max_velocity: float):
+	self.velocity.y = clampf(self.velocity.y, -max_velocity, max_velocity)
 
 func handle_jump(direction):
 	if self.is_on_floor() or not self.coyote_timer.is_stopped():
