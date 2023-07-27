@@ -2,7 +2,6 @@ extends PlayerState
 
 var zooming_pos: Vector2
 var tmp_zooming_pos: Vector2
-var hook: Area2D
 
 func _enter(msg := {}) -> void:
 	player.set_current_down("b")
@@ -27,6 +26,8 @@ func _exit() -> void:
 	player.toggle_gravity()
 	
 	player.zooming = false
+	
+	player.draw_list.clear()
 
 
 func _physics_update(delta: float) -> void:

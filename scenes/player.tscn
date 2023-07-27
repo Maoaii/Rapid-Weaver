@@ -27,7 +27,6 @@ terminal_velocity = 500.0
 web_range = 160.0
 zooming_max_speed = 500.0
 zooming_acceleration = 3.0
-simple_zooming = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)

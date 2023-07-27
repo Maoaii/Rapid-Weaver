@@ -55,10 +55,10 @@ const STICK_SURFACE_CODE = {
 
 
 @export_group("Web Variables")
+@export var simple_zooming: bool
 @export var web_range : float
 @export var zooming_max_speed: float
 @export var zooming_acceleration: float
-@export var simple_zooming: bool
 
 """
 	Onready variables
@@ -141,9 +141,8 @@ func draw_web(zooming_pos: Vector2) -> void:
 	draw_list.append([to_local(self.global_position), to_local(zooming_pos)])
 
 func _draw() -> void:
-	
 	if draw_list.size() != 0:
-		draw_line(draw_list[0][0], draw_list[0][1], Color.WHITE, 1)
+		draw_dashed_line(draw_list[0][0], draw_list[0][1], Color.WHITE, 2, 2)
 	
 	draw_arc(to_local(self.global_position), web_range, 0, 2*PI, 100, Color.WHITE)
 
