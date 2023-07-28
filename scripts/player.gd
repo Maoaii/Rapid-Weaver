@@ -37,6 +37,7 @@ const STICK_SURFACE_CODE = {
 }
 
 
+
 """
 	Export variables
 """
@@ -64,6 +65,8 @@ const STICK_SURFACE_CODE = {
 @export var zooming_max_speed: float
 @export var zooming_acceleration: float
 
+
+
 """
 	Onready variables
 """
@@ -85,6 +88,7 @@ const STICK_SURFACE_CODE = {
 var web : RayCast2D = $Web
 
 
+
 """
 	Normal instance variables
 """
@@ -98,6 +102,7 @@ var current_down : Vector2 = Vector2.DOWN
 var gravity_on : bool = true
 ## Variable to know if player is zooming
 var zooming : bool = false
+
 
 func _physics_process(delta: float) -> void:
 	# Apply gravity to the player
@@ -113,124 +118,12 @@ func _physics_process(delta: float) -> void:
 	web.target_position = web.position.direction_to(get_local_mouse_position()) * web_range
 	queue_redraw()
 
-func toggle_gravity() -> void:
-	gravity_on = not gravity_on
 
-func enable_colliders() -> void:
-	$StickyUp.enabled = true
-	$StickyRight.enabled = true
-	$StickyDown.enabled = true
-	$StickyLeft.enabled = true
 
-func disable_colliders() -> void:
-	$StickyUp.enabled = false
-	$StickyRight.enabled = false
-	$StickyDown.enabled = false
-	$StickyLeft.enabled = false
-
-func reset_sprite_rotation() -> void:
-	animation_sprite.rotation = 0
-
-func remove_web() -> void:
-	draw_list.clear()
-
-func reset_horizontal_flip() -> void:
-	animation_sprite.flip_h = false
-
-func reset_velocity() -> void:
-	velocity = Vector2.ZERO
-
-func sprite_look_at(zooming_pos: Vector2) -> void:
-	animation_sprite.look_at(zooming_pos)
-
-func web_is_colliding() -> bool:
-	return web.is_colliding()
-
-func get_web_collision_pos() -> Vector2:
-	return web.get_collision_point()
-
-func get_zooming_max_speed() -> float:
-	return zooming_max_speed
-
-func get_zooming_acceleration() -> float:
-	return zooming_acceleration
-
-func is_simple_zooming() -> bool:
-	return simple_zooming
-
-var draw_list: Array = []
-func draw_web(zooming_pos: Vector2) -> void:
-	draw_list.clear()
-	draw_list.append([to_local(self.global_position), to_local(zooming_pos)])
-
-func _draw() -> void:
-	if draw_list.size() != 0:
-		draw_dashed_line(draw_list[0][0], draw_list[0][1], Color.WHITE, 2, 2)
-	
-	draw_arc(to_local(self.global_position), web_range, 0, 2*PI, 100, Color.WHITE)
-
-func shoot_web(_delta) -> void:
-	if web.is_colliding():
-		var collision_point = web.get_collision_point()
-		self.position = collision_point - Vector2(8, 8)
-
-func move_x(delta):
-	# Accelerate
-	if self.has_input_left_right():
-		self.velocity.x += self.get_x_input() * self.move_acceleration * self.max_speed * delta
-	# Decelerate
-	elif self.velocity.x < 0:
-		self.velocity.x += self.move_deceleration * self.max_speed * delta
-		self.velocity.x = min(self.velocity.x, 0)
-	elif self.velocity.x > 0:
-		self.velocity.x -= self.move_deceleration * self.max_speed * delta
-		self.velocity.x = max(self.velocity.x, 0)
-	
-	self.was_on_floor = self.is_on_floor()
-	
-	cap_velocity_x(max_speed)
-
-func cap_velocity_x(max_velocity: float):
-	self.velocity.x = clampf(self.velocity.x, -max_velocity, max_velocity)
-
-func move_y(delta):
-	# Accelerate
-	if self.has_input_up_down():
-		self.velocity.y += self.get_y_input() * self.move_acceleration * self.max_speed * delta
-	# Decelerate
-	elif self.velocity.y < 0:
-		self.velocity.y += self.move_deceleration * self.max_speed * delta
-		self.velocity.y = min(self.velocity.y, 0)
-	elif self.velocity.y > 0:
-		self.velocity.y -= self.move_deceleration * self.max_speed * delta
-		self.velocity.y = max(self.velocity.y, 0)
-	
-	cap_velocity_y(max_speed)
-
-func cap_velocity_y(max_velocity: float):
-	self.velocity.y = clampf(self.velocity.y, -max_velocity, max_velocity)
-
-func handle_jump(direction):
-	if self.is_on_floor() or not self.coyote_timer.is_stopped():
-		self.velocity.y = self.jump_velocity
-	elif self.is_on_wall():
-		if direction == Global.DIRECTIONS.RIGHT:
-			# Jump right
-			self.velocity = Vector2(self.wall_jump_velocity, -self.wall_jump_velocity)
-		if direction == Global.DIRECTIONS.LEFT:
-			# Jump left
-			self.velocity = Vector2(-self.wall_jump_velocity, -self.wall_jump_velocity)
-	else:
-		self.jump_buffer_timer.start()
-	
-	# Jump buffer
-	if self.is_on_floor() and not self.jump_buffer_timer.is_stopped():
-		self.velocity.y = self.jump_velocity
-	
-	# Variable jump height
-	if Input.is_action_just_released("jump") and self.velocity.y < 0.0:
-		self.velocity.y *= 0.5
-
+"""
+	Gravity functions
+"""
+## Function to apply gravity to the player
 func apply_gravity(delta: float) -> void:
 	if not gravity_on:
 		return
@@ -252,21 +145,227 @@ func get_gravity() -> float:
 	return jump_gravity if velocity.y < 0.0 else fall_gravity
 
 
+func toggle_gravity() -> void:
+	gravity_on = not gravity_on
+
+
+
+"""
+	Movement functions
+"""
+## Function to handle player movement along the x-axis
+func move_x(delta):
+	# Accelerate
+	if self.has_input_left_right():
+		self.velocity.x += self.get_x_input() * self.move_acceleration * self.max_speed * delta
+	# Decelerate
+	elif self.velocity.x < 0:
+		self.velocity.x += self.move_deceleration * self.max_speed * delta
+		self.velocity.x = min(self.velocity.x, 0)
+	elif self.velocity.x > 0:
+		self.velocity.x -= self.move_deceleration * self.max_speed * delta
+		self.velocity.x = max(self.velocity.x, 0)
+	
+	self.was_on_floor = self.is_on_floor()
+	
+	cap_velocity_x(max_speed)
+
+## Function to cap player velocity along the x-axis
+func cap_velocity_x(max_velocity: float):
+	self.velocity.x = clampf(self.velocity.x, -max_velocity, max_velocity)
+
+## Function to handle player movement along the y-axis
+func move_y(delta):
+	# Accelerate
+	if self.has_input_up_down():
+		self.velocity.y += self.get_y_input() * self.move_acceleration * self.max_speed * delta
+	# Decelerate
+	elif self.velocity.y < 0:
+		self.velocity.y += self.move_deceleration * self.max_speed * delta
+		self.velocity.y = min(self.velocity.y, 0)
+	elif self.velocity.y > 0:
+		self.velocity.y -= self.move_deceleration * self.max_speed * delta
+		self.velocity.y = max(self.velocity.y, 0)
+	
+	cap_velocity_y(max_speed)
+
+## Function to cap player velocity along the y-axis
+func cap_velocity_y(max_velocity: float):
+	self.velocity.y = clampf(self.velocity.y, -max_velocity, max_velocity)
+
+
+## Function to handle player jumping
+func handle_jump(direction):
+	if self.is_on_floor() or not self.coyote_timer.is_stopped():
+		self.velocity.y = self.jump_velocity
+	elif self.is_on_wall():
+		if direction == Global.DIRECTIONS.RIGHT:
+			# Jump right
+			self.velocity = Vector2(self.wall_jump_velocity, -self.wall_jump_velocity)
+		if direction == Global.DIRECTIONS.LEFT:
+			# Jump left
+			self.velocity = Vector2(-self.wall_jump_velocity, -self.wall_jump_velocity)
+	else:
+		self.jump_buffer_timer.start()
+	
+	# Jump buffer
+	if self.is_on_floor() and not self.jump_buffer_timer.is_stopped():
+		self.velocity.y = self.jump_velocity
+	
+	# Variable jump height
+	if Input.is_action_just_released("jump") and self.velocity.y < 0.0:
+		self.velocity.y *= 0.5
+
+
+func reset_velocity() -> void:
+	velocity = Vector2.ZERO
+
+
+func is_x_stationary() -> bool:
+	return velocity.x == 0
+
+
+func is_y_stationary() -> bool:
+	return velocity.y == 0
+
+
+
+"""
+	Web functions
+"""
+var draw_list: Array = []
+## Draws a web from player position to zooming point
+func draw_web(zooming_pos: Vector2) -> void:
+	draw_list.clear()
+	draw_list.append([to_local(self.global_position), to_local(zooming_pos)])
+
+
+func _draw() -> void:
+	if draw_list.size() != 0:
+		draw_dashed_line(draw_list[0][0], draw_list[0][1], Color.WHITE, 2, 2)
+	
+	draw_arc(to_local(self.global_position), web_range, 0, 2*PI, 100, Color.WHITE)
+
+
+## Clears the web drawing
+func remove_web() -> void:
+	draw_list.clear()
+
+
+func web_is_colliding() -> bool:
+	return web.is_colliding()
+
+
+func get_web_collision_pos() -> Vector2:
+	return web.get_collision_point()
+
+
+func get_zooming_max_speed() -> float:
+	return zooming_max_speed
+
+
+func get_zooming_acceleration() -> float:
+	return zooming_acceleration
+
+
+func is_simple_zooming() -> bool:
+	return simple_zooming
+
+
+
+"""
+	Colliders functions
+"""
+## Enables all directional colliders
+func enable_colliders() -> void:
+	$StickyUp.enabled = true
+	$StickyRight.enabled = true
+	$StickyDown.enabled = true
+	$StickyLeft.enabled = true
+
+
+## Disables all directional colliders
+func disable_colliders() -> void:
+	$StickyUp.enabled = false
+	$StickyRight.enabled = false
+	$StickyDown.enabled = false
+	$StickyLeft.enabled = false
+
+
+func is_colliding_up() -> bool:
+	return $StickyUp.is_colliding()
+
+
+func is_colliding_right() -> bool:
+	return $StickyRight.is_colliding()
+
+
+func is_colliding_down() -> bool:
+	return $StickyDown.is_colliding()
+
+
+func is_colliding_left() -> bool:
+	return $StickyLeft.is_colliding()
+
+
+## Checks if gravity is going up
+func is_stuck_up() -> bool:
+	return current_down == Vector2.UP
+
+
+## Checks if gravity is going right
+func is_stuck_right() -> bool:
+	return current_down == Vector2.RIGHT
+
+
+## Checks if gravity is going down
+func is_stuck_down() -> bool:
+	return current_down == Vector2.DOWN
+
+
+## Checks if gravity is going left
+func is_stuck_left() -> bool:
+	return current_down == Vector2.LEFT
+
+
+
+"""
+	Sprite and Player Manipulation functions
+"""
+func reset_sprite_rotation() -> void:
+	animation_sprite.rotation = 0
+
+
+func reset_horizontal_flip() -> void:
+	animation_sprite.flip_h = false
+
+
+## Make sprite rotate towards a position
+func sprite_look_at(pos: Vector2) -> void:
+	animation_sprite.look_at(pos)
+
+
 func set_animation(animation_name: String) -> void:
 	current_animation = animation_name
 
+
+## Flips the sprite when player on the ceiling
 func flip_sprite_ceiling():
 	if self.has_input_right():
 		animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.LEFT)
 	elif self.has_input_left():
 		animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.RIGHT)
 
+
+## Flips the sprite when player on the ground
 func flip_sprite_air_ground():
 	if self.has_input_left():
 		animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.LEFT)
 	elif self.has_input_right():
 		animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.RIGHT)
 
+
+## Flips the sprite when player on the walls
 func flip_sprite_wall():
 	if self.is_stuck_right():
 		if self.has_input_up():
@@ -280,6 +379,7 @@ func flip_sprite_wall():
 			animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.RIGHT)
 
 
+## Sets a new rotation for the player
 func update_rotation(new_rotation: Global.DIRECTIONS) -> void:
 	if new_rotation == Global.DIRECTIONS.UP:
 		self.set_rotation_degrees(180)
@@ -291,67 +391,50 @@ func update_rotation(new_rotation: Global.DIRECTIONS) -> void:
 		self.set_rotation_degrees(90)
 
 
+## Sets a new down vector for the gravity to work in
 func set_current_down(new_down: Global.DIRECTIONS) -> void:
 	current_down = DIRECTIONS.get(new_down)
 	
 	update_rotation(new_down)
 
+
+## Sticks the player to a given surface
 func stick_to_surface(surface: Global.DIRECTIONS) -> void:
 	velocity = STICK_SURFACE_CODE.get(surface)
 
-func is_x_stationary() -> bool:
-	return velocity.x == 0
 
-func is_y_stationary() -> bool:
-	return velocity.y == 0
 
-func is_colliding_up() -> bool:
-	return $StickyUp.is_colliding()
-
-func is_colliding_right() -> bool:
-	return $StickyRight.is_colliding()
-
-func is_colliding_down() -> bool:
-	return $StickyDown.is_colliding()
-
-func is_colliding_left() -> bool:
-	return $StickyLeft.is_colliding()
+"""
+	Input functions
+"""
 
 func get_y_input() -> float:
 	return Input.get_axis("up", "down")
 
+
 func get_x_input() -> float:
 	return Input.get_axis("left", "right")
+
 
 func has_input_left_right() -> bool:
 	return Input.get_axis("left", "right") != 0
 
+
 func has_input_up_down() -> bool:
 	return Input.get_axis("up", "down") != 0
+
 
 func has_input_up() -> bool:
 	return Input.is_action_pressed("up")
 
+
 func has_input_right() -> bool:
 	return Input.is_action_pressed("right")
+
 
 func has_input_down() -> bool:
 	return Input.is_action_pressed("down")
 
+
 func has_input_left() -> bool:
 	return Input.is_action_pressed("left")
-
-func is_stuck_up() -> bool:
-	return current_down == Vector2.UP
-
-
-func is_stuck_right() -> bool:
-	return current_down == Vector2.RIGHT
-
-
-func is_stuck_down() -> bool:
-	return current_down == Vector2.DOWN
-
-
-func is_stuck_left() -> bool:
-	return current_down == Vector2.LEFT
