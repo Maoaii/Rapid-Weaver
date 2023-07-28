@@ -2,16 +2,16 @@ extends PlayerState
 
 ## Dictionary that maps vector directions to strings
 const JUMP_DIRECTIONS = {
-	Vector2.UP: "u",
-	Vector2.RIGHT: "r",
-	Vector2.DOWN: "d",
-	Vector2.LEFT: "l"
+	Vector2.UP: Global.DIRECTIONS.UP,
+	Vector2.RIGHT: Global.DIRECTIONS.RIGHT,
+	Vector2.DOWN: Global.DIRECTIONS.DOWN,
+	Vector2.LEFT: Global.DIRECTIONS.LEFT
 }
 
 
 func _enter(msg := {}) -> void:
 	# Set direction for gravity to work in
-	player.set_current_down("b")
+	player.set_current_down(Global.DIRECTIONS.DOWN)
 	
 	# Play animation
 	player.set_animation("Air")
@@ -62,4 +62,4 @@ func _physics_update(delta: float) -> void:
 		Jump again
 	"""
 	if Input.is_action_just_pressed("jump"):
-		player.handle_jump(JUMP_DIRECTIONS.get(Vector2.UP))
+		player.handle_jump(Global.DIRECTIONS.UP)

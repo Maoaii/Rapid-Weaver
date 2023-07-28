@@ -2,7 +2,7 @@ extends PlayerState
 
 func _enter(_msg := {}):
 	# Set direction for gravity to work in
-	player.set_current_down("b")
+	player.set_current_down(Global.DIRECTIONS.DOWN)
 	
 	# Set animation
 	player.set_animation("Walking")

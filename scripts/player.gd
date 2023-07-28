@@ -4,36 +4,36 @@ extends CharacterBody2D
 ## Player Rotation codes
 ## Matches a string (that resembles a direction) to a rotation in radians
 const ROTATION_CODES = {
-	"t": PI, ## Top rotation
-	"r": PI/2, ## Right rotation
-	"l": -PI/2, ## Left rotation
-	"b": 0, ## Bottom rotation
+	Global.DIRECTIONS.UP: PI, ## Top rotation
+	Global.DIRECTIONS.RIGHT: PI/2, ## Right rotation
+	Global.DIRECTIONS.DOWN: 0, ## Bottom rotation
+	Global.DIRECTIONS.LEFT: -PI/2, ## Left rotation
 }
 
 ## Sprite flip codes
 ## Matches a string (that resembles a direction) to the sprite flip I intend
 const FLIP_CODES = {
-	"r": false, ## When going right, don't flip sprite
-	"l": true, ## When going left, flip sprite
+	Global.DIRECTIONS.RIGHT: false, ## When going right, don't flip sprite
+	Global.DIRECTIONS.LEFT: true, ## When going left, flip sprite
 }
 
 
 ## Directions codes
 ## Matches string (that resembles a direction) to vectors
 const DIRECTIONS = {
-	"t": Vector2.UP,
-	"r": Vector2.RIGHT,
-	"b": Vector2.DOWN,
-	"l": Vector2.LEFT
+	Global.DIRECTIONS.UP: Vector2.UP,
+	Global.DIRECTIONS.RIGHT: Vector2.RIGHT,
+	Global.DIRECTIONS.DOWN: Vector2.DOWN,
+	Global.DIRECTIONS.LEFT: Vector2.LEFT
 }
 
 ## Surface stick codes
 ## Matches string (that resembles a direction) to vectors
 const STICK_SURFACE_CODE = {
-	"t": Vector2(0, -500),
-	"r": Vector2(500, 0),
-	"b": Vector2(0, 500),
-	"l": Vector2(-500, 0)
+	Global.DIRECTIONS.UP: Vector2(0, -500),
+	Global.DIRECTIONS.RIGHT: Vector2(500, 0),
+	Global.DIRECTIONS.DOWN: Vector2(0, 500),
+	Global.DIRECTIONS.LEFT: Vector2(-500, 0)
 }
 
 
@@ -214,10 +214,10 @@ func handle_jump(direction):
 	if self.is_on_floor() or not self.coyote_timer.is_stopped():
 		self.velocity.y = self.jump_velocity
 	elif self.is_on_wall():
-		if direction == "r":
+		if direction == Global.DIRECTIONS.RIGHT:
 			# Jump right
 			self.velocity = Vector2(self.wall_jump_velocity, -self.wall_jump_velocity)
-		if direction == "l":
+		if direction == Global.DIRECTIONS.LEFT:
 			# Jump left
 			self.velocity = Vector2(-self.wall_jump_velocity, -self.wall_jump_velocity)
 	else:
@@ -257,47 +257,47 @@ func set_animation(animation_name: String) -> void:
 
 func flip_sprite_ceiling():
 	if self.has_input_right():
-		animation_sprite.flip_h = FLIP_CODES.get("l")
+		animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.LEFT)
 	elif self.has_input_left():
-		animation_sprite.flip_h = FLIP_CODES.get("r")
+		animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.RIGHT)
 
 func flip_sprite_air_ground():
 	if self.has_input_left():
-		animation_sprite.flip_h = FLIP_CODES.get("l")
+		animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.LEFT)
 	elif self.has_input_right():
-		animation_sprite.flip_h = FLIP_CODES.get("r")
+		animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.RIGHT)
 
 func flip_sprite_wall():
 	if self.is_stuck_right():
 		if self.has_input_up():
-			animation_sprite.flip_h = FLIP_CODES.get("r")
+			animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.RIGHT)
 		elif self.has_input_down():
-			animation_sprite.flip_h = FLIP_CODES.get("l")
+			animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.LEFT)
 	elif self.is_stuck_left():
 		if self.has_input_up():
-			animation_sprite.flip_h = FLIP_CODES.get("l")
+			animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.LEFT)
 		elif self.has_input_down():
-			animation_sprite.flip_h = FLIP_CODES.get("r")
+			animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.RIGHT)
 
 
-func update_rotation(new_rotation) -> void:
-	if new_rotation == "t":
+func update_rotation(new_rotation: Global.DIRECTIONS) -> void:
+	if new_rotation == Global.DIRECTIONS.UP:
 		self.set_rotation_degrees(180)
-	elif new_rotation == "r":
+	elif new_rotation == Global.DIRECTIONS.RIGHT:
 		self.set_rotation_degrees(-90)
-	elif new_rotation == "b":
+	elif new_rotation == Global.DIRECTIONS.DOWN:
 		self.set_rotation_degrees(0)
 	else:
 		self.set_rotation_degrees(90)
 
 
-func set_current_down(new_down: String) -> void:
-	current_down = DIRECTIONS.get(new_down.to_lower())
+func set_current_down(new_down: Global.DIRECTIONS) -> void:
+	current_down = DIRECTIONS.get(new_down)
 	
 	update_rotation(new_down)
 
-func stick_to_surface(surface: String) -> void:
-	velocity = STICK_SURFACE_CODE.get(surface.to_lower())
+func stick_to_surface(surface: Global.DIRECTIONS) -> void:
+	velocity = STICK_SURFACE_CODE.get(surface)
 
 func is_x_stationary() -> bool:
 	return velocity.x == 0

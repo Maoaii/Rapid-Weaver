@@ -10,25 +10,25 @@ func _enter(_msg := {}):
 	"""
 	if player.is_stuck_left() or player.is_stuck_right():
 		if player.is_stuck_left():
-			player.set_current_down("l")
-			player.stick_to_surface("l")
+			player.set_current_down(Global.DIRECTIONS.LEFT)
+			player.stick_to_surface(Global.DIRECTIONS.LEFT)
 		else:
-			player.set_current_down("r")
-			player.stick_to_surface("r")
+			player.set_current_down(Global.DIRECTIONS.RIGHT)
+			player.stick_to_surface(Global.DIRECTIONS.RIGHT)
 	elif not player.is_on_ceiling():
 		if player.is_colliding_right():
-			player.set_current_down("r")
-			player.stick_to_surface("r")
+			player.set_current_down(Global.DIRECTIONS.RIGHT)
+			player.stick_to_surface(Global.DIRECTIONS.RIGHT)
 		else:
-			player.set_current_down("l")
-			player.stick_to_surface("l")
+			player.set_current_down(Global.DIRECTIONS.LEFT)
+			player.stick_to_surface(Global.DIRECTIONS.LEFT)
 	else:
 		if player.is_colliding_right():
-			player.set_current_down("l")
-			player.stick_to_surface("l")
+			player.set_current_down(Global.DIRECTIONS.LEFT)
+			player.stick_to_surface(Global.DIRECTIONS.LEFT)
 		else:
-			player.set_current_down("r")
-			player.stick_to_surface("r")
+			player.set_current_down(Global.DIRECTIONS.RIGHT)
+			player.stick_to_surface(Global.DIRECTIONS.RIGHT)
 
 
 func _physics_update(delta: float) -> void:

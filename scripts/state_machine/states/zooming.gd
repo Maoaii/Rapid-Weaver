@@ -7,7 +7,7 @@ var tmp_zooming_pos: Vector2
 
 
 func _enter(msg := {}) -> void:
-	player.set_current_down("b")
+	player.set_current_down(Global.DIRECTIONS.DOWN)
 	
 	player.set_animation("Zooming")
 	
