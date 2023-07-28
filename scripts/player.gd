@@ -53,6 +53,13 @@ const STICK_SURFACE_CODE = {
 # Falling variables
 @export var terminal_velocity : float
 
+
+@export_group("Web Variables")
+@export var simple_zooming: bool
+@export var web_range : float
+@export var zooming_max_speed: float
+@export var zooming_acceleration: float
+
 """
 	Onready variables
 """
@@ -64,9 +71,14 @@ const STICK_SURFACE_CODE = {
 # Timers
 @onready var coyote_timer : Timer = $CoyoteTimer
 @onready var jump_buffer_timer : Timer = $JumpBufferTimer
+@onready var zoom_buffer_timer : Timer = $ZoomBufferTimer
 
 # Animations
 @onready var animation_sprite : AnimatedSprite2D = $AnimatedSprite2D
+
+# Web
+@onready
+var web : RayCast2D = $Web
 
 
 """
@@ -74,9 +86,10 @@ const STICK_SURFACE_CODE = {
 """
 # Small state variables
 var was_on_floor : bool
-var is_sticky : bool = false
 var current_animation : String
 var current_down : Vector2 = Vector2.DOWN
+var gravity_on : bool = true
+var zooming : bool = false
 
 func _physics_process(delta: float) -> void:
 	# Apply gravity to the player
@@ -87,6 +100,56 @@ func _physics_process(delta: float) -> void:
 	
 	# Play animation
 	animation_sprite.play(current_animation)
+	
+	# Update web aim
+	web.target_position = web.position.direction_to(get_local_mouse_position()) * web_range
+	queue_redraw()
+
+func toggle_gravity() -> void:
+	gravity_on = not gravity_on
+
+func enable_colliders() -> void:
+	$StickyUp.enabled = true
+	$StickyRight.enabled = true
+	$StickyDown.enabled = true
+	$StickyLeft.enabled = true
+
+func disable_colliders() -> void:
+	$StickyUp.enabled = false
+	$StickyRight.enabled = false
+	$StickyDown.enabled = false
+	$StickyLeft.enabled = false
+
+func web_is_colliding() -> bool:
+	return web.is_colliding()
+
+func get_web_collision_pos() -> Vector2:
+	return web.get_collision_point()
+
+func get_zooming_max_speed() -> float:
+	return zooming_max_speed
+
+func get_zooming_acceleration() -> float:
+	return zooming_acceleration
+
+func is_simple_zooming() -> bool:
+	return simple_zooming
+
+var draw_list: Array = []
+func draw_web(zooming_pos: Vector2) -> void:
+	draw_list.clear()
+	draw_list.append([to_local(self.global_position), to_local(zooming_pos)])
+
+func _draw() -> void:
+	if draw_list.size() != 0:
+		draw_dashed_line(draw_list[0][0], draw_list[0][1], Color.WHITE, 2, 2)
+	
+	draw_arc(to_local(self.global_position), web_range, 0, 2*PI, 100, Color.WHITE)
+
+func shoot_web(_delta) -> void:
+	if web.is_colliding():
+		var collision_point = web.get_collision_point()
+		self.position = collision_point - Vector2(8, 8)
 
 func move_x(delta):
 	# Accelerate
@@ -102,10 +165,10 @@ func move_x(delta):
 	
 	self.was_on_floor = self.is_on_floor()
 	
-	cap_velocity_x()
+	cap_velocity_x(max_speed)
 
-func cap_velocity_x():
-	self.velocity.x = clampf(self.velocity.x, -self.max_speed, self.max_speed)
+func cap_velocity_x(max_velocity: float):
+	self.velocity.x = clampf(self.velocity.x, -max_velocity, max_velocity)
 
 func move_y(delta):
 	# Accelerate
@@ -119,10 +182,10 @@ func move_y(delta):
 		self.velocity.y -= self.move_deceleration * self.max_speed * delta
 		self.velocity.y = max(self.velocity.y, 0)
 	
-	cap_velocity_y()
+	cap_velocity_y(max_speed)
 
-func cap_velocity_y():
-	self.velocity.y = clampf(self.velocity.y, -self.max_speed, self.max_speed)
+func cap_velocity_y(max_velocity: float):
+	self.velocity.y = clampf(self.velocity.y, -max_velocity, max_velocity)
 
 func handle_jump(direction):
 	if self.is_on_floor() or not self.coyote_timer.is_stopped():
@@ -146,6 +209,9 @@ func handle_jump(direction):
 		self.velocity.y *= 0.5
 
 func apply_gravity(delta: float) -> void:
+	if not gravity_on:
+		return
+	
 	var gravity : Vector2
 	if self.is_stuck_up():
 		gravity = Vector2(0, -self.get_gravity())
