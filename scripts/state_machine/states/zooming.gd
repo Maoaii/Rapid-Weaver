@@ -21,6 +21,8 @@ func _enter(msg := {}) -> void:
 		player.velocity = Vector2.ZERO
 	
 	player.zooming = true
+	
+	player.animation_sprite.flip_h = false
 
 
 func _exit() -> void:
