@@ -1,5 +1,6 @@
 extends PlayerState
 
+## Dictionary that maps vector directions to strings
 const JUMP_DIRECTIONS = {
 	Vector2.UP: "u",
 	Vector2.RIGHT: "r",
@@ -7,8 +8,8 @@ const JUMP_DIRECTIONS = {
 	Vector2.LEFT: "l"
 }
 
+
 func _enter(msg := {}) -> void:
-	
 	if msg.has("jump"):
 		player.handle_jump(JUMP_DIRECTIONS.get(msg.get("direction")))
 	
@@ -16,11 +17,13 @@ func _enter(msg := {}) -> void:
 	player.set_current_down("b")
 	
 	# Play animation
-	# !TODO: change to Air
-	#player.set_animation("Idle")
+	player.set_animation("Air")
 
 
 func _physics_update(delta: float) -> void:
+	player.move_x(delta)
+	player.flip_sprite_air_ground()
+	
 	"""
 		Stick to the ceiling
 	"""
@@ -42,9 +45,8 @@ func _physics_update(delta: float) -> void:
 	if player.is_on_floor() and player.jump_buffer_timer.is_stopped():
 		state_machine.transition_to("Walking")
 	
-	player.move_x(delta)
-	
-	player.flip_sprite_air_ground()
-	
+	"""
+		Jump again
+	"""
 	if Input.is_action_just_pressed("jump"):
 		player.handle_jump(JUMP_DIRECTIONS.get(Vector2.UP))

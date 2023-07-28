@@ -6,6 +6,8 @@ var tmp_zooming_pos: Vector2
 func _enter(msg := {}) -> void:
 	player.set_current_down("b")
 	
+	player.set_animation("Zooming")
+	
 	zooming_pos = msg.get("position")
 	
 	# Disable gravity
@@ -28,9 +30,14 @@ func _exit() -> void:
 	player.zooming = false
 	
 	player.draw_list.clear()
+	
+	player.animation_sprite.rotation = 0
 
 
 func _physics_update(delta: float) -> void:
+	# Rotate sprite to match web collided position
+	player.animation_sprite.look_at(zooming_pos)
+	
 	player.velocity += player.position.direction_to(zooming_pos) * player.get_zooming_acceleration() * player.get_zooming_max_speed() * delta
 	
 	if Input.is_action_just_pressed("shoot_web") and not (player.is_on_floor() or player.is_on_wall() or player.is_on_ceiling()):

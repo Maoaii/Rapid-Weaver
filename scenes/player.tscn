@@ -25,7 +25,7 @@ jump_time_to_descent = 0.4
 wall_jump_velocity = 450.0
 terminal_velocity = 500.0
 web_range = 160.0
-zooming_max_speed = 500.0
+zooming_max_speed = 350.0
 zooming_acceleration = 3.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -38,6 +38,7 @@ drag_right_margin = 1.0
 script = ExtResource("10_b1w7b")
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("8_0oofm")]
+animation = &"Walking"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_k2drm")
