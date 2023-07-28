@@ -1,6 +1,6 @@
 extends PlayerState
 
-func _enter(_msg := {}):
+func _enter(_msg := {}) -> void:
 	# Set direction for gravity to work in
 	player.set_current_down(Global.DIRECTIONS.DOWN)
 	

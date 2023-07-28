@@ -129,14 +129,14 @@ func apply_gravity(delta: float) -> void:
 		return
 	
 	var gravity : Vector2
-	if self.is_stuck_up():
-		gravity = Vector2(0, -self.get_gravity())
-	elif self.is_stuck_right():
-		gravity = Vector2(self.get_gravity(), 0)
-	elif self.is_stuck_down():
-		gravity = Vector2(0, self.get_gravity())
+	if is_stuck_up():
+		gravity = Vector2(0, -get_gravity())
+	elif is_stuck_right():
+		gravity = Vector2(get_gravity(), 0)
+	elif is_stuck_down():
+		gravity = Vector2(0, get_gravity())
 	else:
-		gravity = Vector2(-self.get_gravity(), 0)
+		gravity = Vector2(-get_gravity(), 0)
 	
 	velocity += gravity * delta
 
@@ -154,67 +154,67 @@ func toggle_gravity() -> void:
 	Movement functions
 """
 ## Function to handle player movement along the x-axis
-func move_x(delta):
+func move_x(delta: float) -> void:
 	# Accelerate
-	if self.has_input_left_right():
-		self.velocity.x += self.get_x_input() * self.move_acceleration * self.max_speed * delta
+	if has_input_left_right():
+		velocity.x += get_x_input() * move_acceleration * max_speed * delta
 	# Decelerate
-	elif self.velocity.x < 0:
-		self.velocity.x += self.move_deceleration * self.max_speed * delta
-		self.velocity.x = min(self.velocity.x, 0)
-	elif self.velocity.x > 0:
-		self.velocity.x -= self.move_deceleration * self.max_speed * delta
-		self.velocity.x = max(self.velocity.x, 0)
+	elif velocity.x < 0:
+		velocity.x += move_deceleration * max_speed * delta
+		velocity.x = min(velocity.x, 0)
+	elif velocity.x > 0:
+		velocity.x -= move_deceleration * max_speed * delta
+		velocity.x = max(velocity.x, 0)
 	
-	self.was_on_floor = self.is_on_floor()
+	was_on_floor = is_on_floor()
 	
 	cap_velocity_x(max_speed)
 
 ## Function to cap player velocity along the x-axis
-func cap_velocity_x(max_velocity: float):
-	self.velocity.x = clampf(self.velocity.x, -max_velocity, max_velocity)
+func cap_velocity_x(max_velocity: float) -> void:
+	velocity.x = clampf(velocity.x, -max_velocity, max_velocity)
 
 ## Function to handle player movement along the y-axis
-func move_y(delta):
+func move_y(delta: float) -> void:
 	# Accelerate
-	if self.has_input_up_down():
-		self.velocity.y += self.get_y_input() * self.move_acceleration * self.max_speed * delta
+	if has_input_up_down():
+		velocity.y += get_y_input() * move_acceleration * max_speed * delta
 	# Decelerate
-	elif self.velocity.y < 0:
-		self.velocity.y += self.move_deceleration * self.max_speed * delta
-		self.velocity.y = min(self.velocity.y, 0)
-	elif self.velocity.y > 0:
-		self.velocity.y -= self.move_deceleration * self.max_speed * delta
-		self.velocity.y = max(self.velocity.y, 0)
+	elif velocity.y < 0:
+		velocity.y += move_deceleration * max_speed * delta
+		velocity.y = min(velocity.y, 0)
+	elif velocity.y > 0:
+		velocity.y -= move_deceleration * max_speed * delta
+		velocity.y = max(velocity.y, 0)
 	
 	cap_velocity_y(max_speed)
 
 ## Function to cap player velocity along the y-axis
-func cap_velocity_y(max_velocity: float):
-	self.velocity.y = clampf(self.velocity.y, -max_velocity, max_velocity)
+func cap_velocity_y(max_velocity: float) -> void:
+	velocity.y = clampf(velocity.y, -max_velocity, max_velocity)
 
 
 ## Function to handle player jumping
-func handle_jump(direction):
-	if self.is_on_floor() or not self.coyote_timer.is_stopped():
-		self.velocity.y = self.jump_velocity
-	elif self.is_on_wall():
+func handle_jump(direction: Global.DIRECTIONS) -> void:
+	if is_on_floor() or not coyote_timer.is_stopped():
+		velocity.y = jump_velocity
+	elif is_on_wall():
 		if direction == Global.DIRECTIONS.RIGHT:
 			# Jump right
-			self.velocity = Vector2(self.wall_jump_velocity, -self.wall_jump_velocity)
+			velocity = Vector2(wall_jump_velocity, -wall_jump_velocity)
 		if direction == Global.DIRECTIONS.LEFT:
 			# Jump left
-			self.velocity = Vector2(-self.wall_jump_velocity, -self.wall_jump_velocity)
+			velocity = Vector2(-wall_jump_velocity, -wall_jump_velocity)
 	else:
-		self.jump_buffer_timer.start()
+		jump_buffer_timer.start()
 	
 	# Jump buffer
-	if self.is_on_floor() and not self.jump_buffer_timer.is_stopped():
-		self.velocity.y = self.jump_velocity
+	if is_on_floor() and not jump_buffer_timer.is_stopped():
+		velocity.y = jump_velocity
 	
 	# Variable jump height
-	if Input.is_action_just_released("jump") and self.velocity.y < 0.0:
-		self.velocity.y *= 0.5
+	if Input.is_action_just_released("jump") and velocity.y < 0.0:
+		velocity.y *= 0.5
 
 
 func reset_velocity() -> void:
@@ -237,14 +237,14 @@ var draw_list: Array = []
 ## Draws a web from player position to zooming point
 func draw_web(zooming_pos: Vector2) -> void:
 	draw_list.clear()
-	draw_list.append([to_local(self.global_position), to_local(zooming_pos)])
+	draw_list.append([to_local(global_position), to_local(zooming_pos)])
 
 
 func _draw() -> void:
 	if draw_list.size() != 0:
 		draw_dashed_line(draw_list[0][0], draw_list[0][1], Color.WHITE, 2, 2)
 	
-	draw_arc(to_local(self.global_position), web_range, 0, 2*PI, 100, Color.WHITE)
+	draw_arc(to_local(global_position), web_range, 0, 2*PI, 100, Color.WHITE)
 
 
 ## Clears the web drawing
@@ -350,45 +350,45 @@ func set_animation(animation_name: String) -> void:
 
 
 ## Flips the sprite when player on the ceiling
-func flip_sprite_ceiling():
-	if self.has_input_right():
+func flip_sprite_ceiling() -> void:
+	if has_input_right():
 		animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.LEFT)
-	elif self.has_input_left():
+	elif has_input_left():
 		animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.RIGHT)
 
 
 ## Flips the sprite when player on the ground
-func flip_sprite_air_ground():
-	if self.has_input_left():
+func flip_sprite_air_ground() -> void:
+	if has_input_left():
 		animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.LEFT)
-	elif self.has_input_right():
+	elif has_input_right():
 		animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.RIGHT)
 
 
 ## Flips the sprite when player on the walls
-func flip_sprite_wall():
-	if self.is_stuck_right():
-		if self.has_input_up():
+func flip_sprite_wall() -> void:
+	if is_stuck_right():
+		if has_input_up():
 			animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.RIGHT)
-		elif self.has_input_down():
+		elif has_input_down():
 			animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.LEFT)
-	elif self.is_stuck_left():
-		if self.has_input_up():
+	elif is_stuck_left():
+		if has_input_up():
 			animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.LEFT)
-		elif self.has_input_down():
+		elif has_input_down():
 			animation_sprite.flip_h = FLIP_CODES.get(Global.DIRECTIONS.RIGHT)
 
 
 ## Sets a new rotation for the player
 func update_rotation(new_rotation: Global.DIRECTIONS) -> void:
 	if new_rotation == Global.DIRECTIONS.UP:
-		self.set_rotation_degrees(180)
+		set_rotation_degrees(180)
 	elif new_rotation == Global.DIRECTIONS.RIGHT:
-		self.set_rotation_degrees(-90)
+		set_rotation_degrees(-90)
 	elif new_rotation == Global.DIRECTIONS.DOWN:
-		self.set_rotation_degrees(0)
+		set_rotation_degrees(0)
 	else:
-		self.set_rotation_degrees(90)
+		set_rotation_degrees(90)
 
 
 ## Sets a new down vector for the gravity to work in

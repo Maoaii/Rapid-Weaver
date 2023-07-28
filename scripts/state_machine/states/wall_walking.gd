@@ -1,7 +1,7 @@
 extends PlayerState
 
 
-func _enter(_msg := {}):
+func _enter(_msg := {}) -> void:
 	# Play animation
 	player.set_animation("Walking")
 	
