@@ -2,8 +2,12 @@ extends PlayerState
 
 
 func _enter(_msg := {}):
-	# Set direction for gravity to work in
-
+	# Play animation
+	player.set_animation("Walking")
+	
+	"""
+		Set direction for gravity to work in
+	"""
 	if player.is_stuck_left() or player.is_stuck_right():
 		if player.is_stuck_left():
 			player.set_current_down("l")
@@ -25,21 +29,37 @@ func _enter(_msg := {}):
 		else:
 			player.set_current_down("r")
 			player.stick_to_surface("r")
-	
-	# Play animation
-	player.set_animation("Walking")
 
 
 func _physics_update(delta: float) -> void:
-	# Transition to Idle
+	player.move_y(delta)
+	player.flip_sprite_wall()
+	
+	"""
+		Transition to zooming
+	"""
+	if Input.is_action_just_pressed("shoot_web") and player.web_is_colliding():
+		state_machine.transition_to("Zooming", 
+			{"position": player.get_web_collision_pos()})
+		return
+	
+	"""
+		Transition to Idle
+	"""
 	if not player.has_input_up_down() and player.is_y_stationary():
 		state_machine.transition_to("Idle")
+		return
 	
-	# Transition to Air (without jump)
+	"""
+		Transition to Air (without jump)
+	"""
 	if not player.is_colliding_down() and not player.is_on_wall():
 		state_machine.transition_to("Air")
+		return
 	
-	# Transition to air (with jump)
+	"""
+		Transition to air (with jump)
+	"""
 	if Input.is_action_just_pressed("jump"):
 		var tmp_current_down = player.current_down
 		
@@ -55,20 +75,20 @@ func _physics_update(delta: float) -> void:
 		# Colliding with ceiling
 		if player.is_colliding_left():
 			state_machine.transition_to("CeilingWalk")
+			return
 		
 		# Colliding with ground
 		elif player.is_colliding_right():
 			state_machine.transition_to("Walking")
+			return
 	elif player.has_input_left() and player.is_stuck_right():
 		# Colliding with ground
 		if player.is_colliding_left():
 			state_machine.transition_to("Walking")
+			return
 		
 		# Colliding with ceiling
 		elif player.is_colliding_right():
 			state_machine.transition_to("CeilingWalk")
-	
-	player.move_y(delta)
-	
-	player.flip_sprite_wall()
+			return
 

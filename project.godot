@@ -19,6 +19,10 @@ config/features=PackedStringArray("4.1", "GL Compatibility")
 
 aseprite_executable_path="/Applications/Aseprite.app/Contents/MacOS/aseprite"
 
+[autoload]
+
+Global="*res://scripts/global.gd"
+
 [display]
 
 window/size/viewport_width=640

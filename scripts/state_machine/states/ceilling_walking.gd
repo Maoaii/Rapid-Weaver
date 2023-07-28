@@ -10,20 +10,41 @@ func _enter(_msg := {}):
 	
 
 func _physics_update(delta: float) -> void:
-	# Transition to Idle
+	player.move_x(delta)
+	player.flip_sprite_ceiling()
+	
+	"""
+		Transition to zooming
+	"""
+	if Input.is_action_just_pressed("shoot_web") and player.web_is_colliding():
+		state_machine.transition_to("Zooming", 
+			{"position": player.get_web_collision_pos()})
+		return
+	
+	"""
+		Transition to Idle
+	"""
 	if not player.has_input_left_right() and player.is_x_stationary():
 		state_machine.transition_to("Idle")
+		return
 	
-	# Transition to Air (without jump)
+	"""
+		Transition to Air (without jump)
+	"""
 	if not player.is_colliding_down() and not player.is_on_ceiling():
 		state_machine.transition_to("Air")
+		return
 	
-	# Transition to Air (with jump)
+	"""
+		Transition to Air (with jump)
+	"""
 	if Input.is_action_just_pressed("jump"):
 		var tmp_current_down = player.current_down
 		
 		state_machine.transition_to("Air", 
-			{"jump": true, "direction": (tmp_current_down * Vector2(-1, -1))})
+			{"jump": true, 
+			"direction": (tmp_current_down * Vector2(-1, -1))})
+		return
 	
 	"""
 		Change from ceiling to walls
@@ -32,11 +53,9 @@ func _physics_update(delta: float) -> void:
 		# Colliding with rifht wall
 		if player.is_colliding_left():
 			state_machine.transition_to("WallWalking")
+			return
 		
 		# Colliding with left wall
 		elif player.is_colliding_right():
 			state_machine.transition_to("WallWalking")
-	
-	player.move_x(delta)
-	
-	player.flip_sprite_ceiling()
+			return

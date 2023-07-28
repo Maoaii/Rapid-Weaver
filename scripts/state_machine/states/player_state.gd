@@ -16,9 +16,3 @@ func _ready() -> void:
 	# in a scene other than `Player.tscn`, which would be unintended. This can
 	# help prevent some bugs that are difficult to understand.
 	assert(player != null)
-
-func _update(_delta: float) -> void:
-	# Check for web shooting in every state
-	if Input.is_action_just_pressed("shoot_web") and not player.zooming and player.web_is_colliding():
-		state_machine.transition_to("Zooming", 
-			{"position": player.get_web_collision_pos()})

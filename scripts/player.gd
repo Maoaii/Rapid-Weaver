@@ -1,21 +1,25 @@
 class_name Player
 extends CharacterBody2D
 
-"""
-	Dictionaries
-"""
+## Player Rotation codes
+## Matches a string (that resembles a direction) to a rotation in radians
 const ROTATION_CODES = {
-	"t": PI,
-	"r": PI/2,
-	"l": -PI/2,
-	"b": 0,
+	"t": PI, ## Top rotation
+	"r": PI/2, ## Right rotation
+	"l": -PI/2, ## Left rotation
+	"b": 0, ## Bottom rotation
 }
 
+## Sprite flip codes
+## Matches a string (that resembles a direction) to the sprite flip I intend
 const FLIP_CODES = {
-	"r": false,
-	"l": true,
+	"r": false, ## When going right, don't flip sprite
+	"l": true, ## When going left, flip sprite
 }
 
+
+## Directions codes
+## Matches string (that resembles a direction) to vectors
 const DIRECTIONS = {
 	"t": Vector2.UP,
 	"r": Vector2.RIGHT,
@@ -23,6 +27,8 @@ const DIRECTIONS = {
 	"l": Vector2.LEFT
 }
 
+## Surface stick codes
+## Matches string (that resembles a direction) to vectors
 const STICK_SURFACE_CODE = {
 	"t": Vector2(0, -500),
 	"r": Vector2(500, 0),
@@ -34,26 +40,24 @@ const STICK_SURFACE_CODE = {
 """
 	Export variables
 """
+## Movement export variables
 @export_group("Movement Variables")
-# Movement variables
 @export var max_speed : float
 @export var move_acceleration : float
 @export var move_deceleration : float
 
+## Jumping export variables
 @export_group("Jumping Variables")
-# Jumping variables
 @export var jump_height : float
 @export var jump_time_to_peak : float
 @export var jump_time_to_descent : float
-
-# Wall Jumping variables
 @export var wall_jump_velocity : float
 
+## Falling export variables
 @export_group("Falling Variables")
-# Falling variables
 @export var terminal_velocity : float
 
-
+## Web export variables
 @export_group("Web Variables")
 @export var simple_zooming: bool
 @export var web_range : float
@@ -63,20 +67,20 @@ const STICK_SURFACE_CODE = {
 """
 	Onready variables
 """
-# Jumping variables
+## Jumping onready variables
 @onready var jump_velocity : float = ((2.0 * jump_height) / jump_time_to_peak) * -1.0
 @onready var jump_gravity : float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
 @onready var fall_gravity : float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
 
-# Timers
+## Onready Timers
 @onready var coyote_timer : Timer = $CoyoteTimer
 @onready var jump_buffer_timer : Timer = $JumpBufferTimer
 @onready var zoom_buffer_timer : Timer = $ZoomBufferTimer
 
-# Animations
+## Onreedy Animation player
 @onready var animation_sprite : AnimatedSprite2D = $AnimatedSprite2D
 
-# Web
+## Onready Web raycast
 @onready
 var web : RayCast2D = $Web
 
@@ -84,11 +88,15 @@ var web : RayCast2D = $Web
 """
 	Normal instance variables
 """
-# Small state variables
+## Boolean that tells if the player was on the floor on the last frame
 var was_on_floor : bool
+## Variable to store the current animation
 var current_animation : String
+## Variable to keep track of the current down vector (to set gravity to)
 var current_down : Vector2 = Vector2.DOWN
+## Variable to know if gravity is currently turned on
 var gravity_on : bool = true
+## Variable to know if player is zooming
 var zooming : bool = false
 
 func _physics_process(delta: float) -> void:
@@ -119,6 +127,21 @@ func disable_colliders() -> void:
 	$StickyRight.enabled = false
 	$StickyDown.enabled = false
 	$StickyLeft.enabled = false
+
+func reset_sprite_rotation() -> void:
+	animation_sprite.rotation = 0
+
+func remove_web() -> void:
+	draw_list.clear()
+
+func reset_horizontal_flip() -> void:
+	animation_sprite.flip_h = false
+
+func reset_velocity() -> void:
+	velocity = Vector2.ZERO
+
+func sprite_look_at(zooming_pos: Vector2) -> void:
+	animation_sprite.look_at(zooming_pos)
 
 func web_is_colliding() -> bool:
 	return web.is_colliding()
