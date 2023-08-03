@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://lmt4yjrdw8kk"]
+[gd_scene load_steps=13 format=3 uid="uid://lmt4yjrdw8kk"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_utnx1"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="4_32n45"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/state_machine/states/ceilling_walking.gd" id="9_bxddi"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/zooming.gd" id="10_4ayft"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="10_b1w7b"]
+[ext_resource type="Script" path="res://scripts/player_debug.gd" id="11_xt54t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k2drm"]
 size = Vector2(16, 10)
@@ -27,6 +28,7 @@ terminal_velocity = 500.0
 web_range = 160.0
 zooming_max_speed = 350.0
 zooming_acceleration = 3.0
+see_range = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
@@ -95,3 +97,33 @@ script = ExtResource("9_bxddi")
 
 [node name="Zooming" type="Node" parent="StateMachine"]
 script = ExtResource("10_4ayft")
+
+[node name="PlayerDebug" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_xt54t")
+
+[node name="CurrentState" type="Label" parent="PlayerDebug"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -30.0
+offset_right = 20.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "State"

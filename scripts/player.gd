@@ -64,6 +64,7 @@ const STICK_SURFACE_CODE = {
 @export var web_range : float
 @export var zooming_max_speed: float
 @export var zooming_acceleration: float
+@export var see_range: bool
 
 
 
@@ -244,7 +245,8 @@ func _draw() -> void:
 	if draw_list.size() != 0:
 		draw_dashed_line(draw_list[0][0], draw_list[0][1], Color.WHITE, 2, 2)
 	
-	draw_arc(to_local(global_position), web_range, 0, 2*PI, 100, Color.WHITE)
+	if see_range:
+		draw_arc(to_local(global_position), web_range, 0, 2*PI, 100, Color.WHITE)
 
 
 ## Clears the web drawing
