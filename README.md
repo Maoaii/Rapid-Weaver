@@ -9,7 +9,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/Maoaii/Temporal-Express">
+  <a href="https://github.com/Maoaii/Rapid-Weaver">
     <img src="assets/spider-web.png" alt="Logo" width="180" height="180">
   </a>
 
@@ -101,8 +101,8 @@ Project Link: []()
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[license-shield]: https://img.shields.io/github/license/Maoaii/Temporal-Express.svg?style=for-the-badge
-[license-url]: https://github.com/Maoaii/Temporal-Express/blob/master/LICENSE.txt
+[license-shield]: https://img.shields.io/github/license/Maoaii/Rapid-Weaver.svg?style=for-the-badge
+[license-url]: https://github.com/Maoaii/Rapid-Weaver/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/lucas-girotto-4530b9233/
 [Godot-badge]: https://img.shields.io/badge/Godot-000000?style=for-the-badge
