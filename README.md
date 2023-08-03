@@ -10,12 +10,13 @@
 <br />
 <div align="center">
   <a href="https://github.com/Maoaii/Temporal-Express">
-    <img src="" alt="Logo" width="360" height="360">
+    <img src="assets/spider-web.png" alt="Logo" width="180" height="180">
   </a>
 
   <h1>Rapid Weaver</h1>
 
   <p align="center">
+    <br />
     <br />
     <br />
     <a href="">Play the game</a>
@@ -47,7 +48,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
+Coming soon...
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
