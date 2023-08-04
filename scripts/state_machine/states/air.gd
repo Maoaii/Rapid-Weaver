@@ -63,3 +63,16 @@ func _physics_update(delta: float) -> void:
 	"""
 	if Input.is_action_just_pressed("jump"):
 		player.handle_jump(Global.DIRECTIONS.UP)
+	
+	"""
+		Jump Buffer
+	"""
+	if player.is_on_floor() and not player.jump_buffer_timer.is_stopped():
+		player.velocity.y = player.jump_velocity
+		player.jump_buffer_timer.stop()
+	
+	"""
+		Variable jump height
+	"""
+	if Input.is_action_just_released("jump") and player.velocity.y < 0.0:
+		player.velocity.y *= 0.5

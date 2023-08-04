@@ -24,10 +24,13 @@ jump_height = 80.0
 jump_time_to_peak = 0.3
 jump_time_to_descent = 0.4
 wall_jump_velocity = 450.0
+jump_buffer_time = 0.1
+coyote_time = 0.15
 terminal_velocity = 500.0
 web_range = 160.0
 zooming_max_speed = 350.0
 zooming_acceleration = 3.0
+zoom_buffer_time = 0.1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
@@ -64,7 +67,6 @@ target_position = Vector2(-10, 0)
 collide_with_areas = true
 
 [node name="CoyoteTimer" type="Timer" parent="."]
-wait_time = 0.15
 one_shot = true
 
 [node name="JumpBufferTimer" type="Timer" parent="."]

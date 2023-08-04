@@ -9,9 +9,6 @@ func _enter(_msg := {}) -> void:
 
 
 func _physics_update(delta: float) -> void:
-	player.move_x(delta)
-	player.flip_sprite_air_ground()
-	
 	"""
 		Transition to zooming
 	"""
@@ -30,10 +27,6 @@ func _physics_update(delta: float) -> void:
 	"""
 		Transition to Air
 	"""
-	if not player.is_colliding_down() and not player.is_on_floor():
-		state_machine.transition_to("Air")
-		return
-	
 	# This is used for breakable ground, or when the player goes off the ground
 	if not player.is_on_floor() and not player.is_colliding_down():
 		if player.was_on_floor:
@@ -58,3 +51,6 @@ func _physics_update(delta: float) -> void:
 	if player.is_on_floor() and player.has_input_up() and player.is_colliding_left() or player.is_colliding_right():
 		state_machine.transition_to("WallWalking")
 		return
+	
+	player.move_x(delta)
+	player.flip_sprite_air_ground()

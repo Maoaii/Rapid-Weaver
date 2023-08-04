@@ -53,6 +53,10 @@ const STICK_SURFACE_CODE = {
 @export var jump_time_to_peak : float    ## Amount of time, in seconds, the player takes to reach the peak of their jump
 @export var jump_time_to_descent : float ## Amount of time, in seconds, the player takes to reach the ground after jumping
 @export var wall_jump_velocity : float   ## Velocity to jump from a wall
+## Amount of time the player has, before touching a surface, to prep a new jump
+@export_range(0, 1, 0.05) var jump_buffer_time: float
+## Amount of time the player has, after leaving the ground, to prep a new jump
+@export_range(0, 1, 0.05) var coyote_time: float
 
 ## Falling export variables
 @export_group("Falling Variables")
@@ -64,6 +68,8 @@ const STICK_SURFACE_CODE = {
 @export var web_range : float            ## Max web range for zooming
 @export var zooming_max_speed: float     ## Max speed when zooming
 @export var zooming_acceleration: float  ## The acceleration at which the player zooms
+## Amount of time the player has, before touching a surface, to prep a new web zooming
+@export_range(0, 1, 0.05) var zoom_buffer_time: float 
 
 
 
@@ -103,6 +109,13 @@ var gravity_on : bool = true
 ## Variable to know if player is zooming
 var zooming : bool = false
 
+
+
+func _ready() -> void:
+	# Assign timers to export variables
+	coyote_timer.wait_time = coyote_time
+	jump_buffer_timer.wait_time = jump_buffer_time
+	zoom_buffer_timer.wait_time = zoom_buffer_time
 
 func _physics_process(delta: float) -> void:
 	# Apply gravity to the player
@@ -195,7 +208,7 @@ func cap_velocity_y(max_velocity: float) -> void:
 
 
 ## Function to handle player jumping
-func handle_jump(direction: Global.DIRECTIONS) -> void:
+func handle_jump(direction: Global.DIRECTIONS) -> void:	# Jump buffer
 	if is_on_floor() or not coyote_timer.is_stopped():
 		velocity.y = jump_velocity
 	elif is_on_wall():
@@ -207,14 +220,7 @@ func handle_jump(direction: Global.DIRECTIONS) -> void:
 			velocity = Vector2(-wall_jump_velocity, -wall_jump_velocity)
 	else:
 		jump_buffer_timer.start()
-	
-	# Jump buffer
-	if is_on_floor() and not jump_buffer_timer.is_stopped():
-		velocity.y = jump_velocity
-	
-	# Variable jump height
-	if Input.is_action_just_released("jump") and velocity.y < 0.0:
-		velocity.y *= 0.5
+		
 
 
 func reset_velocity() -> void:
