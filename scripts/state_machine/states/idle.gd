@@ -27,7 +27,8 @@ func _physics_update(_delta: float) -> void:
 	"""
 		If any surface we're standing on breaks, transition to air
 	"""
-	if not player.is_colliding_down():
+	if (not player.is_on_floor() and not player.is_on_wall() and not player.is_on_ceiling()) \
+			and not player.is_colliding_down():
 		state_machine.transition_to("Air")
 		return
 	

@@ -48,7 +48,7 @@ func _physics_update(delta: float) -> void:
 	"""
 		Change from ground to walls
 	"""
-	if player.is_on_floor() and player.has_input_up() and player.is_colliding_left() or player.is_colliding_right():
+	if player.is_on_floor() and player.has_input_up() and (player.is_colliding_left() or player.is_colliding_right()):
 		state_machine.transition_to("WallWalking")
 		return
 	
