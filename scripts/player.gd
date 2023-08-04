@@ -43,28 +43,27 @@ const STICK_SURFACE_CODE = {
 """
 ## Movement export variables
 @export_group("Movement Variables")
-@export var max_speed : float
-@export var move_acceleration : float
-@export var move_deceleration : float
+@export var max_speed : float            ## Max speed the player can move at
+@export var move_acceleration : float    ## The acceleration at which the player starts moving
+@export var move_deceleration : float    ## The friction that's applied when the player stops moving
 
 ## Jumping export variables
 @export_group("Jumping Variables")
-@export var jump_height : float
-@export var jump_time_to_peak : float
-@export var jump_time_to_descent : float
-@export var wall_jump_velocity : float
+@export var jump_height : float          ## Max jump height for the player
+@export var jump_time_to_peak : float    ## Amount of time, in seconds, the player takes to reach the peak of their jump
+@export var jump_time_to_descent : float ## Amount of time, in seconds, the player takes to reach the ground after jumping
+@export var wall_jump_velocity : float   ## Velocity to jump from a wall
 
 ## Falling export variables
 @export_group("Falling Variables")
-@export var terminal_velocity : float
+@export var terminal_velocity : float    ## Terminal velocity for falling
 
 ## Web export variables
 @export_group("Web Variables")
-@export var simple_zooming: bool
-@export var web_range : float
-@export var zooming_max_speed: float
-@export var zooming_acceleration: float
-@export var see_range: bool
+@export var simple_zooming: bool         ## Enable/Disable player simple zooming. Cancels the player velocity when transitioning to zooming
+@export var web_range : float            ## Max web range for zooming
+@export var zooming_max_speed: float     ## Max speed when zooming
+@export var zooming_acceleration: float  ## The acceleration at which the player zooms
 
 
 
@@ -245,7 +244,7 @@ func _draw() -> void:
 	if draw_list.size() != 0:
 		draw_dashed_line(draw_list[0][0], draw_list[0][1], Color.WHITE, 2, 2)
 	
-	if see_range:
+	if $PlayerDebug.enable_web_range:
 		draw_arc(to_local(global_position), web_range, 0, 2*PI, 100, Color.WHITE)
 
 
