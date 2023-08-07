@@ -10,6 +10,11 @@ extends Control
 
 @onready var state_label: Label = $CurrentState
 
+func _ready() -> void:
+	if enable_state_debug:
+		state_label.show()
+	else:
+		state_label.hide()
 
 func _process(_delta: float) -> void:
 	if enable_state_debug:

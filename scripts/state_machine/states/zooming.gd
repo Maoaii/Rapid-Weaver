@@ -42,6 +42,9 @@ func _exit() -> void:
 	
 	# Reset sprite rotation
 	player.reset_sprite_rotation()
+	
+	# Play squash animation
+	player.play_squash_animation()
 
 
 func _physics_update(delta: float) -> void:

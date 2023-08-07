@@ -76,3 +76,11 @@ func _physics_update(delta: float) -> void:
 	"""
 	if Input.is_action_just_released("jump") and player.velocity.y < 0.0:
 		player.velocity.y *= 0.5
+	
+	"""
+		Stretch based on velocity
+	"""
+	player.stretch_based_on_velocity()
+
+func _exit() -> void:
+	player.play_squash_animation()

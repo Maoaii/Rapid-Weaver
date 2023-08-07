@@ -61,6 +61,8 @@ const STICK_SURFACE_CODE = {
 ## Falling export variables
 @export_group("Falling Variables")
 @export var terminal_velocity : float    ## Terminal velocity for falling
+## Sprite stretch scale when player is in the air. It's based on the y-axis velocity of the player
+@export_range(1, 2, 0.01) var max_stretch_on_velocity: float
 
 ## Web export variables
 @export_group("Web Variables")
@@ -220,8 +222,6 @@ func handle_jump(direction: Global.DIRECTIONS) -> void:	# Jump buffer
 			velocity = Vector2(-wall_jump_velocity, -wall_jump_velocity)
 	else:
 		jump_buffer_timer.start()
-		
-
 
 func reset_velocity() -> void:
 	velocity = Vector2.ZERO
@@ -339,6 +339,15 @@ func is_stuck_left() -> bool:
 """
 	Sprite and Player Manipulation functions
 """
+func play_squash_animation() -> void:
+	$AnimationPlayer.play("squash")
+
+
+func stretch_based_on_velocity() -> void:
+	animation_sprite.scale.y = remap(abs(velocity.y), 0, max_speed, 1, max_stretch_on_velocity)
+	animation_sprite.scale.x = 1 / animation_sprite.scale.y
+
+
 func reset_sprite_rotation() -> void:
 	animation_sprite.rotation = 0
 

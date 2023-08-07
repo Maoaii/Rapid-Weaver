@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://lmt4yjrdw8kk"]
+[gd_scene load_steps=16 format=3 uid="uid://lmt4yjrdw8kk"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_utnx1"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="4_32n45"]
@@ -15,6 +15,44 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k2drm"]
 size = Vector2(16, 10)
 
+[sub_resource type="Animation" id="Animation_t4vt6"]
+resource_name = "squash"
+length = 0.23
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.11, 0.23),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.25, 0.75), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hg0np"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_068sg"]
+_data = {
+"RESET": SubResource("Animation_hg0np"),
+"squash": SubResource("Animation_t4vt6")
+}
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_utnx1")
 max_speed = 150.0
@@ -27,6 +65,7 @@ wall_jump_velocity = 450.0
 jump_buffer_time = 0.1
 coyote_time = 0.15
 terminal_velocity = 500.0
+max_stretch_on_velocity = 1.1
 web_range = 160.0
 zooming_max_speed = 350.0
 zooming_acceleration = 3.0
@@ -113,6 +152,7 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("11_xt54t")
+enable_state_debug = false
 
 [node name="CurrentState" type="Label" parent="PlayerDebug"]
 layout_mode = 1
@@ -128,3 +168,8 @@ offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "State"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_068sg")
+}
