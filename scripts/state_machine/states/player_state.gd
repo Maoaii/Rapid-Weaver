@@ -1,7 +1,7 @@
 class_name PlayerState
 extends State
 
-# Typed reference to the player node.
+## Typed reference to the player node.
 var player : Player
 
 
@@ -16,8 +16,3 @@ func _ready() -> void:
 	# in a scene other than `Player.tscn`, which would be unintended. This can
 	# help prevent some bugs that are difficult to understand.
 	assert(player != null)
-
-func _update(_delta: float) -> void:
-	if Input.is_action_just_pressed("shoot_web") and not player.zooming and player.web_is_colliding():
-		# Transition to new state
-		state_machine.transition_to("Zooming", {"position": player.get_web_collision_pos()})
