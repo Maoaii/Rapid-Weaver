@@ -67,6 +67,7 @@ const STICK_SURFACE_CODE = {
 ## Web export variables
 @export_group("Web Variables")
 @export var simple_zooming: bool         ## Enable/Disable player simple zooming. Cancels the player velocity when transitioning to zooming
+@export var web_release: bool            ## Enable/Disable player web rfelease on mouse click release
 @export var web_range : float            ## Max web range for zooming
 @export var zooming_max_speed: float     ## Max speed when zooming
 @export var zooming_acceleration: float  ## The acceleration at which the player zooms
