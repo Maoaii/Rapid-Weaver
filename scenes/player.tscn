@@ -12,15 +12,6 @@
 [ext_resource type="Script" path="res://scripts/camera.gd" id="10_b1w7b"]
 [ext_resource type="Script" path="res://scripts/player_debug.gd" id="11_xt54t"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2drm"]
-size = Vector2(16, 10)
-
-[sub_resource type="LabelSettings" id="LabelSettings_r8gwh"]
-font_size = 12
-
-[sub_resource type="LabelSettings" id="LabelSettings_udtxq"]
-font_size = 12
-
 [sub_resource type="Animation" id="Animation_hg0np"]
 length = 0.001
 tracks/0/type = "value"
@@ -59,6 +50,15 @@ _data = {
 "squash": SubResource("Animation_t4vt6")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2drm"]
+size = Vector2(16, 10)
+
+[sub_resource type="LabelSettings" id="LabelSettings_r8gwh"]
+font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_udtxq"]
+font_size = 12
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_utnx1")
 max_speed = 150.0
@@ -86,6 +86,11 @@ drag_horizontal_enabled = true
 drag_left_margin = 1.0
 drag_right_margin = 1.0
 script = ExtResource("10_b1w7b")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_068sg")
+}
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("8_0oofm")]
 animation = &"Walking"
@@ -186,8 +191,3 @@ offset_bottom = 46.0
 text = "21321"
 label_settings = SubResource("LabelSettings_udtxq")
 horizontal_alignment = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_068sg")
-}

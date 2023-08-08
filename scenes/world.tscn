@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dwrwq0svk1grr"]
+[gd_scene load_steps=5 format=3 uid="uid://dwrwq0svk1grr"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_x8mba"]
 [ext_resource type="PackedScene" uid="uid://bsv6277ple8ro" path="res://scenes/game_controller.tscn" id="3_lvjia"]
 [ext_resource type="PackedScene" uid="uid://lmt4yjrdw8kk" path="res://scenes/player.tscn" id="4_1iyyg"]
-[ext_resource type="PackedScene" uid="uid://b2cfcxn7occ3y" path="res://scenes/background.tscn" id="4_w37g8"]
 [ext_resource type="PackedScene" uid="uid://kdhe48dcjwn3" path="res://scenes/base_section.tscn" id="5_oi0t3"]
 
 [node name="World" type="Node2D"]
@@ -11,9 +10,6 @@ script = ExtResource("1_x8mba")
 base_section = ExtResource("5_oi0t3")
 
 [node name="Game Controller" parent="." instance=ExtResource("3_lvjia")]
-
-[node name="Background" parent="." instance=ExtResource("4_w37g8")]
-visible = false
 
 [node name="Player" parent="." instance=ExtResource("4_1iyyg")]
 position = Vector2(325, 324)
