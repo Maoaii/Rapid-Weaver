@@ -164,6 +164,9 @@ func get_gravity() -> float:
 func toggle_gravity() -> void:
 	gravity_on = not gravity_on
 
+func apply_momentum(momentum: Vector2) -> void:
+	velocity.x = momentum.x
+
 
 
 """

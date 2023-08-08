@@ -85,4 +85,4 @@ func _physics_update(delta: float) -> void:
 		tmp_zooming_pos = player.get_web_collision_pos()
 	
 	if player.web_release and Input.is_action_just_released("shoot_web"):
-		state_machine.transition_to("Air", {"from_zoom": player.velocity})
+		state_machine.transition_to("Air", {"momentum": player.velocity})

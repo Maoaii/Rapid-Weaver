@@ -8,8 +8,8 @@ const JUMP_DIRECTIONS = {
 	Vector2.LEFT: Global.DIRECTIONS.LEFT
 }
 
-var from_zoom = false
-var from_zoom_speed
+## Variable to add momentum to the player when entering from the zoom state
+var momentum: Vector2
 
 func _enter(msg := {}) -> void:
 	# Set direction for gravity to work in
@@ -22,17 +22,21 @@ func _enter(msg := {}) -> void:
 	if msg.has("jump"):
 		player.handle_jump(JUMP_DIRECTIONS.get(msg.get("direction")))
 	
-	if msg.has("from_zoom"):
-		from_zoom = true
-		from_zoom_speed = msg.get("from_zoom")
-		print(msg.get("from_zoom"))
+	# Keeo momentum
+	if msg.has("momentum"):
+		momentum = msg.get("momentum")
 
 
 func _physics_update(delta: float) -> void:
-	if player.get_x_input() or player.is_colliding_left() or player.is_colliding_right() or player.is_colliding_down():
-		from_zoom = false
-	if from_zoom:
-		player.velocity.x = from_zoom_speed.x
+	if player.get_x_input() or \
+		player.is_colliding_left() or \
+		player.is_colliding_right() or \
+		player.is_colliding_down():
+		
+		momentum = Vector2.ZERO
+	
+	if momentum != Vector2.ZERO:
+		player.apply_momentum(momentum)
 	
 	player.move_x(delta)
 	player.flip_sprite_air_ground()
