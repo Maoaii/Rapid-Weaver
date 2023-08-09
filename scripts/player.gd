@@ -155,6 +155,8 @@ func apply_gravity(delta: float) -> void:
 		gravity = Vector2(-get_gravity(), 0)
 	
 	velocity += gravity * delta
+	
+	cap_velocity_y(terminal_velocity)
 
 
 func get_gravity() -> float:

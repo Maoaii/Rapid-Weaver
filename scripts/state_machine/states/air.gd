@@ -35,17 +35,18 @@ func _physics_update(delta: float) -> void:
 		
 		momentum = Vector2.ZERO
 	
-	if momentum != Vector2.ZERO:
+	if momentum == Vector2.ZERO:
+		player.move_x(delta)
+		player.flip_sprite_air_ground()
+	else:
 		player.apply_momentum(momentum)
 	
-	player.move_x(delta)
-	player.flip_sprite_air_ground()
 	
 	"""
 		Transition to zooming
 	"""
 	if Input.is_action_just_pressed("shoot_web") and player.web_is_colliding():
-		state_machine.transition_to("Zooming", 
+		state_machine.transition_to("Zooming",
 			{"position": player.get_web_collision_pos()})
 		return
 	
@@ -100,3 +101,4 @@ func _physics_update(delta: float) -> void:
 
 func _exit() -> void:
 	player.play_squash_animation()
+	momentum = Vector2.ZERO
