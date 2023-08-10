@@ -79,6 +79,7 @@ zooming_acceleration = 3.0
 zoom_buffer_time = 0.1
 
 [node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
 zoom = Vector2(2, 2)
 limit_smoothed = true
 position_smoothing_enabled = true

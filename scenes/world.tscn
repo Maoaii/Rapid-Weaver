@@ -17,3 +17,7 @@ sections = Array[PackedScene]([ExtResource("5_oi0t3"), ExtResource("3_fp6a4"), E
 
 [node name="Player" parent="." instance=ExtResource("4_1iyyg")]
 position = Vector2(325, 324)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 360)
+zoom = Vector2(2, 2)

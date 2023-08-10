@@ -1,6 +1,9 @@
 extends Node2D
 
 @export var sections: Array[PackedScene]
+@export var camera_speed: int = 50
+
+@onready var camera: Camera2D = $Camera2D
 
 var spawned_sections: Array[BaseSection]
 
@@ -8,12 +11,15 @@ func _ready() -> void:
 	create_new_section()
 
 
+func _process(delta: float) -> void:
+	camera.offset += Vector2(0, -camera_speed * delta)
+
+
 func add_new_section() -> void:
 	create_new_section()
 
 
 func create_new_section() -> BaseSection:
-	
 	var new_section: BaseSection = sections.pick_random().instantiate()
 	new_section.set_name("BaseSection" + str(spawned_sections.size()))
 	add_child.call_deferred(new_section)
