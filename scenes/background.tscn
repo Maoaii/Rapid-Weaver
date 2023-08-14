@@ -1,12 +1,7 @@
-[gd_scene format=3 uid="uid://b2cfcxn7occ3y"]
+[gd_scene load_steps=2 format=3 uid="uid://b2cfcxn7occ3y"]
 
-[node name="Background" type="CanvasLayer"]
-layer = -1
+[ext_resource type="Texture2D" uid="uid://h3tjkt27j0ml" path="res://assets/background.ase" id="1_3hxeu"]
 
-[node name="ColorRect" type="ColorRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
+[node name="Background" type="Sprite2D"]
+position = Vector2(321, 240)
+texture = ExtResource("1_3hxeu")

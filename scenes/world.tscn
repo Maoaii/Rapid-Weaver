@@ -15,9 +15,22 @@ sections = Array[PackedScene]([ExtResource("5_oi0t3"), ExtResource("3_fp6a4"), E
 
 [node name="Game Controller" parent="." instance=ExtResource("3_lvjia")]
 
-[node name="Player" parent="." instance=ExtResource("4_1iyyg")]
-position = Vector2(325, 324)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(320, 360)
 zoom = Vector2(2, 2)
+
+[node name="Sections" type="Node2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("4_1iyyg")]
+position = Vector2(325, 324)
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

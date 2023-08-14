@@ -22,7 +22,7 @@ func add_new_section() -> void:
 func create_new_section() -> BaseSection:
 	var new_section: BaseSection = sections.pick_random().instantiate()
 	new_section.set_name("BaseSection" + str(spawned_sections.size()))
-	add_child.call_deferred(new_section)
+	$Sections.add_child.call_deferred(new_section)
 	new_section.position += Vector2(0, -480 * spawned_sections.size())
 	spawned_sections.push_back(new_section)
 	

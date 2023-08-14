@@ -165,6 +165,9 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("11_xt54t")
+enable_state_debug = false
+enable_web_range = false
+enable_velocity_debug = false
 
 [node name="CurrentState" type="Label" parent="PlayerDebug"]
 layout_mode = 1

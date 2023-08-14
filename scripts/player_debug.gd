@@ -19,6 +19,11 @@ func _ready() -> void:
 		state_label.show()
 	else:
 		state_label.hide()
+	
+	if enable_velocity_debug:
+		velocity_label.show()
+	else:
+		velocity_label.hide()
 
 func _process(_delta: float) -> void:
 	if enable_state_debug:
