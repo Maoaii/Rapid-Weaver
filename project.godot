@@ -24,6 +24,10 @@ aseprite_executable_path="/Applications/Aseprite.app/Contents/MacOS/aseprite"
 
 Global="*res://scripts/global.gd"
 
+[debug]
+
+gdscript/warnings/integer_division=0
+
 [display]
 
 window/size/viewport_width=640
