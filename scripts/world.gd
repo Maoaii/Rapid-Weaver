@@ -1,5 +1,6 @@
 extends Node2D
 
+@export var enable_following_camera: bool = false
 @export var sections: Array[PackedScene]
 @export var camera_speed: int = 50
 
@@ -12,7 +13,10 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	camera.offset += Vector2(0, -camera_speed * delta)
+	if enable_following_camera:
+		camera.position = get_tree().get_first_node_in_group("Player").position
+	else:
+		camera.offset += Vector2(0, -camera_speed * delta)
 
 
 func add_new_section() -> void:

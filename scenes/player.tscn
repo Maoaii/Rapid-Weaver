@@ -63,8 +63,8 @@ font_size = 12
 script = ExtResource("1_utnx1")
 max_speed = 150.0
 move_acceleration = 8.0
-move_deceleration = 10.0
-jump_height = 80.0
+move_deceleration = 6.0
+jump_height = 60.0
 jump_time_to_peak = 0.3
 jump_time_to_descent = 0.4
 wall_jump_velocity = 450.0
@@ -73,8 +73,8 @@ coyote_time = 0.15
 terminal_velocity = 500.0
 max_stretch_on_velocity = 1.1
 web_release = true
-web_range = 160.0
-zooming_max_speed = 350.0
+web_range = 100.0
+zooming_max_speed = 250.0
 zooming_acceleration = 3.0
 zoom_buffer_time = 0.1
 
@@ -166,7 +166,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("11_xt54t")
 enable_state_debug = false
-enable_web_range = false
 enable_velocity_debug = false
 
 [node name="CurrentState" type="Label" parent="PlayerDebug"]
