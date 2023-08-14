@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://lmt4yjrdw8kk"]
+[gd_scene load_steps=18 format=3 uid="uid://lmt4yjrdw8kk"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_utnx1"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="4_32n45"]
@@ -12,8 +12,20 @@
 [ext_resource type="Script" path="res://scripts/camera.gd" id="10_b1w7b"]
 [ext_resource type="Script" path="res://scripts/player_debug.gd" id="11_xt54t"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2drm"]
-size = Vector2(16, 10)
+[sub_resource type="Animation" id="Animation_hg0np"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_t4vt6"]
 resource_name = "squash"
@@ -32,33 +44,27 @@ tracks/0/keys = {
 "values": [Vector2(1, 1), Vector2(1.25, 0.75), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_hg0np"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_068sg"]
 _data = {
 "RESET": SubResource("Animation_hg0np"),
 "squash": SubResource("Animation_t4vt6")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2drm"]
+size = Vector2(16, 10)
+
+[sub_resource type="LabelSettings" id="LabelSettings_r8gwh"]
+font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_udtxq"]
+font_size = 12
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_utnx1")
 max_speed = 150.0
 move_acceleration = 8.0
-move_deceleration = 10.0
-jump_height = 80.0
+move_deceleration = 6.0
+jump_height = 60.0
 jump_time_to_peak = 0.3
 jump_time_to_descent = 0.4
 wall_jump_velocity = 450.0
@@ -66,12 +72,14 @@ jump_buffer_time = 0.1
 coyote_time = 0.15
 terminal_velocity = 500.0
 max_stretch_on_velocity = 1.1
-web_range = 160.0
-zooming_max_speed = 350.0
+web_release = true
+web_range = 100.0
+zooming_max_speed = 250.0
 zooming_acceleration = 3.0
 zoom_buffer_time = 0.1
 
 [node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
 zoom = Vector2(2, 2)
 limit_smoothed = true
 position_smoothing_enabled = true
@@ -79,6 +87,11 @@ drag_horizontal_enabled = true
 drag_left_margin = 1.0
 drag_right_margin = 1.0
 script = ExtResource("10_b1w7b")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_068sg")
+}
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("8_0oofm")]
 animation = &"Walking"
@@ -153,6 +166,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("11_xt54t")
 enable_state_debug = false
+enable_velocity_debug = false
 
 [node name="CurrentState" type="Label" parent="PlayerDebug"]
 layout_mode = 1
@@ -162,14 +176,21 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = -30.0
+offset_top = -24.0
 offset_right = 20.0
-offset_bottom = -4.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "State"
+label_settings = SubResource("LabelSettings_r8gwh")
+horizontal_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_068sg")
-}
+[node name="CurrentVelocity" type="Label" parent="PlayerDebug"]
+z_index = 10
+layout_mode = 0
+offset_top = 23.0
+offset_right = 40.0
+offset_bottom = 46.0
+text = "21321"
+label_settings = SubResource("LabelSettings_udtxq")
+horizontal_alignment = 1

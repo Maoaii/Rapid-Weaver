@@ -8,6 +8,8 @@ const JUMP_DIRECTIONS = {
 	Vector2.LEFT: Global.DIRECTIONS.LEFT
 }
 
+## Variable to add momentum to the player when entering from the zoom state
+var momentum: Vector2
 
 func _enter(msg := {}) -> void:
 	# Set direction for gravity to work in
@@ -19,17 +21,32 @@ func _enter(msg := {}) -> void:
 	# Went to Air State with a jump
 	if msg.has("jump"):
 		player.handle_jump(JUMP_DIRECTIONS.get(msg.get("direction")))
+	
+	# Keeo momentum
+	if msg.has("momentum"):
+		momentum = msg.get("momentum")
 
 
 func _physics_update(delta: float) -> void:
-	player.move_x(delta)
-	player.flip_sprite_air_ground()
+	if player.get_x_input() or \
+		player.is_colliding_left() or \
+		player.is_colliding_right() or \
+		player.is_colliding_down():
+		
+		momentum = Vector2.ZERO
+	
+	if momentum == Vector2.ZERO:
+		player.move_x(delta)
+		player.flip_sprite_air_ground()
+	else:
+		player.apply_momentum(momentum)
+	
 	
 	"""
 		Transition to zooming
 	"""
 	if Input.is_action_just_pressed("shoot_web") and player.web_is_colliding():
-		state_machine.transition_to("Zooming", 
+		state_machine.transition_to("Zooming",
 			{"position": player.get_web_collision_pos()})
 		return
 	
@@ -84,3 +101,4 @@ func _physics_update(delta: float) -> void:
 
 func _exit() -> void:
 	player.play_squash_animation()
+	momentum = Vector2.ZERO
