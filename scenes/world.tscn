@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dwrwq0svk1grr"]
+[gd_scene load_steps=11 format=3 uid="uid://dwrwq0svk1grr"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_x8mba"]
 [ext_resource type="PackedScene" uid="uid://urntin516n2l" path="res://scenes/sections/base_section5.tscn" id="3_fp6a4"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://kdhe48dcjwn3" path="res://scenes/sections/base_section.tscn" id="5_oi0t3"]
 [ext_resource type="PackedScene" uid="uid://ukhpsrb5wxek" path="res://scenes/sections/base_section2.tscn" id="6_a5bdn"]
 [ext_resource type="PackedScene" uid="uid://2r42pjftoqep" path="res://scenes/fly.tscn" id="9_noggo"]
+[ext_resource type="PackedScene" uid="uid://cxuxs54xiwb7o" path="res://scenes/ui.tscn" id="10_uby7a"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_x8mba")
@@ -39,3 +40,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+
+[node name="UI" parent="." instance=ExtResource("10_uby7a")]
