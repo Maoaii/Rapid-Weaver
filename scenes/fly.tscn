@@ -1,0 +1,88 @@
+[gd_scene load_steps=8 format=3 uid="uid://2r42pjftoqep"]
+
+[ext_resource type="Texture2D" uid="uid://dxqltolsias3m" path="res://assets/Tiles/Transparent/tile_0346.png" id="1_embv5"]
+[ext_resource type="Script" path="res://scripts/fly.gd" id="1_j2ue8"]
+[ext_resource type="Texture2D" uid="uid://b4x5vfbscefxd" path="res://assets/Tiles/Transparent/tile_0326.png" id="2_dqq60"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13vpk"]
+size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_lees5"]
+resource_name = "Float"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("1_embv5"), ExtResource("2_dqq60")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2.08165e-12, -5)]
+}
+
+[sub_resource type="Animation" id="Animation_dktyl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_embv5")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lyraa"]
+_data = {
+"Float": SubResource("Animation_lees5"),
+"RESET": SubResource("Animation_dktyl")
+}
+
+[node name="Fly" type="Area2D"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+script = ExtResource("1_j2ue8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_embv5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2.08165e-12, -3)
+shape = SubResource("RectangleShape2D_13vpk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lyraa")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

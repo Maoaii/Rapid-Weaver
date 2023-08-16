@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxuxs54xiwb7o"]
+
+[ext_resource type="Script" path="res://scripts/ui.gd" id="1_ierx1"]
+[ext_resource type="PackedScene" uid="uid://cmbdadw0lteso" path="res://scenes/score_ui.tscn" id="2_rdlad"]
+
+[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("score_ui")]
+script = ExtResource("1_ierx1")
+score_ui = NodePath("ScoreUI")
+
+[node name="ScoreUI" parent="." instance=ExtResource("2_rdlad")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+offset_left = -87.0
+offset_top = 12.0
+offset_right = -87.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 1
