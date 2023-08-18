@@ -17,8 +17,12 @@ const SECTION_HEIGHT: int = (640 / 16) / 2
 const TILE_SIZE: int = 16
 
 const FLY_PICKUP_SCORE: int = 1
+const SECTION_PASSED_SCORE: int = 10
 
 var score: int = 0
+
+func section_passed() -> void:
+	score += SECTION_PASSED_SCORE
 
 func picked_up_fly() -> void:
 	score += FLY_PICKUP_SCORE
