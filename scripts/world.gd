@@ -27,10 +27,9 @@ func create_new_section() -> BaseSection:
 	var new_section: BaseSection = sections.pick_random().instantiate()
 	new_section.set_name("BaseSection" + str(spawned_sections.size()))
 	$Sections.add_child.call_deferred(new_section)
-	new_section.position += Vector2(0, -480 * spawned_sections.size())
+	new_section.position += Vector2(0, -Global.WINDOW_HEIGHT * spawned_sections.size())
 	spawned_sections.push_back(new_section)
 	
 	new_section.on_top_reached.connect(add_new_section)
-	
 	
 	return new_section
