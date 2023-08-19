@@ -33,7 +33,6 @@ func _draw():
 	
 	var resolution: int = 20
 	var increments: float = 1.0/resolution
-	
 	for i in resolution:
 		var a: Vector2 = get_pos(increments * i) - global_position
 		var b: Vector2 = get_pos(increments * (i + 1)) - global_position
