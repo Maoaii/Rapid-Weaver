@@ -15,7 +15,6 @@ zoom = Vector2(2, 2)
 
 [node name="Player" parent="." instance=ExtResource("4_1iyyg")]
 position = Vector2(325, 324)
-simple_zooming = false
 
 [node name="Fly" parent="." instance=ExtResource("9_noggo")]
 position = Vector2(396, 328)
