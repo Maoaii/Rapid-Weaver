@@ -15,6 +15,7 @@ zoom = Vector2(2, 2)
 
 [node name="Player" parent="." instance=ExtResource("4_1iyyg")]
 position = Vector2(325, 324)
+simple_zooming = false
 
 [node name="Fly" parent="." instance=ExtResource("9_noggo")]
 position = Vector2(396, 328)
@@ -34,3 +35,6 @@ color = Color(0, 0, 0, 1)
 
 [node name="Game Controller" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("3_lvjia")]
 camera = NodePath("../Camera2D")
+enable_following_camera = true
+
+[connection signal="hurt" from="Player" to="Game Controller" method="_on_player_hurt"]

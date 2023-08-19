@@ -1,6 +1,9 @@
 class_name Player
 extends CharacterBody2D
 
+## Signal when player is hurt
+signal hurt
+
 ## Player Rotation codes
 ## Matches a string (that resembles a direction) to a rotation in radians
 const ROTATION_CODES = {
@@ -460,3 +463,11 @@ func has_input_down() -> bool:
 
 func has_input_left() -> bool:
 	return Input.is_action_pressed("left")
+
+
+"""
+	Signals
+"""
+func _on_collider_body_entered(body) -> void:
+	if body.name == "Hurtables":
+		emit_signal("hurt")

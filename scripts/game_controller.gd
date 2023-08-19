@@ -51,3 +51,7 @@ func create_new_section() -> BaseSection:
 	new_section.on_top_reached.connect(add_new_section)
 	
 	return new_section
+
+
+func _on_player_hurt():
+	restart_game()
