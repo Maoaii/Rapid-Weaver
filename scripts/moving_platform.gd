@@ -9,7 +9,7 @@ extends AnimatableBody2D
 var pivot: Vector2
 var time: float
 
-func _ready():
+func _ready() -> void:
 	pivot = global_position
 	set_process(debug)
 
@@ -24,7 +24,7 @@ func _physics_process(delta: float) -> void:
 	time = fmod(time + delta/phase_time, 1.0)
 	global_position = get_pos(time)
 
-func _process(delta) -> void:
+func _process(_delta: float) -> void:
 	queue_redraw()
 
 func _draw():

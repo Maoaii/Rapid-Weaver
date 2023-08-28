@@ -7,5 +7,5 @@ func _ready() -> void:
 
 func _on_body_entered(body) -> void:
 	if body.is_in_group("Player"):
-		Global.picked_up_fly()
+		EventBus._on_fly_eaten.emit()
 		queue_free()

@@ -45,6 +45,9 @@ func _exit() -> void:
 	
 	# Play squash animation
 	player.play_squash_animation()
+	
+	# Enable colliders when exiting zoom
+	player.enable_colliders()
 
 
 func _physics_update(delta: float) -> void:

@@ -22,7 +22,8 @@ aseprite_executable_path="/Applications/Aseprite.app/Contents/MacOS/aseprite"
 
 [autoload]
 
-Global="*res://scripts/global.gd"
+Global="*res://autoloads/global.gd"
+EventBus="*res://autoloads/event_bus.gd"
 
 [debug]
 
