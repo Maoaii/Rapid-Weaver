@@ -5,13 +5,21 @@ func _enter(_msg := {}) -> void:
 	# Play animation
 	player.set_animation("Idle")
 
-func _physics_update(delta: float) -> void:
+func _physics_update(_delta: float) -> void:
 	"""
 		Transition to zooming
 	"""
 	if Input.is_action_just_pressed("shoot_web") and player.web_is_colliding():
-		state_machine.transition_to("Zooming", 
-			{"position": player.get_web_collision_pos()})
+		var collider = player.web.get_collider()
+		
+		if collider.is_in_group("Moving"):
+			state_machine.transition_to("Zooming", 
+				{"position": player.get_web_collision_pos(),
+				 "collider": collider})
+		else:
+			state_machine.transition_to("Zooming", 
+				{"position": player.get_web_collision_pos()})
+		
 		return
 	
 	"""

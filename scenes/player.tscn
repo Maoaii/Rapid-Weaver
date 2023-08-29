@@ -71,8 +71,8 @@ terminal_velocity = 500.0
 max_stretch_on_velocity = 1.1
 web_release = true
 web_range = 100.0
-zooming_max_speed = 250.0
-zooming_acceleration = 3.0
+zooming_max_speed = 80.0
+zooming_acceleration = 8.0
 zoom_buffer_time = 0.1
 
 [node name="Camera2D" type="Camera2D" parent="."]

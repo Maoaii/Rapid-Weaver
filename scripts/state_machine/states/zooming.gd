@@ -5,8 +5,14 @@ var zooming_pos: Vector2
 ## Stores a temporary zooming position if tried to zoom while zooming
 var tmp_zooming_pos: Vector2
 
+var collider: AnimatableBody2D
+var distance_from_pos: Vector2
 
 func _enter(msg := {}) -> void:
+	if msg.has("collider"):
+		collider = msg.get("collider")
+		distance_from_pos = collider.global_position - msg.get("position")
+	
 	player.set_current_down(Global.DIRECTIONS.DOWN)
 	
 	player.set_animation("Zooming")
@@ -48,6 +54,8 @@ func _exit() -> void:
 	
 	# Enable colliders when exiting zoom
 	player.enable_colliders()
+	
+	collider = null
 
 
 func _physics_update(delta: float) -> void:
@@ -56,6 +64,14 @@ func _physics_update(delta: float) -> void:
 	
 	# Draw web from player to zooming point
 	player.draw_web(zooming_pos)
+	
+	if collider:
+		var new_distance_from_pos = collider.global_position - zooming_pos
+		#var speed = Vector2(abs(new_distance_from_pos.x) - abs(distance_from_pos.x), abs(new_distance_from_pos.y) - abs(distance_from_pos.y))
+		var speed = new_distance_from_pos - distance_from_pos
+		#distance_from_pos = new_distance_from_pos
+		zooming_pos += speed
+		
 	
 	# Move player to zooming position
 	player.velocity += player.position.direction_to(zooming_pos) * player.get_zooming_acceleration() * player.get_zooming_max_speed() * delta
