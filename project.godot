@@ -41,6 +41,10 @@ window/stretch/aspect="expand"
 
 enabled=PackedStringArray("res://addons/nklbdev.aseprite_importers/plugin.cfg")
 
+[gui]
+
+theme/custom_font="res://assets/fonts/Minecraftia-Regular.ttf"
+
 [input]
 
 left={
