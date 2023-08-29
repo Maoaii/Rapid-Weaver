@@ -65,7 +65,7 @@ font_size = 12
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_utnx1")
 max_speed = 150.0
-move_acceleration = 8.0
+move_acceleration = 15.0
 move_deceleration = 6.0
 jump_height = 60.0
 jump_time_to_peak = 0.3
@@ -175,7 +175,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("11_xt54t")
 enable_web_range = false
-enable_velocity_debug = false
 
 [node name="CurrentState" type="Label" parent="PlayerDebug"]
 layout_mode = 1

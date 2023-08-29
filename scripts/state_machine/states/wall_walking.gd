@@ -5,30 +5,20 @@ func _enter(_msg := {}) -> void:
 	# Play animation
 	player.set_animation("Walking")
 	
-	"""
-		Set direction for gravity to work in
-	"""
-	if player.is_stuck_left() or player.is_stuck_right():
-		if player.is_stuck_left():
-			player.set_current_down(Global.DIRECTIONS.LEFT)
-			player.stick_to_surface(Global.DIRECTIONS.LEFT)
-		else:
-			player.set_current_down(Global.DIRECTIONS.RIGHT)
-			player.stick_to_surface(Global.DIRECTIONS.RIGHT)
-	elif not player.is_on_ceiling():
-		if player.is_colliding_right():
-			player.set_current_down(Global.DIRECTIONS.RIGHT)
-			player.stick_to_surface(Global.DIRECTIONS.RIGHT)
-		else:
-			player.set_current_down(Global.DIRECTIONS.LEFT)
-			player.stick_to_surface(Global.DIRECTIONS.LEFT)
-	else:
+	if player.is_stuck_up():
 		if player.is_colliding_right():
 			player.set_current_down(Global.DIRECTIONS.LEFT)
 			player.stick_to_surface(Global.DIRECTIONS.LEFT)
-		else:
+		elif player.is_colliding_left():
 			player.set_current_down(Global.DIRECTIONS.RIGHT)
 			player.stick_to_surface(Global.DIRECTIONS.RIGHT)
+	elif player.is_stuck_down():
+		if player.is_colliding_right():
+			player.set_current_down(Global.DIRECTIONS.RIGHT)
+			player.stick_to_surface(Global.DIRECTIONS.RIGHT)
+		elif player.is_colliding_left():
+			player.set_current_down(Global.DIRECTIONS.LEFT)
+			player.stick_to_surface(Global.DIRECTIONS.LEFT)
 
 
 func _physics_update(delta: float) -> void:

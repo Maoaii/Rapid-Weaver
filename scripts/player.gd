@@ -420,6 +420,7 @@ func update_rotation(new_rotation: Global.DIRECTIONS) -> void:
 func set_current_down(new_down: Global.DIRECTIONS) -> void:
 	current_down = DIRECTIONS.get(new_down)
 	
+	up_direction = current_down* Vector2(-1, -1)
 	update_rotation(new_down)
 
 

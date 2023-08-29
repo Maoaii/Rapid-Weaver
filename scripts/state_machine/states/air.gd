@@ -22,7 +22,7 @@ func _enter(msg := {}) -> void:
 	if msg.has("jump"):
 		player.handle_jump(JUMP_DIRECTIONS.get(msg.get("direction")))
 	
-	# Keeo momentum
+	# Keep momentum
 	if msg.has("momentum"):
 		momentum = msg.get("momentum")
 

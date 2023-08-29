@@ -5,7 +5,7 @@ func _enter(_msg := {}) -> void:
 	# Play animation
 	player.set_animation("Idle")
 
-func _physics_update(_delta: float) -> void:
+func _physics_update(delta: float) -> void:
 	"""
 		Transition to zooming
 	"""
@@ -50,14 +50,8 @@ func _physics_update(_delta: float) -> void:
 	"""
 		Change from ceiling to walls
 	"""
-	if player.is_on_ceiling() and player.has_input_down():
-		# Colliding with right wall
-		if player.is_colliding_left():
-			state_machine.transition_to("WallWalking")
-			return
-		
-		# Colliding with left wall
-		elif player.is_colliding_right():
+	if player.is_stuck_up() and player.has_input_down():
+		if player.is_colliding_left() or player.is_colliding_right():
 			state_machine.transition_to("WallWalking")
 			return
 	
