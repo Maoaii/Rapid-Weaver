@@ -106,22 +106,6 @@ shape = SubResource("RectangleShape2D_0vrxb")
 [node name="Web" type="RayCast2D" parent="."]
 target_position = Vector2(2.08165e-12, 2.08165e-12)
 
-[node name="StickyUp" type="RayCast2D" parent="."]
-target_position = Vector2(0, -7)
-collide_with_areas = true
-
-[node name="StickyRight" type="RayCast2D" parent="."]
-target_position = Vector2(10, 0)
-collide_with_areas = true
-
-[node name="StickyDown" type="RayCast2D" parent="."]
-target_position = Vector2(0, 7)
-collide_with_areas = true
-
-[node name="StickyLeft" type="RayCast2D" parent="."]
-target_position = Vector2(-10, 0)
-collide_with_areas = true
-
 [node name="CollisionDetector" parent="." instance=ExtResource("4_h81fh")]
 
 [node name="CoyoteTimer" type="Timer" parent="."]
