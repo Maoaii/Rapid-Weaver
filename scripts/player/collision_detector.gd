@@ -36,16 +36,40 @@ func disable_colliders() -> void:
 
 
 func is_colliding_up() -> bool:
-	return up_collider.is_colliding()
+	var is_colliding: bool = up_collider.is_colliding()
+	
+	if not is_colliding:
+		return false
+	
+	var is_colliding_tilemap: bool = up_collider.get_collider().is_class("TileMap")
+	return is_colliding and is_colliding_tilemap
 
 
 func is_colliding_right() -> bool:
-	return right_collider.is_colliding()
+	var is_colliding: bool = right_collider.is_colliding()
+	
+	if not is_colliding:
+		return false
+	
+	var is_colliding_tilemap: bool = right_collider.get_collider().is_class("TileMap")
+	return is_colliding and is_colliding_tilemap
 
 
 func is_colliding_down() -> bool:
-	return down_collider.is_colliding()
+	var is_colliding: bool = down_collider.is_colliding()
+	
+	if not is_colliding:
+		return false
+	
+	var is_colliding_tilemap: bool = down_collider.get_collider().is_class("TileMap")
+	return is_colliding and is_colliding_tilemap
 
 
 func is_colliding_left() -> bool:
-	return left_collider.is_colliding()
+	var is_colliding: bool = left_collider.is_colliding()
+	
+	if not is_colliding:
+		return false
+	
+	var is_colliding_tilemap: bool = left_collider.get_collider().is_class("TileMap")
+	return is_colliding and is_colliding_tilemap
