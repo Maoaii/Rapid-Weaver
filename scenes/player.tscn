@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://lmt4yjrdw8kk"]
+[gd_scene load_steps=18 format=3 uid="uid://lmt4yjrdw8kk"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_utnx1"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="4_32n45"]
+[ext_resource type="PackedScene" uid="uid://cuantmlbgy078" path="res://scenes/player/collision_detector.tscn" id="4_h81fh"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/idle.gd" id="5_w8ll2"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/walking.gd" id="6_2cnoh"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/air.gd" id="7_5cqmt"]
@@ -120,6 +121,8 @@ collide_with_areas = true
 [node name="StickyLeft" type="RayCast2D" parent="."]
 target_position = Vector2(-10, 0)
 collide_with_areas = true
+
+[node name="CollisionDetector" parent="." instance=ExtResource("4_h81fh")]
 
 [node name="CoyoteTimer" type="Timer" parent="."]
 one_shot = true

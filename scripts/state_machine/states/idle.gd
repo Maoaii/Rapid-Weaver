@@ -36,7 +36,7 @@ func _physics_update(_delta: float) -> void:
 		If any surface we're standing on breaks, transition to air
 	"""
 	if (not player.is_on_floor() and not player.is_on_wall() and not player.is_on_ceiling()) \
-			and not player.is_colliding_down():
+			and not player.collision_detector.is_colliding_down():
 		state_machine.transition_to("Air")
 		return
 	
@@ -59,7 +59,7 @@ func _physics_update(_delta: float) -> void:
 		Change from ceiling to walls
 	"""
 	if player.is_stuck_up() and player.has_input_down():
-		if player.is_colliding_left() or player.is_colliding_right():
+		if player.collision_detector.is_colliding_left() or player.collision_detector.is_colliding_right():
 			state_machine.transition_to("WallWalking")
 			return
 	
@@ -68,12 +68,12 @@ func _physics_update(_delta: float) -> void:
 	"""
 	if player.is_on_floor() and player.has_input_up():
 		# Colliding with left wall
-		if player.is_colliding_left():
+		if player.collision_detector.is_colliding_left():
 			state_machine.transition_to("WallWalking")
 			return
 		
 		# Colliding with right wall
-		elif player.is_colliding_right():
+		elif player.collision_detector.is_colliding_right():
 			state_machine.transition_to("WallWalking")
 			return
 	
@@ -81,18 +81,18 @@ func _physics_update(_delta: float) -> void:
 		Change from walls to ground and ceiling
 	"""
 	if player.is_stuck_left() and player.has_input_right():
-		if player.is_colliding_left():
+		if player.collision_detector.is_colliding_left():
 			state_machine.transition_to("CeilingWalk")
 			return
-		elif player.is_colliding_right():
+		elif player.collision_detector.is_colliding_right():
 			state_machine.transition_to("Walking")
 			return
 		
 	elif player.is_stuck_right() and player.has_input_left():
 		
-		if player.is_colliding_left():
+		if player.collision_detector.is_colliding_left():
 			state_machine.transition_to("Walking")
 			return
-		elif player.is_colliding_right():
+		elif player.collision_detector.is_colliding_right():
 			state_machine.transition_to("CeilingWalk")
 			return

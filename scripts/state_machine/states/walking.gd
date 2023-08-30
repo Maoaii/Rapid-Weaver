@@ -35,7 +35,7 @@ func _physics_update(delta: float) -> void:
 		Transition to Air
 	"""
 	# This is used for breakable ground, or when the player goes off the ground
-	if not player.is_on_floor() and not player.is_colliding_down():
+	if not player.is_on_floor() and not player.collision_detector.is_colliding_down():
 		if player.was_on_floor:
 			player.coyote_timer.start()
 		
@@ -55,7 +55,7 @@ func _physics_update(delta: float) -> void:
 	"""
 		Change from ground to walls
 	"""
-	if player.is_on_floor() and player.has_input_up() and (player.is_colliding_left() or player.is_colliding_right()):
+	if player.is_on_floor() and player.has_input_up() and (player.collision_detector.is_colliding_left() or player.collision_detector.is_colliding_right()):
 		state_machine.transition_to("WallWalking")
 		return
 	

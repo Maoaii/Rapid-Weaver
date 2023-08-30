@@ -29,9 +29,9 @@ func _enter(msg := {}) -> void:
 
 func _physics_update(delta: float) -> void:
 	if player.get_x_input() or \
-		player.is_colliding_left() or \
-		player.is_colliding_right() or \
-		player.is_colliding_down():
+		player.collision_detector.is_colliding_left() or \
+		player.collision_detector.is_colliding_right() or \
+		player.collision_detector.is_colliding_down():
 		
 		momentum = Vector2.ZERO
 	
@@ -68,11 +68,11 @@ func _physics_update(delta: float) -> void:
 	"""
 		Stick to the walls
 	"""
-	if player.is_colliding_left() and player.has_input_left():
+	if player.collision_detector.is_colliding_left() and player.has_input_left():
 		state_machine.transition_to("WallWalking")
 		return
 	
-	if player.is_colliding_right() and player.has_input_right():
+	if player.collision_detector.is_colliding_right() and player.has_input_right():
 		state_machine.transition_to("WallWalking")
 		return
 	

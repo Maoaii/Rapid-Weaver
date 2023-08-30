@@ -23,7 +23,7 @@ func _enter(msg := {}) -> void:
 	player.toggle_gravity()
 	
 	# Disable colliders while leaving the surface
-	player.disable_colliders()
+	player.collision_detector.disable_colliders()
 	
 	# Make zooming not physics based
 	if player.is_simple_zooming():
@@ -53,7 +53,7 @@ func _exit() -> void:
 	player.play_squash_animation()
 	
 	# Enable colliders when exiting zoom
-	player.enable_colliders()
+	player.collision_detector.enable_colliders()
 	
 	collider = null
 
@@ -85,15 +85,15 @@ func _physics_update(delta: float) -> void:
 			return
 		else:
 			# Enable colliders to decide which surface was collided with
-			player.enable_colliders()
+			player.collision_detector.enable_colliders()
 			
-			if player.is_colliding_up():
+			if player.collision_detector.is_colliding_up():
 				state_machine.transition_to("CeilingWalk")
 				return
-			elif player.is_colliding_right() or player.is_colliding_left():
+			elif player.collision_detector.is_colliding_right() or player.collision_detector.is_colliding_left():
 				state_machine.transition_to("WallWalking")
 				return
-			elif player.is_colliding_down():
+			elif player.collision_detector.is_colliding_down():
 				state_machine.transition_to("Walking")
 				return
 	

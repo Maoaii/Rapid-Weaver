@@ -38,7 +38,7 @@ func _physics_update(delta: float) -> void:
 	"""
 		Transition to Air (without jump)
 	"""
-	if not player.is_colliding_down() and not player.is_on_ceiling():
+	if not player.collision_detector.is_colliding_down() and not player.is_on_ceiling():
 		state_machine.transition_to("Air")
 		return
 	
@@ -58,11 +58,11 @@ func _physics_update(delta: float) -> void:
 	"""
 	if player.has_input_down():
 		# Colliding with rifht wall
-		if player.is_colliding_left():
+		if player.collision_detector.is_colliding_left():
 			state_machine.transition_to("WallWalking")
 			return
 		
 		# Colliding with left wall
-		elif player.is_colliding_right():
+		elif player.collision_detector.is_colliding_right():
 			state_machine.transition_to("WallWalking")
 			return
