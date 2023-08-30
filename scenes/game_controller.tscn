@@ -1,12 +1,12 @@
 [gd_scene load_steps=7 format=3 uid="uid://bsv6277ple8ro"]
 
 [ext_resource type="Script" path="res://scripts/game_controller.gd" id="1_7jrm6"]
-[ext_resource type="PackedScene" uid="uid://kdhe48dcjwn3" path="res://scenes/sections/base_section.tscn" id="2_nxsg7"]
-[ext_resource type="PackedScene" uid="uid://ukhpsrb5wxek" path="res://scenes/sections/base_section2.tscn" id="3_y8yx6"]
-[ext_resource type="PackedScene" uid="uid://fem6elchyntt" path="res://scenes/sections/base_section3.tscn" id="4_4r1en"]
-[ext_resource type="PackedScene" uid="uid://c88rkixgsxyd8" path="res://scenes/sections/base_section4.tscn" id="5_k25e3"]
-[ext_resource type="PackedScene" uid="uid://urntin516n2l" path="res://scenes/sections/base_section5.tscn" id="6_8kx7p"]
+[ext_resource type="PackedScene" uid="uid://kdhe48dcjwn3" path="res://scenes/sections/base_section.tscn" id="2_3vi46"]
+[ext_resource type="PackedScene" uid="uid://ukhpsrb5wxek" path="res://scenes/sections/base_section2.tscn" id="3_c8rr1"]
+[ext_resource type="PackedScene" uid="uid://fem6elchyntt" path="res://scenes/sections/base_section3.tscn" id="4_tuqkx"]
+[ext_resource type="PackedScene" uid="uid://c88rkixgsxyd8" path="res://scenes/sections/base_section4.tscn" id="5_tepep"]
+[ext_resource type="PackedScene" uid="uid://urntin516n2l" path="res://scenes/sections/base_section5.tscn" id="6_lnnhc"]
 
 [node name="Game Controller" type="Node2D"]
 script = ExtResource("1_7jrm6")
-sections = Array[PackedScene]([ExtResource("2_nxsg7"), ExtResource("3_y8yx6"), ExtResource("4_4r1en"), ExtResource("5_k25e3"), ExtResource("6_8kx7p")])
+sections = Array[PackedScene]([ExtResource("2_3vi46"), ExtResource("3_c8rr1"), ExtResource("4_tuqkx"), ExtResource("5_tepep"), ExtResource("6_lnnhc")])
