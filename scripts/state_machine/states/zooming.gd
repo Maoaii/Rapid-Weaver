@@ -81,7 +81,8 @@ func _physics_update(delta: float) -> void:
 		# If buffer timer is on
 		if not player.zoom_buffer_timer.is_stopped():
 			state_machine.transition_to("Zooming", 
-				{"position": tmp_zooming_pos})
+				{"position": tmp_zooming_pos,
+				 "collider": collider})
 			return
 		else:
 			# Enable colliders to decide which surface was collided with
