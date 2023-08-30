@@ -9,11 +9,17 @@ extends Node2D
 @export_group("Section Variables")
 @export var sections: Array[PackedScene]
 
+@export_group("Score Variables")
+@export var fly_pickup_score: int = 5
+@export var section_passed_score: int = 10
+
 
 var spawned_sections: Array[BaseSection]
+var score: int = 0
 var player: Player
 
 func _ready() -> void:
+	EventBus._on_fly_eaten.connect(fly_eaten)
 	EventBus._on_section_passed.connect(add_new_section)
 	create_new_section()
 	
@@ -32,7 +38,7 @@ func _unhandled_input(_event) -> void:
 
 
 func restart_game() -> void:
-	EventBus._on_game_restart.emit()
+	reset_score()
 	get_tree().change_scene_to_file("res://scenes/world.tscn")
 
 
@@ -45,6 +51,8 @@ func update_camera(delta: float) -> void:
 
 func add_new_section() -> void:
 	create_new_section()
+	
+	section_passed()
 
 
 func create_new_section() -> BaseSection:
@@ -59,3 +67,15 @@ func create_new_section() -> BaseSection:
 
 func _on_player_hurt():
 	restart_game()
+
+func fly_eaten() -> void:
+	score += fly_pickup_score
+	EventBus._on_score_changed.emit(score)
+
+func section_passed() -> void:
+	score += section_passed_score
+	EventBus._on_score_changed.emit(score)
+
+func reset_score() -> void:
+	score = 0
+	EventBus._on_score_changed.emit(score)

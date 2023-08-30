@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dwrwq0svk1grr"]
+[gd_scene load_steps=5 format=3 uid="uid://dwrwq0svk1grr"]
 
 [ext_resource type="PackedScene" uid="uid://bsv6277ple8ro" path="res://scenes/game_controller.tscn" id="3_lvjia"]
 [ext_resource type="PackedScene" uid="uid://lmt4yjrdw8kk" path="res://scenes/player.tscn" id="4_1iyyg"]
-[ext_resource type="PackedScene" uid="uid://06jmitp3onar" path="res://scenes/managers/score_manager.tscn" id="5_kikqt"]
 [ext_resource type="PackedScene" uid="uid://2r42pjftoqep" path="res://scenes/fly.tscn" id="9_noggo"]
 [ext_resource type="PackedScene" uid="uid://cxuxs54xiwb7o" path="res://scenes/ui.tscn" id="10_uby7a"]
 
@@ -36,7 +35,5 @@ color = Color(0, 0, 0, 1)
 [node name="Game Controller" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("3_lvjia")]
 camera = NodePath("../Camera2D")
 enable_following_camera = true
-
-[node name="ScoreManager" parent="." instance=ExtResource("5_kikqt")]
 
 [connection signal="hurt" from="Player" to="Game Controller" method="_on_player_hurt"]
