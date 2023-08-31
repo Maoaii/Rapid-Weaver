@@ -9,7 +9,7 @@ var collider: AnimatableBody2D
 var distance_from_pos: Vector2
 
 func _enter(msg := {}) -> void:
-	if msg.has("collider"):
+	if msg.has("collider") and msg.get("collider").is_in_group("Moving"):
 		collider = msg.get("collider")
 		distance_from_pos = collider.global_position - msg.get("position")
 	
@@ -87,7 +87,9 @@ func _physics_update(delta: float) -> void:
 			# Enable colliders to decide which surface was collided with
 			player.collision_detector.enable_colliders()
 			
+			print(player.collision_detector.is_colliding_up())
 			if player.collision_detector.is_colliding_up():
+				print("hey?")
 				state_machine.transition_to("CeilingWalk")
 				return
 			elif player.collision_detector.is_colliding_right() or player.collision_detector.is_colliding_left():

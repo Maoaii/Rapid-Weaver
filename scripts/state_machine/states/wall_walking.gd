@@ -31,13 +31,9 @@ func _physics_update(delta: float) -> void:
 	if Input.is_action_just_pressed("shoot_web") and player.web_is_colliding():
 		var collider = player.web.get_collider()
 		
-		if collider.is_in_group("Moving"):
-			state_machine.transition_to("Zooming", 
+		state_machine.transition_to("Zooming", 
 				{"position": player.get_web_collision_pos(),
 				 "collider": collider})
-		else:
-			state_machine.transition_to("Zooming", 
-				{"position": player.get_web_collision_pos()})
 		return
 	
 	"""

@@ -41,7 +41,7 @@ func is_colliding_up() -> bool:
 	if not is_colliding:
 		return false
 	
-	var is_colliding_tilemap: bool = up_collider.get_collider().is_class("TileMap")
+	var is_colliding_tilemap: bool = (up_collider.get_collider().is_class("TileMap") or up_collider.get_collider().is_in_group("Obstacle"))
 	return is_colliding and is_colliding_tilemap
 
 
@@ -51,7 +51,7 @@ func is_colliding_right() -> bool:
 	if not is_colliding:
 		return false
 	
-	var is_colliding_tilemap: bool = right_collider.get_collider().is_class("TileMap")
+	var is_colliding_tilemap: bool = right_collider.get_collider().is_class("TileMap") or right_collider.get_collider().is_in_group("Obstacle")
 	return is_colliding and is_colliding_tilemap
 
 
@@ -61,7 +61,7 @@ func is_colliding_down() -> bool:
 	if not is_colliding:
 		return false
 	
-	var is_colliding_tilemap: bool = down_collider.get_collider().is_class("TileMap")
+	var is_colliding_tilemap: bool = down_collider.get_collider().is_class("TileMap") or down_collider.get_collider().is_in_group("Obstacle")
 	return is_colliding and is_colliding_tilemap
 
 
@@ -71,5 +71,5 @@ func is_colliding_left() -> bool:
 	if not is_colliding:
 		return false
 	
-	var is_colliding_tilemap: bool = left_collider.get_collider().is_class("TileMap")
+	var is_colliding_tilemap: bool = left_collider.get_collider().is_class("TileMap") or left_collider.get_collider().is_in_group("Obstacle")
 	return is_colliding and is_colliding_tilemap

@@ -4,15 +4,15 @@
 [ext_resource type="Texture2D" uid="uid://c6em742gcq2r3" path="res://assets/Tilemap/monochrome_tilemap_packed.png" id="2_irvik"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wb2kh"]
-size = Vector2(48, 18)
+size = Vector2(48, 16)
 
-[node name="MovingPlatform" type="AnimatableBody2D" groups=["Moving"]]
+[node name="MovingPlatform" type="AnimatableBody2D" groups=["Moving", "Obstacle"]]
 script = ExtResource("1_a6ycw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_irvik")
 region_enabled = true
-region_rect = Rect2(159.75, 127.812, 48.2515, 17.3755)
+region_rect = Rect2(159.974, 129.007, 48.1065, 15.8103)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_wb2kh")

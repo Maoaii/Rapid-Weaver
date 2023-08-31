@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://kdhe48dcjwn3"]
+[gd_scene load_steps=9 format=3 uid="uid://kdhe48dcjwn3"]
 
 [ext_resource type="Script" path="res://scripts/base_section.gd" id="1_u2ymb"]
 [ext_resource type="TileSet" uid="uid://drap3i3m8y6tj" path="res://assets/tileset/tileset.tres" id="2_o0rgw"]
 [ext_resource type="Texture2D" uid="uid://c6em742gcq2r3" path="res://assets/Tilemap/monochrome_tilemap_packed.png" id="4_14e1k"]
 [ext_resource type="PackedScene" uid="uid://b2cfcxn7occ3y" path="res://scenes/background.tscn" id="4_776nb"]
 [ext_resource type="PackedScene" uid="uid://bqck8rk8hujhh" path="res://scenes/moving_platform.tscn" id="5_mng11"]
+[ext_resource type="PackedScene" uid="uid://bpilkvcv6kwcy" path="res://scenes/obstacles/destructable_platform.tscn" id="6_yadxn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7xhs7"]
 texture = ExtResource("4_14e1k")
@@ -1243,5 +1244,8 @@ position = Vector2(135, 416)
 distance = Vector2(2.08165e-12, 30)
 phase_time = 2.0
 phase_offset = 0.1
+
+[node name="DestructablePlatform" parent="." instance=ExtResource("6_yadxn")]
+position = Vector2(210, 400)
 
 [connection signal="screen_entered" from="TopScreenNotifier" to="." method="_on_top_screen_notifier_screen_entered"]
