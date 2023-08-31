@@ -1,20 +1,29 @@
 extends Node2D
 
 
+@export_group("Camera Variables")
 @export var camera: Camera2D
 @export var enable_following_camera: bool = false
-@export var sections: Array[PackedScene]
 @export var camera_speed: int = 50
 
+@export_group("Section Variables")
+@export var sections: Array[PackedScene]
+
+
 var spawned_sections: Array[BaseSection]
+var player: Player
 
 func _ready() -> void:
+	EventBus._on_section_passed.connect(add_new_section)
 	create_new_section()
+	
+	player = get_tree().get_first_node_in_group("Player")
 
 
 func _process(delta: float) -> void:
 	update_camera(delta)
-	
+
+func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
 	
@@ -23,22 +32,19 @@ func _process(delta: float) -> void:
 
 
 func restart_game() -> void:
-	Global.reset_score()
+	EventBus._on_game_restart.emit()
 	get_tree().change_scene_to_file("res://scenes/world.tscn")
-
 
 
 func update_camera(delta: float) -> void:
 	if enable_following_camera:
-		camera.position = get_tree().get_first_node_in_group("Player").position
+		camera.position = player.position
 	else:
 		camera.offset += Vector2(0, -camera_speed * delta)
 
 
 func add_new_section() -> void:
 	create_new_section()
-	
-	Global.section_passed()
 
 
 func create_new_section() -> BaseSection:
@@ -48,6 +54,8 @@ func create_new_section() -> BaseSection:
 	new_section.position += Vector2(0, -Global.WINDOW_HEIGHT * spawned_sections.size())
 	spawned_sections.push_back(new_section)
 	
-	new_section.on_top_reached.connect(add_new_section)
-	
 	return new_section
+
+
+func _on_player_hurt():
+	restart_game()

@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bpilkvcv6kwcy"]
+
+[ext_resource type="Script" path="res://scripts/obstacles/destructable_platform.gd" id="1_ebjbm"]
+[ext_resource type="PackedScene" uid="uid://c4r0xs1ochlgn" path="res://assets/obstacles/destructable_platform.aseprite" id="1_uwo2t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k1tp0"]
+size = Vector2(48, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_38a41"]
+size = Vector2(50, 18)
+
+[node name="DestructablePlatform" type="StaticBody2D" groups=["Destructable", "Obstacle"]]
+script = ExtResource("1_ebjbm")
+
+[node name="AnimatedSprite2D" parent="." instance=ExtResource("1_uwo2t")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_k1tp0")
+
+[node name="TouchDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TouchDetector"]
+shape = SubResource("RectangleShape2D_38a41")
+
+[node name="DestroyTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="TouchDetector" to="." method="_on_touch_detector_body_entered"]
+[connection signal="timeout" from="DestroyTimer" to="." method="_on_destroy_timer_timeout"]

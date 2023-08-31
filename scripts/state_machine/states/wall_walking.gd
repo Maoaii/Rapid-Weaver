@@ -5,30 +5,20 @@ func _enter(_msg := {}) -> void:
 	# Play animation
 	player.set_animation("Walking")
 	
-	"""
-		Set direction for gravity to work in
-	"""
-	if player.is_stuck_left() or player.is_stuck_right():
-		if player.is_stuck_left():
+	if player.is_stuck_up():
+		if player.collision_detector.is_colliding_right():
 			player.set_current_down(Global.DIRECTIONS.LEFT)
 			player.stick_to_surface(Global.DIRECTIONS.LEFT)
-		else:
+		elif player.collision_detector.is_colliding_left():
 			player.set_current_down(Global.DIRECTIONS.RIGHT)
 			player.stick_to_surface(Global.DIRECTIONS.RIGHT)
-	elif not player.is_on_ceiling():
-		if player.is_colliding_right():
+	elif player.is_stuck_down():
+		if player.collision_detector.is_colliding_right():
 			player.set_current_down(Global.DIRECTIONS.RIGHT)
 			player.stick_to_surface(Global.DIRECTIONS.RIGHT)
-		else:
+		elif player.collision_detector.is_colliding_left():
 			player.set_current_down(Global.DIRECTIONS.LEFT)
 			player.stick_to_surface(Global.DIRECTIONS.LEFT)
-	else:
-		if player.is_colliding_right():
-			player.set_current_down(Global.DIRECTIONS.LEFT)
-			player.stick_to_surface(Global.DIRECTIONS.LEFT)
-		else:
-			player.set_current_down(Global.DIRECTIONS.RIGHT)
-			player.stick_to_surface(Global.DIRECTIONS.RIGHT)
 
 
 func _physics_update(delta: float) -> void:
@@ -39,8 +29,11 @@ func _physics_update(delta: float) -> void:
 		Transition to zooming
 	"""
 	if Input.is_action_just_pressed("shoot_web") and player.web_is_colliding():
+		var collider = player.web.get_collider()
+		
 		state_machine.transition_to("Zooming", 
-			{"position": player.get_web_collision_pos()})
+				{"position": player.get_web_collision_pos(),
+				 "collider": collider})
 		return
 	
 	"""
@@ -53,7 +46,7 @@ func _physics_update(delta: float) -> void:
 	"""
 		Transition to Air (without jump)
 	"""
-	if not player.is_colliding_down() and not player.is_on_wall():
+	if not player.collision_detector.is_colliding_down() and not player.is_on_wall():
 		state_machine.transition_to("Air")
 		return
 	
@@ -73,22 +66,22 @@ func _physics_update(delta: float) -> void:
 	"""
 	if player.has_input_right() and player.is_stuck_left():
 		# Colliding with ceiling
-		if player.is_colliding_left():
+		if player.collision_detector.is_colliding_left():
 			state_machine.transition_to("CeilingWalk")
 			return
 		
 		# Colliding with ground
-		elif player.is_colliding_right():
+		elif player.collision_detector.is_colliding_right():
 			state_machine.transition_to("Walking")
 			return
 	elif player.has_input_left() and player.is_stuck_right():
 		# Colliding with ground
-		if player.is_colliding_left():
+		if player.collision_detector.is_colliding_left():
 			state_machine.transition_to("Walking")
 			return
 		
 		# Colliding with ceiling
-		elif player.is_colliding_right():
+		elif player.collision_detector.is_colliding_right():
 			state_machine.transition_to("CeilingWalk")
 			return
 

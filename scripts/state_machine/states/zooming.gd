@@ -5,8 +5,20 @@ var zooming_pos: Vector2
 ## Stores a temporary zooming position if tried to zoom while zooming
 var tmp_zooming_pos: Vector2
 
+var moving_collider: AnimatableBody2D
+var destructable_collider: Destructable
+var distance_from_pos: Vector2
 
 func _enter(msg := {}) -> void:
+	if msg.has("collider"):
+		if msg.get("collider").is_in_group("Moving"):
+			moving_collider = msg.get("collider")
+			distance_from_pos = moving_collider.global_position - msg.get("position")
+		
+		if msg.get("collider").is_in_group("Destructable"):
+			destructable_collider = msg.get("collider")
+			destructable_collider._on_destroyed.connect(detach_web)
+	
 	player.set_current_down(Global.DIRECTIONS.DOWN)
 	
 	player.set_animation("Zooming")
@@ -17,7 +29,7 @@ func _enter(msg := {}) -> void:
 	player.toggle_gravity()
 	
 	# Disable colliders while leaving the surface
-	player.disable_colliders()
+	player.collision_detector.disable_colliders()
 	
 	# Make zooming not physics based
 	if player.is_simple_zooming():
@@ -45,6 +57,15 @@ func _exit() -> void:
 	
 	# Play squash animation
 	player.play_squash_animation()
+	
+	# Enable colliders when exiting zoom
+	player.collision_detector.enable_colliders()
+	
+	if destructable_collider:
+		destructable_collider._on_destroyed.disconnect(detach_web)
+	
+	moving_collider = null
+	destructable_collider = null
 
 
 func _physics_update(delta: float) -> void:
@@ -53,6 +74,14 @@ func _physics_update(delta: float) -> void:
 	
 	# Draw web from player to zooming point
 	player.draw_web(zooming_pos)
+	
+	if moving_collider:
+		var new_distance_from_pos = moving_collider.global_position - zooming_pos
+		#var speed = Vector2(abs(new_distance_from_pos.x) - abs(distance_from_pos.x), abs(new_distance_from_pos.y) - abs(distance_from_pos.y))
+		var speed = new_distance_from_pos - distance_from_pos
+		#distance_from_pos = new_distance_from_pos
+		zooming_pos += speed
+		
 	
 	# Move player to zooming position
 	player.velocity += player.position.direction_to(zooming_pos) * player.get_zooming_acceleration() * player.get_zooming_max_speed() * delta
@@ -66,15 +95,15 @@ func _physics_update(delta: float) -> void:
 			return
 		else:
 			# Enable colliders to decide which surface was collided with
-			player.enable_colliders()
+			player.collision_detector.enable_colliders()
 			
-			if player.is_colliding_up():
+			if player.collision_detector.is_colliding_up():
 				state_machine.transition_to("CeilingWalk")
 				return
-			elif player.is_colliding_right() or player.is_colliding_left():
+			elif player.collision_detector.is_colliding_right() or player.collision_detector.is_colliding_left():
 				state_machine.transition_to("WallWalking")
 				return
-			elif player.is_colliding_down():
+			elif player.collision_detector.is_colliding_down():
 				state_machine.transition_to("Walking")
 				return
 	
@@ -86,3 +115,7 @@ func _physics_update(delta: float) -> void:
 	
 	if player.web_release and Input.is_action_just_released("shoot_web"):
 		state_machine.transition_to("Air", {"momentum": player.velocity})
+
+
+func detach_web() -> void:
+	state_machine.transition_to("Air", {"momentum": player.velocity})

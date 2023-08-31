@@ -681,6 +681,7 @@ texture = ExtResource("1_krit3")
 3:9/0 = 0
 3:9/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:9/0/physics_layer_0/angular_velocity = 0.0
+3:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-5, 0.3125, -6.9375, 8, 6.875, 8, 5.0625, 0.75, 5, 0.375, -4.9375, 0.375)
 4:9/0 = 0
 4:9/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 4:9/0/physics_layer_0/angular_velocity = 0.0

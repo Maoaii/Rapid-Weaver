@@ -1,6 +1,9 @@
 class_name Player
 extends CharacterBody2D
 
+## Signal when player is hurt
+signal hurt
+
 ## Player Rotation codes
 ## Matches a string (that resembles a direction) to a rotation in radians
 const ROTATION_CODES = {
@@ -95,6 +98,9 @@ const STICK_SURFACE_CODE = {
 ## Onready Web raycast
 @onready
 var web : RayCast2D = $Web
+
+## Onready collision detector
+@onready var collision_detector: CollisionDetector = $CollisionDetector
 
 
 
@@ -289,38 +295,6 @@ func is_simple_zooming() -> bool:
 """
 	Colliders functions
 """
-## Enables all directional colliders
-func enable_colliders() -> void:
-	$StickyUp.enabled = true
-	$StickyRight.enabled = true
-	$StickyDown.enabled = true
-	$StickyLeft.enabled = true
-
-
-## Disables all directional colliders
-func disable_colliders() -> void:
-	$StickyUp.enabled = false
-	$StickyRight.enabled = false
-	$StickyDown.enabled = false
-	$StickyLeft.enabled = false
-
-
-func is_colliding_up() -> bool:
-	return $StickyUp.is_colliding()
-
-
-func is_colliding_right() -> bool:
-	return $StickyRight.is_colliding()
-
-
-func is_colliding_down() -> bool:
-	return $StickyDown.is_colliding()
-
-
-func is_colliding_left() -> bool:
-	return $StickyLeft.is_colliding()
-
-
 ## Checks if gravity is going up
 func is_stuck_up() -> bool:
 	return current_down == Vector2.UP
@@ -417,6 +391,7 @@ func update_rotation(new_rotation: Global.DIRECTIONS) -> void:
 func set_current_down(new_down: Global.DIRECTIONS) -> void:
 	current_down = DIRECTIONS.get(new_down)
 	
+	up_direction = current_down* Vector2(-1, -1)
 	update_rotation(new_down)
 
 
@@ -460,3 +435,11 @@ func has_input_down() -> bool:
 
 func has_input_left() -> bool:
 	return Input.is_action_pressed("left")
+
+
+"""
+	Signals
+"""
+func _on_collider_body_entered(body) -> void:
+	if body.name == "Hurtables":
+		emit_signal("hurt")
