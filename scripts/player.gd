@@ -442,4 +442,4 @@ func has_input_left() -> bool:
 """
 func _on_collider_body_entered(body) -> void:
 	if body.name == "Hurtables":
-		emit_signal("hurt")
+		EventBus._on_player_hurt.emit()
