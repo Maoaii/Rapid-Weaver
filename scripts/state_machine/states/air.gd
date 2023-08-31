@@ -22,16 +22,16 @@ func _enter(msg := {}) -> void:
 	if msg.has("jump"):
 		player.handle_jump(JUMP_DIRECTIONS.get(msg.get("direction")))
 	
-	# Keeo momentum
+	# Keep momentum
 	if msg.has("momentum"):
 		momentum = msg.get("momentum")
 
 
 func _physics_update(delta: float) -> void:
 	if player.get_x_input() or \
-		player.is_colliding_left() or \
-		player.is_colliding_right() or \
-		player.is_colliding_down():
+		player.collision_detector.is_colliding_left() or \
+		player.collision_detector.is_colliding_right() or \
+		player.collision_detector.is_colliding_down():
 		
 		momentum = Vector2.ZERO
 	
@@ -46,8 +46,16 @@ func _physics_update(delta: float) -> void:
 		Transition to zooming
 	"""
 	if Input.is_action_just_pressed("shoot_web") and player.web_is_colliding():
-		state_machine.transition_to("Zooming",
-			{"position": player.get_web_collision_pos()})
+		var collider = player.web.get_collider()
+		
+		if collider.is_in_group("Moving"):
+			state_machine.transition_to("Zooming", 
+				{"position": player.get_web_collision_pos(),
+				 "collider": collider})
+		else:
+			state_machine.transition_to("Zooming", 
+				{"position": player.get_web_collision_pos()})
+		
 		return
 	
 	"""
@@ -60,11 +68,11 @@ func _physics_update(delta: float) -> void:
 	"""
 		Stick to the walls
 	"""
-	if player.is_colliding_left() and player.has_input_left():
+	if player.collision_detector.is_colliding_left() and player.has_input_left():
 		state_machine.transition_to("WallWalking")
 		return
 	
-	if player.is_colliding_right() and player.has_input_right():
+	if player.collision_detector.is_colliding_right() and player.has_input_right():
 		state_machine.transition_to("WallWalking")
 		return
 	

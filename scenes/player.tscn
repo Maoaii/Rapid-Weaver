@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://lmt4yjrdw8kk"]
+[gd_scene load_steps=18 format=3 uid="uid://lmt4yjrdw8kk"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_utnx1"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="4_32n45"]
+[ext_resource type="PackedScene" uid="uid://cuantmlbgy078" path="res://scenes/player/collision_detector.tscn" id="4_h81fh"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/idle.gd" id="5_w8ll2"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/walking.gd" id="6_2cnoh"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/air.gd" id="7_5cqmt"]
@@ -56,16 +57,10 @@ size = Vector2(16, 10)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0vrxb"]
 size = Vector2(14, 8)
 
-[sub_resource type="LabelSettings" id="LabelSettings_r8gwh"]
-font_size = 12
-
-[sub_resource type="LabelSettings" id="LabelSettings_udtxq"]
-font_size = 12
-
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_utnx1")
 max_speed = 150.0
-move_acceleration = 8.0
+move_acceleration = 10.0
 move_deceleration = 6.0
 jump_height = 60.0
 jump_time_to_peak = 0.3
@@ -77,8 +72,8 @@ terminal_velocity = 500.0
 max_stretch_on_velocity = 1.1
 web_release = true
 web_range = 100.0
-zooming_max_speed = 250.0
-zooming_acceleration = 3.0
+zooming_max_speed = 80.0
+zooming_acceleration = 8.0
 zoom_buffer_time = 0.1
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -111,21 +106,7 @@ shape = SubResource("RectangleShape2D_0vrxb")
 [node name="Web" type="RayCast2D" parent="."]
 target_position = Vector2(2.08165e-12, 2.08165e-12)
 
-[node name="StickyUp" type="RayCast2D" parent="."]
-target_position = Vector2(0, -7)
-collide_with_areas = true
-
-[node name="StickyRight" type="RayCast2D" parent="."]
-target_position = Vector2(10, 0)
-collide_with_areas = true
-
-[node name="StickyDown" type="RayCast2D" parent="."]
-target_position = Vector2(0, 7)
-collide_with_areas = true
-
-[node name="StickyLeft" type="RayCast2D" parent="."]
-target_position = Vector2(-10, 0)
-collide_with_areas = true
+[node name="CollisionDetector" parent="." instance=ExtResource("4_h81fh")]
 
 [node name="CoyoteTimer" type="Timer" parent="."]
 one_shot = true
@@ -175,7 +156,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("11_xt54t")
 enable_web_range = false
-enable_velocity_debug = false
 
 [node name="CurrentState" type="Label" parent="PlayerDebug"]
 layout_mode = 1
@@ -185,23 +165,23 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = -24.0
+offset_top = -19.0
 offset_right = 20.0
-offset_bottom = 2.0
+offset_bottom = 7.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 8
 text = "State"
-label_settings = SubResource("LabelSettings_r8gwh")
 horizontal_alignment = 1
 
 [node name="CurrentVelocity" type="Label" parent="PlayerDebug"]
 z_index = 10
 layout_mode = 0
-offset_top = 23.0
-offset_right = 40.0
-offset_bottom = 46.0
+offset_top = 27.0
+offset_right = 41.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 8
 text = "21321"
-label_settings = SubResource("LabelSettings_udtxq")
 horizontal_alignment = 1
 
 [connection signal="body_entered" from="Collider" to="." method="_on_collider_body_entered"]

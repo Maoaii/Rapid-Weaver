@@ -15,5 +15,3 @@ const SECTION_WIDTH: int = 640
 const SECTION_HEIGHT: int = (640 / 16) / 2
 
 const TILE_SIZE: int = 16
-
-

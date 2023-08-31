@@ -5,8 +5,14 @@ var zooming_pos: Vector2
 ## Stores a temporary zooming position if tried to zoom while zooming
 var tmp_zooming_pos: Vector2
 
+var collider: AnimatableBody2D
+var distance_from_pos: Vector2
 
 func _enter(msg := {}) -> void:
+	if msg.has("collider"):
+		collider = msg.get("collider")
+		distance_from_pos = collider.global_position - msg.get("position")
+	
 	player.set_current_down(Global.DIRECTIONS.DOWN)
 	
 	player.set_animation("Zooming")
@@ -17,7 +23,7 @@ func _enter(msg := {}) -> void:
 	player.toggle_gravity()
 	
 	# Disable colliders while leaving the surface
-	player.disable_colliders()
+	player.collision_detector.disable_colliders()
 	
 	# Make zooming not physics based
 	if player.is_simple_zooming():
@@ -47,7 +53,9 @@ func _exit() -> void:
 	player.play_squash_animation()
 	
 	# Enable colliders when exiting zoom
-	player.enable_colliders()
+	player.collision_detector.enable_colliders()
+	
+	collider = null
 
 
 func _physics_update(delta: float) -> void:
@@ -56,6 +64,14 @@ func _physics_update(delta: float) -> void:
 	
 	# Draw web from player to zooming point
 	player.draw_web(zooming_pos)
+	
+	if collider:
+		var new_distance_from_pos = collider.global_position - zooming_pos
+		#var speed = Vector2(abs(new_distance_from_pos.x) - abs(distance_from_pos.x), abs(new_distance_from_pos.y) - abs(distance_from_pos.y))
+		var speed = new_distance_from_pos - distance_from_pos
+		#distance_from_pos = new_distance_from_pos
+		zooming_pos += speed
+		
 	
 	# Move player to zooming position
 	player.velocity += player.position.direction_to(zooming_pos) * player.get_zooming_acceleration() * player.get_zooming_max_speed() * delta
@@ -69,15 +85,15 @@ func _physics_update(delta: float) -> void:
 			return
 		else:
 			# Enable colliders to decide which surface was collided with
-			player.enable_colliders()
+			player.collision_detector.enable_colliders()
 			
-			if player.is_colliding_up():
+			if player.collision_detector.is_colliding_up():
 				state_machine.transition_to("CeilingWalk")
 				return
-			elif player.is_colliding_right() or player.is_colliding_left():
+			elif player.collision_detector.is_colliding_right() or player.collision_detector.is_colliding_left():
 				state_machine.transition_to("WallWalking")
 				return
-			elif player.is_colliding_down():
+			elif player.collision_detector.is_colliding_down():
 				state_machine.transition_to("Walking")
 				return
 	
