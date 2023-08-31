@@ -1,6 +1,7 @@
 class_name Destructable
 extends StaticBody2D
 
+signal _on_destroyed()
 
 @export var destroy_time: float = 5
 
@@ -27,6 +28,7 @@ func start_timer() -> void:
 
 
 func _on_destroy_timer_timeout():
+	emit_signal("_on_destroyed")
 	queue_free()
 
 func _on_touch_detector_body_entered(body):

@@ -5,13 +5,19 @@ var zooming_pos: Vector2
 ## Stores a temporary zooming position if tried to zoom while zooming
 var tmp_zooming_pos: Vector2
 
-var collider: AnimatableBody2D
+var moving_collider: AnimatableBody2D
+var destructable_collider: Destructable
 var distance_from_pos: Vector2
 
 func _enter(msg := {}) -> void:
-	if msg.has("collider") and msg.get("collider").is_in_group("Moving"):
-		collider = msg.get("collider")
-		distance_from_pos = collider.global_position - msg.get("position")
+	if msg.has("collider"):
+		if msg.get("collider").is_in_group("Moving"):
+			moving_collider = msg.get("collider")
+			distance_from_pos = moving_collider.global_position - msg.get("position")
+		
+		if msg.get("collider").is_in_group("Destructable"):
+			destructable_collider = msg.get("collider")
+			destructable_collider._on_destroyed.connect(detach_web)
 	
 	player.set_current_down(Global.DIRECTIONS.DOWN)
 	
@@ -55,7 +61,11 @@ func _exit() -> void:
 	# Enable colliders when exiting zoom
 	player.collision_detector.enable_colliders()
 	
-	collider = null
+	if destructable_collider:
+		destructable_collider._on_destroyed.disconnect(detach_web)
+	
+	moving_collider = null
+	destructable_collider = null
 
 
 func _physics_update(delta: float) -> void:
@@ -65,8 +75,8 @@ func _physics_update(delta: float) -> void:
 	# Draw web from player to zooming point
 	player.draw_web(zooming_pos)
 	
-	if collider:
-		var new_distance_from_pos = collider.global_position - zooming_pos
+	if moving_collider:
+		var new_distance_from_pos = moving_collider.global_position - zooming_pos
 		#var speed = Vector2(abs(new_distance_from_pos.x) - abs(distance_from_pos.x), abs(new_distance_from_pos.y) - abs(distance_from_pos.y))
 		var speed = new_distance_from_pos - distance_from_pos
 		#distance_from_pos = new_distance_from_pos
@@ -87,9 +97,7 @@ func _physics_update(delta: float) -> void:
 			# Enable colliders to decide which surface was collided with
 			player.collision_detector.enable_colliders()
 			
-			print(player.collision_detector.is_colliding_up())
 			if player.collision_detector.is_colliding_up():
-				print("hey?")
 				state_machine.transition_to("CeilingWalk")
 				return
 			elif player.collision_detector.is_colliding_right() or player.collision_detector.is_colliding_left():
@@ -107,3 +115,7 @@ func _physics_update(delta: float) -> void:
 	
 	if player.web_release and Input.is_action_just_released("shoot_web"):
 		state_machine.transition_to("Air", {"momentum": player.velocity})
+
+
+func detach_web() -> void:
+	state_machine.transition_to("Air", {"momentum": player.velocity})
