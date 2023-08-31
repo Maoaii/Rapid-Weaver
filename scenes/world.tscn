@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dwrwq0svk1grr"]
+[gd_scene load_steps=7 format=3 uid="uid://dwrwq0svk1grr"]
 
 [ext_resource type="PackedScene" uid="uid://bsv6277ple8ro" path="res://scenes/game_controller.tscn" id="3_lvjia"]
 [ext_resource type="PackedScene" uid="uid://lmt4yjrdw8kk" path="res://scenes/player.tscn" id="4_1iyyg"]
 [ext_resource type="PackedScene" uid="uid://kdubal300fkt" path="res://scenes/managers/score_manager.tscn" id="5_jrtd7"]
+[ext_resource type="PackedScene" uid="uid://cbc5jyuaxunxf" path="res://scenes/death_area.tscn" id="6_qaw3s"]
 [ext_resource type="PackedScene" path="res://scenes/fly.tscn" id="9_noggo"]
 [ext_resource type="PackedScene" uid="uid://cxuxs54xiwb7o" path="res://scenes/ui.tscn" id="10_uby7a"]
 
@@ -20,6 +21,9 @@ position = Vector2(325, 324)
 [node name="Fly" parent="." instance=ExtResource("9_noggo")]
 position = Vector2(396, 328)
 
+[node name="DeathArea" parent="." instance=ExtResource("6_qaw3s")]
+position = Vector2(0, 496)
+
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
 
@@ -33,9 +37,10 @@ color = Color(0, 0, 0, 1)
 
 [node name="UI" parent="." instance=ExtResource("10_uby7a")]
 
-[node name="Game Controller" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("3_lvjia")]
+[node name="Game Controller" parent="." node_paths=PackedStringArray("camera", "death_area") instance=ExtResource("3_lvjia")]
 camera = NodePath("../Camera2D")
 enable_following_camera = true
+death_area = NodePath("../DeathArea")
 
 [node name="ScoreManager" parent="." instance=ExtResource("5_jrtd7")]
 

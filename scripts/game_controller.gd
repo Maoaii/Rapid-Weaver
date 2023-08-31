@@ -6,6 +6,9 @@ extends Node2D
 @export var enable_following_camera: bool = false
 @export var camera_speed: int = 50
 
+@export_group("Death Area Variables")
+@export var death_area: DeathArea
+
 @export_group("Section Variables")
 @export var sections: Array[PackedScene]
 
@@ -14,10 +17,12 @@ var spawned_sections: Array[BaseSection]
 var player: Player
 
 func _ready() -> void:
-	EventBus._on_section_passed.connect(add_new_section)
 	create_new_section()
 	
 	player = get_tree().get_first_node_in_group("Player")
+	
+	EventBus._on_section_passed.connect(add_new_section)
+	EventBus._on_player_hurt.connect(restart_game)
 
 
 func _process(delta: float) -> void:
@@ -41,6 +46,8 @@ func update_camera(delta: float) -> void:
 		camera.position = player.position
 	else:
 		camera.offset += Vector2(0, -camera_speed * delta)
+		death_area.position += Vector2(0, -camera_speed * delta)
+	
 
 
 func add_new_section() -> void:
@@ -55,7 +62,3 @@ func create_new_section() -> BaseSection:
 	spawned_sections.push_back(new_section)
 	
 	return new_section
-
-
-func _on_player_hurt():
-	restart_game()
