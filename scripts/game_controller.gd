@@ -48,6 +48,7 @@ func update_camera(delta: float) -> void:
 		camera.offset += Vector2(0, -camera_speed * delta)
 		death_area.position += Vector2(0, -camera_speed * delta)
 	
+	death_area.position.x = player.position.x - (Global.SECTION_WIDTH / 2)
 
 
 func add_new_section() -> void:
