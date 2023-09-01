@@ -17,8 +17,8 @@ func _physics_process(delta: float) -> void:
 	
 	get_tree().get_first_node_in_group("Player").draw_web(global_position)
 
-func set_target_pos(collider, pos: Vector2) -> void:
-	self.collider = collider
+func set_target_pos(object_collided, pos: Vector2) -> void:
+	collider = object_collided
 	target_pos = pos
 	dir = global_position.direction_to(pos).normalized()
 
