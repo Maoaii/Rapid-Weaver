@@ -90,7 +90,16 @@ func _physics_update(delta: float) -> void:
 	if player.is_on_floor() or player.is_on_wall() or player.is_on_ceiling():
 		# If buffer timer is on
 		if not player.zoom_buffer_timer.is_stopped():
-			player.shoot_web()._on_destination_reached.connect(state_machine.transition_to)
+			if player.web_travel_time:
+				player.shoot_web()._on_destination_reached.connect(state_machine.transition_to)
+			else:
+				var collider = player.web.get_collider()
+				var target_position = player.get_web_collision_pos()
+				state_machine.transition_to("Zooming", {
+					"position": target_position,
+					"collider": collider
+				})
+				return
 		else:
 			# Enable colliders to decide which surface was collided with
 			player.collision_detector.enable_colliders()

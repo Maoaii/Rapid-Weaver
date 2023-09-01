@@ -46,7 +46,16 @@ func _physics_update(delta: float) -> void:
 		Transition to zooming
 	"""
 	if Input.is_action_just_pressed("shoot_web") and player.web_is_colliding():
-		player.shoot_web()._on_destination_reached.connect(state_machine.transition_to)
+		if player.web_travel_time:
+			player.shoot_web()._on_destination_reached.connect(state_machine.transition_to)
+		else:
+			var collider = player.web.get_collider()
+			var target_position = player.get_web_collision_pos()
+			state_machine.transition_to("Zooming", {
+				"position": target_position,
+				"collider": collider
+			})
+			return
 	
 	"""
 		Stick to the ceiling

@@ -3,8 +3,6 @@ extends State
 
 ## Typed reference to the player node.
 var player : Player
-var zoom_collider: Node2D
-var target_position: Vector2
 
 func _ready() -> void:
 	# The states are children of the `Player` node so their `_ready()` callback will execute first.
