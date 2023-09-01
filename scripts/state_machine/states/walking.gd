@@ -13,12 +13,7 @@ func _physics_update(delta: float) -> void:
 		Transition to zooming
 	"""
 	if Input.is_action_just_pressed("shoot_web") and player.web_is_colliding():
-		var collider = player.web.get_collider()
-		
-		state_machine.transition_to("Zooming", 
-				{"position": player.get_web_collision_pos(),
-				 "collider": collider})
-		return
+		player.shoot_web()._on_destination_reached.connect(state_machine.transition_to)
 	
 	"""
 		Transition to Idle

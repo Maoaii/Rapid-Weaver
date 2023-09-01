@@ -444,3 +444,16 @@ func has_input_left() -> bool:
 func _on_collider_body_entered(body) -> void:
 	if body.name == "Hurtables":
 		EventBus._on_player_hurt.emit()
+
+
+func shoot_web() -> Hook:
+	var hook: Hook = load("res://hook.tscn").instantiate()
+	hook.global_position = global_position
+	get_tree().root.get_node("World").add_child(hook)
+		
+	var zoom_collider = web.get_collider()
+	var target_position = get_web_collision_pos()
+	hook.set_target_pos(zoom_collider, target_position)
+	hook.set_traveling_speed(web_travelling_speed)
+	
+	return hook
