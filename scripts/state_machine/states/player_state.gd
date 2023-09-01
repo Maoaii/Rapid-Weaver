@@ -3,7 +3,8 @@ extends State
 
 ## Typed reference to the player node.
 var player : Player
-
+var zoom_collider: Node2D
+var target_position: Vector2
 
 func _ready() -> void:
 	# The states are children of the `Player` node so their `_ready()` callback will execute first.
@@ -16,3 +17,8 @@ func _ready() -> void:
 	# in a scene other than `Player.tscn`, which would be unintended. This can
 	# help prevent some bugs that are difficult to understand.
 	assert(player != null)
+
+func zoom() -> void:
+	state_machine.transition_to("Zooming", 
+				{"position": target_position,
+				 "collider": zoom_collider})

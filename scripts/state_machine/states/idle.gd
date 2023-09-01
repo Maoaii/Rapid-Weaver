@@ -5,17 +5,23 @@ func _enter(_msg := {}) -> void:
 	# Play animation
 	player.set_animation("Idle")
 
+func shoot_web() -> void:
+	var hook: Hook = load("res://hook.tscn").instantiate()
+	hook.global_position = player.global_position
+	get_tree().root.get_node("World").add_child(hook)
+		
+	zoom_collider = player.web.get_collider()
+	target_position = player.get_web_collision_pos()
+	hook.set_target_pos(zoom_collider, target_position)
+	hook.set_traveling_speed(player.web_travelling_speed)
+	hook._on_destination_reached.connect(state_machine.transition_to)
+
 func _physics_update(_delta: float) -> void:
 	"""
 		Transition to zooming
 	"""
 	if Input.is_action_just_pressed("shoot_web") and player.web_is_colliding():
-		var collider = player.web.get_collider()
-		state_machine.transition_to("Zooming", 
-				{"position": player.get_web_collision_pos(),
-				 "collider": collider})
-		
-		return
+		shoot_web()
 	
 	"""
 		Jump from idle

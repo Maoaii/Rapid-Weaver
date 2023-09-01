@@ -74,8 +74,9 @@ const STICK_SURFACE_CODE = {
 @export var web_range : float            ## Max web range for zooming
 @export var zooming_max_speed: float     ## Max speed when zooming
 @export var zooming_acceleration: float  ## The acceleration at which the player zooms
+@export var web_travelling_speed: float
 ## Amount of time the player has, before touching a surface, to prep a new web zooming
-@export_range(0, 1, 0.05) var zoom_buffer_time: float 
+@export_range(0, 1, 0.05) var zoom_buffer_time: float
 
 
 
