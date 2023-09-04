@@ -8,3 +8,5 @@ signal _on_score_changed(new_score)
 
 signal _on_game_restart()
 signal _on_player_hurt()
+
+signal _on_web_released()

@@ -9,6 +9,7 @@ var target_pos: Vector2
 var dir: Vector2
 var speed: float = 100.0
 var player: Player
+var active: bool = true
 
 func _ready() -> void:
 	initial_position = global_position
@@ -25,14 +26,19 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 		return
 	
-	if initial_position.distance_to(global_position) > max_range:
-		player.remove_web()
-		queue_free()
+	if initial_position.distance_to(global_position) >= max_range:
+		remove_hook()
 		return
 	
 	global_position += dir * speed * delta
 	
-	player.draw_web(global_position)
+	if active:
+		player.draw_web(global_position)
+
+func remove_hook():
+	player.remove_web()
+	queue_free()
+	active = false
 
 func set_max_range(new_max_range: float) -> void:
 	max_range = new_max_range

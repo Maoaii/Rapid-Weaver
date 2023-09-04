@@ -23,6 +23,11 @@ func _physics_update(_delta: float) -> void:
 			})
 			return
 	
+	if Input.is_action_just_released("shoot_web"):
+		if is_instance_valid(player.web.hook):
+			EventBus._on_web_released.emit()
+			#player.web.hook._on_destination_reached.disconnect(check_web_collisions)
+	
 	"""
 		Jump from idle
 	"""

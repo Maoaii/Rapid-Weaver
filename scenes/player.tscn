@@ -71,13 +71,12 @@ jump_buffer_time = 0.1
 coyote_time = 0.15
 terminal_velocity = 500.0
 max_stretch_on_velocity = 1.1
-simple_zooming = null
 web_release = true
 web_travel_time = true
 web_range = 100.0
 zooming_max_speed = 80.0
 zooming_acceleration = 8.0
-web_travelling_speed = 200.0
+web_travelling_speed = 400.0
 zoom_buffer_time = 0.1
 
 [node name="Camera2D" type="Camera2D" parent="."]

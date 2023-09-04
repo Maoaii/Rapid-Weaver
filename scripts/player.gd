@@ -127,6 +127,8 @@ func _ready() -> void:
 	coyote_timer.wait_time = coyote_time
 	jump_buffer_timer.wait_time = jump_buffer_time
 	zoom_buffer_timer.wait_time = zoom_buffer_time
+	
+	EventBus._on_web_released.connect(remove_web)
 
 func _physics_process(delta: float) -> void:
 	# Apply gravity to the player
