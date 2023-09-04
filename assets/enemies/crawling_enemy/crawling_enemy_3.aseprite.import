@@ -1,20 +1,32 @@
 [remap]
 
-importer="texture"
-type="CompressedTexture2D"
+importer="Aseprite AnimatedSprite2D Import"
+type="PackedScene"
 uid="uid://cg2ionr08u1lu"
-path="res://.godot/imported/crawling_enemy_3.aseprite-a980f190718a6cede16bac02b8d7a251.ctex"
-metadata={
-"vram_texture": false
-}
+path="res://.godot/imported/crawling_enemy_3.aseprite-a980f190718a6cede16bac02b8d7a251.scn"
 
 [deps]
 
 source_file="res://assets/enemies/crawling_enemy/crawling_enemy_3.aseprite"
-dest_files=["res://.godot/imported/crawling_enemy_3.aseprite-a980f190718a6cede16bac02b8d7a251.ctex"]
+dest_files=["res://.godot/imported/crawling_enemy_3.aseprite-a980f190718a6cede16bac02b8d7a251.scn"]
 
 [params]
 
+spritesheet/layout="Packed"
+spritesheet/fixed_rows_count=1
+spritesheet/fixed_columns_count=1
+spritesheet/border_type="None"
+spritesheet/trim=false
+spritesheet/ignore_empty=false
+spritesheet/merge_duplicates=false
+animation/default/name="default"
+animation/default/direction="Forward"
+animation/default/repeat_count=0
+animation/autoplay=""
+layers/include_reg_ex="*"
+layers/exclude_reg_ex=""
+tags/include_reg_ex="*"
+tags/exclude_reg_ex=""
 compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7

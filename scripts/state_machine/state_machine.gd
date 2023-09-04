@@ -6,6 +6,8 @@ extends Node
 # Emitted when transitioning to a new state.
 signal transitioned(state_name)
 
+@export var state_type: String
+
 # Path to the initial active state. We export it to be able to pick the initial state in the inspector.
 @export var initial_state := NodePath()
 
@@ -18,7 +20,7 @@ func _ready() -> void:
 	for child in get_children():
 		child.state_machine = self
 	
-	await get_tree().get_first_node_in_group("Player").ready
+	await get_tree().get_first_node_in_group(state_type).ready
 	
 	state._enter()
 

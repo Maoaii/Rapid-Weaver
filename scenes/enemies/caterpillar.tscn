@@ -1,0 +1,43 @@
+[gd_scene load_steps=9 format=3 uid="uid://osik8dchik80"]
+
+[ext_resource type="PackedScene" uid="uid://docolsdq1jm6q" path="res://assets/enemies/crawling_enemy/crawling_enemy_1.aseprite" id="1_0akn6"]
+[ext_resource type="Script" path="res://scripts/enemies/caterpillar.gd" id="1_4w0wg"]
+[ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="2_hwfrl"]
+[ext_resource type="Script" path="res://scripts/state_machine/enemy_states/walking.gd" id="4_jh165"]
+[ext_resource type="Script" path="res://scripts/state_machine/enemy_states/dead.gd" id="5_2i1e1"]
+[ext_resource type="PackedScene" uid="uid://db8algl6onq53" path="res://scenes/components/health_component.tscn" id="6_0gs7y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wknqq"]
+size = Vector2(14, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_an6g2"]
+size = Vector2(16, 4)
+
+[node name="Caterpillar" type="CharacterBody2D" groups=["Enemy"]]
+script = ExtResource("1_4w0wg")
+speed = null
+
+[node name="AnimatedSprite2D" parent="." instance=ExtResource("1_0akn6")]
+animation = &"Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wknqq")
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_an6g2")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_hwfrl")
+state_type = "Enemy"
+initial_state = NodePath("Walking")
+
+[node name="Walking" type="Node" parent="StateMachine"]
+script = ExtResource("4_jh165")
+
+[node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource("5_2i1e1")
+
+[node name="HealthComponent" parent="." instance=ExtResource("6_0gs7y")]

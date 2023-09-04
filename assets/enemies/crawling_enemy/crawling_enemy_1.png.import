@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3p6t6g7bwhmf"
-path="res://.godot/imported/crawling_enemy.aseprite-6d82ed194735bc55b48285272a679a10.ctex"
+uid="uid://bhb77wypbori7"
+path="res://.godot/imported/crawling_enemy_1.png-106a3b5ddfb0c093a89d57269c6c56f5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemies/crawling_enemy/crawling_enemy.aseprite"
-dest_files=["res://.godot/imported/crawling_enemy.aseprite-6d82ed194735bc55b48285272a679a10.ctex"]
+source_file="res://assets/enemies/crawling_enemy/crawling_enemy_1.png"
+dest_files=["res://.godot/imported/crawling_enemy_1.png-106a3b5ddfb0c093a89d57269c6c56f5.ctex"]
 
 [params]
 

@@ -125,6 +125,7 @@ one_shot = true
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("4_32n45")
+state_type = "Player"
 initial_state = NodePath("Air")
 
 [node name="Idle" type="Node" parent="StateMachine"]
