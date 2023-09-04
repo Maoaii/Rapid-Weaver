@@ -9,13 +9,24 @@ func _physics_update(_delta: float) -> void:
 	"""
 		Transition to zooming
 	"""
-	if Input.is_action_just_pressed("shoot_web") and player.web_is_colliding():
-		var collider = player.web.get_collider()
-		state_machine.transition_to("Zooming", 
-				{"position": player.get_web_collision_pos(),
-				 "collider": collider})
-		
-		return
+	if Input.is_action_just_pressed("shoot_web"):
+		if player.web_travel_time:
+			var hook = player.shoot_web()
+			hook._on_destination_reached.connect(check_web_collisions)
+			player.web.set_hook(hook)
+		else:
+			player.web.set_last_collider()
+			player.web.set_last_target_position()
+			state_machine.transition_to("Zooming", {
+				"position": player.web.get_last_target_position(),
+				"collider": player.web.get_last_collider()
+			})
+			return
+	
+	if Input.is_action_just_released("shoot_web"):
+		if is_instance_valid(player.web.hook):
+			EventBus._on_web_released.emit()
+			#player.web.hook._on_destination_reached.disconnect(check_web_collisions)
 	
 	"""
 		Jump from idle
@@ -91,3 +102,12 @@ func _physics_update(_delta: float) -> void:
 		elif player.collision_detector.is_colliding_right():
 			state_machine.transition_to("CeilingWalk")
 			return
+
+
+func check_web_collisions(collisions, stop_position) -> void:
+	if len(collisions) > 0:
+		state_machine.transition_to("Zooming", {
+			"position": stop_position,
+			"collider": collisions[0]
+		})
+		return

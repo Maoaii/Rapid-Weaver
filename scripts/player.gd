@@ -71,11 +71,13 @@ const STICK_SURFACE_CODE = {
 @export_group("Web Variables")
 @export var simple_zooming: bool         ## Enable/Disable player simple zooming. Cancels the player velocity when transitioning to zooming
 @export var web_release: bool            ## Enable/Disable player web rfelease on mouse click release
+@export var web_travel_time: bool        ## Enable/Disable player's web travel time
 @export var web_range : float            ## Max web range for zooming
 @export var zooming_max_speed: float     ## Max speed when zooming
 @export var zooming_acceleration: float  ## The acceleration at which the player zooms
+@export var web_travelling_speed: float  ## The speed at which the player's web will travel to the target location
 ## Amount of time the player has, before touching a surface, to prep a new web zooming
-@export_range(0, 1, 0.05) var zoom_buffer_time: float 
+@export_range(0, 1, 0.05) var zoom_buffer_time: float
 
 
 
@@ -97,7 +99,7 @@ const STICK_SURFACE_CODE = {
 
 ## Onready Web raycast
 @onready
-var web : RayCast2D = $Web
+var web : Web = $Web
 
 ## Onready collision detector
 @onready var collision_detector: CollisionDetector = $CollisionDetector
@@ -125,6 +127,8 @@ func _ready() -> void:
 	coyote_timer.wait_time = coyote_time
 	jump_buffer_timer.wait_time = jump_buffer_time
 	zoom_buffer_timer.wait_time = zoom_buffer_time
+	
+	EventBus._on_web_released.connect(remove_web)
 
 func _physics_process(delta: float) -> void:
 	# Apply gravity to the player
@@ -443,3 +447,15 @@ func has_input_left() -> bool:
 func _on_collider_body_entered(body) -> void:
 	if body.name == "Hurtables":
 		EventBus._on_player_hurt.emit()
+
+
+func shoot_web() -> Hook:
+	var hook: Hook = load("res://hook.tscn").instantiate()
+	hook.global_position = global_position
+	get_tree().root.get_node("World").add_child(hook)
+	
+	hook.set_target_pos(get_global_mouse_position())
+	hook.set_max_range(web_range)
+	hook.set_traveling_speed(web_travelling_speed)
+	
+	return hook
