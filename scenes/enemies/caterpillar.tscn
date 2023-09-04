@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://osik8dchik80"]
 
-[ext_resource type="PackedScene" uid="uid://docolsdq1jm6q" path="res://assets/enemies/crawling_enemy/crawling_enemy_1.aseprite" id="1_0akn6"]
 [ext_resource type="Script" path="res://scripts/enemies/caterpillar.gd" id="1_4w0wg"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="2_hwfrl"]
+[ext_resource type="PackedScene" uid="uid://dm4bvgwdxeult" path="res://assets/enemies/crawling_enemy/crawling_enemy_1.aseprite" id="2_s25m3"]
 [ext_resource type="Script" path="res://scripts/state_machine/enemy_states/walking.gd" id="4_jh165"]
 [ext_resource type="Script" path="res://scripts/state_machine/enemy_states/dead.gd" id="5_2i1e1"]
 [ext_resource type="PackedScene" uid="uid://db8algl6onq53" path="res://scenes/components/health_component.tscn" id="6_0gs7y"]
@@ -17,8 +17,10 @@ size = Vector2(16, 4)
 script = ExtResource("1_4w0wg")
 speed = null
 
-[node name="AnimatedSprite2D" parent="." instance=ExtResource("1_0akn6")]
-animation = &"Idle"
+[node name="AnimatedSprite2D" parent="." instance=ExtResource("2_s25m3")]
+animation = &"Walking"
+frame_progress = 0.8044
+speed_scale = 0.4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_wknqq")

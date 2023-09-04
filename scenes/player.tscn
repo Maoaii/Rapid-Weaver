@@ -95,7 +95,8 @@ libraries = {
 }
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("8_0oofm")]
-animation = &"Walking"
+frame_progress = 0.310783
+speed_scale = 0.7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_k2drm")
