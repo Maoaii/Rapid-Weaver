@@ -29,6 +29,8 @@ shape = SubResource("RectangleShape2D_wknqq")
 position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_an6g2")
 
+[node name="HealthComponent" parent="." instance=ExtResource("6_0gs7y")]
+
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("2_hwfrl")
 state_type = "Enemy"
@@ -39,5 +41,3 @@ script = ExtResource("4_jh165")
 
 [node name="Dead" type="Node" parent="StateMachine"]
 script = ExtResource("5_2i1e1")
-
-[node name="HealthComponent" parent="." instance=ExtResource("6_0gs7y")]
