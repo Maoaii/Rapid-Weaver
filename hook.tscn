@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://hook.gd" id="1_c131f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_klo50"]
-size = Vector2(12, 14)
+size = Vector2(4, 4)
 
 [node name="Hook" type="Area2D"]
 script = ExtResource("1_c131f")

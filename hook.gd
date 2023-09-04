@@ -3,22 +3,41 @@ extends Area2D
 
 signal _on_destination_reached()
 
+var initial_position: Vector2
+var max_range: float
 var target_pos: Vector2
-var collider
 var dir: Vector2
 var speed: float = 100.0
+var player: Player
+
+func _ready() -> void:
+	initial_position = global_position
+	player = get_tree().get_first_node_in_group("Player")
 
 func _physics_process(delta: float) -> void:
-	if global_position.distance_to(target_pos) < 10:
-		emit_signal("_on_destination_reached", "Zooming", {"position": target_pos, "collider": collider})
+	var collisions = get_overlapping_bodies()
+	for collision in collisions:
+		if collision.name == "Player":
+			collisions.erase(collision)
+	
+	if len(collisions) > 0 :
+		emit_signal("_on_destination_reached", collisions, global_position)
 		queue_free()
-		
+		return
+	
+	if initial_position.distance_to(global_position) > max_range:
+		player.remove_web()
+		queue_free()
+		return
+	
 	global_position += dir * speed * delta
 	
-	get_tree().get_first_node_in_group("Player").draw_web(global_position)
+	player.draw_web(global_position)
 
-func set_target_pos(object_collided, pos: Vector2) -> void:
-	collider = object_collided
+func set_max_range(new_max_range: float) -> void:
+	max_range = new_max_range
+
+func set_target_pos(pos: Vector2) -> void:
 	target_pos = pos
 	dir = global_position.direction_to(pos).normalized()
 

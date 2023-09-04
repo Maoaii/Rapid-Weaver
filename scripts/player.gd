@@ -99,7 +99,7 @@ const STICK_SURFACE_CODE = {
 
 ## Onready Web raycast
 @onready
-var web : RayCast2D = $Web
+var web : Web = $Web
 
 ## Onready collision detector
 @onready var collision_detector: CollisionDetector = $CollisionDetector
@@ -451,10 +451,9 @@ func shoot_web() -> Hook:
 	var hook: Hook = load("res://hook.tscn").instantiate()
 	hook.global_position = global_position
 	get_tree().root.get_node("World").add_child(hook)
-		
-	var zoom_collider = web.get_collider()
-	var target_position = get_web_collision_pos()
-	hook.set_target_pos(zoom_collider, target_position)
+	
+	hook.set_target_pos(get_global_mouse_position())
+	hook.set_max_range(web_range)
 	hook.set_traveling_speed(web_travelling_speed)
 	
 	return hook

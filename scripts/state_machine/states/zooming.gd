@@ -91,13 +91,15 @@ func _physics_update(delta: float) -> void:
 		# If buffer timer is on
 		if not player.zoom_buffer_timer.is_stopped():
 			if player.web_travel_time:
-				player.shoot_web()._on_destination_reached.connect(state_machine.transition_to)
+				var hook = player.shoot_web()
+				hook._on_destination_reached.connect(check_web_collisions)
+				player.web.set_hook(hook)
 			else:
-				var collider = player.web.get_collider()
-				var target_position = player.get_web_collision_pos()
+				player.web.set_last_collider()
+				player.web.set_last_target_position()
 				state_machine.transition_to("Zooming", {
-					"position": target_position,
-					"collider": collider
+					"position": player.web.get_last_target_position(),
+					"collider": player.web.get_last_collider()
 				})
 				return
 		else:
@@ -126,3 +128,12 @@ func _physics_update(delta: float) -> void:
 
 func detach_web() -> void:
 	state_machine.transition_to("Air", {"momentum": player.velocity})
+
+
+func check_web_collisions(collisions, stop_position) -> void:
+	if len(collisions) > 0:
+		state_machine.transition_to("Zooming", {
+			"position": stop_position,
+			"collider": collisions[0]
+		})
+		return

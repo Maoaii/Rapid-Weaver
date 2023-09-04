@@ -16,15 +16,17 @@ func _physics_update(delta: float) -> void:
 	"""
 		Transition to zooming
 	"""
-	if Input.is_action_just_pressed("shoot_web") and player.web_is_colliding():
+	if Input.is_action_just_pressed("shoot_web"):
 		if player.web_travel_time:
-			player.shoot_web()._on_destination_reached.connect(state_machine.transition_to)
+			var hook = player.shoot_web()
+			hook._on_destination_reached.connect(check_web_collisions)
+			player.web.set_hook(hook)
 		else:
-			var collider = player.web.get_collider()
-			var target_position = player.get_web_collision_pos()
+			player.web.set_last_collider()
+			player.web.set_last_target_position()
 			state_machine.transition_to("Zooming", {
-				"position": target_position,
-				"collider": collider
+				"position": player.web.get_last_target_position(),
+				"collider": player.web.get_last_collider()
 			})
 			return
 	
@@ -66,3 +68,12 @@ func _physics_update(delta: float) -> void:
 		elif player.collision_detector.is_colliding_right():
 			state_machine.transition_to("WallWalking")
 			return
+
+
+func check_web_collisions(collisions, stop_position) -> void:
+	if len(collisions) > 0:
+		state_machine.transition_to("Zooming", {
+			"position": stop_position,
+			"collider": collisions[0]
+		})
+		return

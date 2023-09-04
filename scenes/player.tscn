@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://lmt4yjrdw8kk"]
+[gd_scene load_steps=19 format=3 uid="uid://lmt4yjrdw8kk"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_utnx1"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="4_32n45"]
 [ext_resource type="PackedScene" uid="uid://cuantmlbgy078" path="res://scenes/player/collision_detector.tscn" id="4_h81fh"]
+[ext_resource type="Script" path="res://scripts/player/web.gd" id="4_pnm6v"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/idle.gd" id="5_w8ll2"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/walking.gd" id="6_2cnoh"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/air.gd" id="7_5cqmt"]
@@ -70,12 +71,13 @@ jump_buffer_time = 0.1
 coyote_time = 0.15
 terminal_velocity = 500.0
 max_stretch_on_velocity = 1.1
+simple_zooming = null
 web_release = true
 web_travel_time = true
 web_range = 100.0
 zooming_max_speed = 80.0
 zooming_acceleration = 8.0
-web_travelling_speed = 400.0
+web_travelling_speed = 200.0
 zoom_buffer_time = 0.1
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -107,6 +109,7 @@ shape = SubResource("RectangleShape2D_0vrxb")
 
 [node name="Web" type="RayCast2D" parent="."]
 target_position = Vector2(2.08165e-12, 2.08165e-12)
+script = ExtResource("4_pnm6v")
 
 [node name="CollisionDetector" parent="." instance=ExtResource("4_h81fh")]
 
