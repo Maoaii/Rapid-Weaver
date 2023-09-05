@@ -458,4 +458,6 @@ func shoot_web() -> Hook:
 	hook.set_max_range(web_range)
 	hook.set_traveling_speed(web_travelling_speed)
 	
+	hook.set_collision_mask_value(4, true)
+	
 	return hook

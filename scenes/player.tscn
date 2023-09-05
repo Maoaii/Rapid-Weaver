@@ -59,6 +59,8 @@ size = Vector2(16, 10)
 size = Vector2(14, 8)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 4
+collision_mask = 9
 script = ExtResource("1_utnx1")
 max_speed = 150.0
 move_acceleration = 10.0
@@ -76,7 +78,7 @@ web_travel_time = true
 web_range = 100.0
 zooming_max_speed = 80.0
 zooming_acceleration = 8.0
-web_travelling_speed = 400.0
+web_travelling_speed = 600.0
 zoom_buffer_time = 0.1
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -95,7 +97,7 @@ libraries = {
 }
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("8_0oofm")]
-frame_progress = 0.310783
+frame_progress = 0.491315
 speed_scale = 0.7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

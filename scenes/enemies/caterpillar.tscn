@@ -11,25 +11,35 @@
 size = Vector2(14, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_an6g2"]
-size = Vector2(16, 4)
+size = Vector2(10, 3)
 
-[node name="Caterpillar" type="CharacterBody2D" groups=["Enemy"]]
+[node name="Caterpillar" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "left_ledge_detector", "right_ledge_detector") groups=["Enemy", "Moving"]]
+collision_layer = 8
 script = ExtResource("1_4w0wg")
-speed = null
+health_component = NodePath("HealthComponent")
+left_ledge_detector = NodePath("LeftLedgeDetector")
+right_ledge_detector = NodePath("RightLedgeDetector")
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("2_s25m3")]
 animation = &"Walking"
-frame_progress = 0.8044
+frame_progress = 0.391154
 speed_scale = 0.4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_wknqq")
 
 [node name="HitBox" type="Area2D" parent="."]
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(0, -4)
+position = Vector2(0, -3.5)
 shape = SubResource("RectangleShape2D_an6g2")
+
+[node name="LeftLedgeDetector" type="RayCast2D" parent="."]
+position = Vector2(-9, 0)
+
+[node name="RightLedgeDetector" type="RayCast2D" parent="."]
+position = Vector2(9, 0)
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_0gs7y")]
 
@@ -43,3 +53,5 @@ script = ExtResource("4_jh165")
 
 [node name="Dead" type="Node" parent="StateMachine"]
 script = ExtResource("5_2i1e1")
+
+[connection signal="body_entered" from="HitBox" to="StateMachine/Walking" method="_on_hit_box_body_entered"]
