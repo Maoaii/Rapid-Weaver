@@ -5,7 +5,7 @@ var zooming_pos: Vector2
 ## Stores a temporary zooming position if tried to zoom while zooming
 var tmp_zooming_pos: Vector2
 
-var moving_collider: AnimatableBody2D
+var moving_collider: Node2D
 var destructable_collider: Destructable
 var distance_from_pos: Vector2
 

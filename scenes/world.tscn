@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://lmt4yjrdw8kk" path="res://scenes/player.tscn" id="4_1iyyg"]
 [ext_resource type="PackedScene" uid="uid://kdubal300fkt" path="res://scenes/managers/score_manager.tscn" id="5_jrtd7"]
 [ext_resource type="PackedScene" uid="uid://cbc5jyuaxunxf" path="res://scenes/death_area.tscn" id="6_qaw3s"]
-[ext_resource type="PackedScene" path="res://scenes/fly.tscn" id="9_noggo"]
+[ext_resource type="PackedScene" uid="uid://c74c7gcct02cs" path="res://scenes/fly.tscn" id="9_noggo"]
 [ext_resource type="PackedScene" uid="uid://cxuxs54xiwb7o" path="res://scenes/ui.tscn" id="10_uby7a"]
 
 [node name="World" type="Node2D"]
