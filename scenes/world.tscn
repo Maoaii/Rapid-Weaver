@@ -23,6 +23,7 @@ position = Vector2(396, 328)
 
 [node name="DeathArea" parent="." instance=ExtResource("6_qaw3s")]
 position = Vector2(0, 496)
+collision_mask = 4
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
@@ -43,5 +44,3 @@ enable_following_camera = true
 death_area = NodePath("../DeathArea")
 
 [node name="ScoreManager" parent="." instance=ExtResource("5_jrtd7")]
-
-[connection signal="hurt" from="Player" to="Game Controller" method="_on_player_hurt"]

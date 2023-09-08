@@ -37,6 +37,7 @@ func _unhandled_input(_event) -> void:
 
 
 func restart_game() -> void:
+	print("hey")
 	EventBus._on_game_restart.emit()
 	get_tree().change_scene_to_file("res://scenes/world.tscn")
 

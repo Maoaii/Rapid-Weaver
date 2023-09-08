@@ -1,9 +1,6 @@
 class_name Player
 extends CharacterBody2D
 
-## Signal when player is hurt
-signal hurt
-
 ## Player Rotation codes
 ## Matches a string (that resembles a direction) to a rotation in radians
 const ROTATION_CODES = {
