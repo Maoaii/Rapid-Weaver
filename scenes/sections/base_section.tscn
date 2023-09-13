@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://kdhe48dcjwn3"]
+[gd_scene load_steps=11 format=3 uid="uid://kdhe48dcjwn3"]
 
 [ext_resource type="Script" path="res://scripts/base_section.gd" id="1_u2ymb"]
 [ext_resource type="TileSet" uid="uid://drap3i3m8y6tj" path="res://assets/tileset/tileset.tres" id="2_o0rgw"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bqck8rk8hujhh" path="res://scenes/moving_platform.tscn" id="5_mng11"]
 [ext_resource type="PackedScene" uid="uid://bpilkvcv6kwcy" path="res://scenes/obstacles/destructable_platform.tscn" id="6_yadxn"]
 [ext_resource type="PackedScene" uid="uid://osik8dchik80" path="res://scenes/enemies/caterpillar.tscn" id="7_u3ie8"]
+[ext_resource type="PackedScene" uid="uid://cwawrjs36jqe5" path="res://scenes/enemies/wasp.tscn" id="8_gy5qm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7xhs7"]
 texture = ExtResource("4_14e1k")
@@ -1251,5 +1252,8 @@ position = Vector2(210, 400)
 
 [node name="Caterpillar" parent="." instance=ExtResource("7_u3ie8")]
 position = Vector2(330, 428)
+
+[node name="Wasp" parent="." instance=ExtResource("8_gy5qm")]
+position = Vector2(327, 339)
 
 [connection signal="screen_entered" from="TopScreenNotifier" to="." method="_on_top_screen_notifier_screen_entered"]

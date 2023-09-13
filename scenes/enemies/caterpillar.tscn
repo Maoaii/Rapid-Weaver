@@ -17,7 +17,9 @@ size = Vector2(10, 3)
 [node name="Caterpillar" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "left_ledge_detector", "right_ledge_detector") groups=["Enemy", "Moving"]]
 collision_layer = 8
 script = ExtResource("1_4w0wg")
-move_length = 0
+idle_length = 0.5
+move_length = 1.0
+horizontal_speed = 30.0
 health_component = NodePath("HealthComponent")
 left_ledge_detector = NodePath("LeftLedgeDetector")
 right_ledge_detector = NodePath("RightLedgeDetector")
