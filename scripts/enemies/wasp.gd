@@ -5,6 +5,8 @@ extends Enemy
 @export_range(1, 1000) var frequency: float = 5
 @export_range(1, 1000) var amplitude: float = 150
 
+@export_group("Chase Movement Variables")
+@export var speed: float = 50
 
 @onready var left_wall_detector: RayCast2D = $LeftWallDetector
 @onready var right_wall_detector: RayCast2D = $RightWallDetector
@@ -25,3 +27,8 @@ func move_sinusoid(delta: float, dir: Vector2) -> void:
 
 func hit_wall() -> bool:
 	return left_wall_detector.is_colliding() or right_wall_detector.is_colliding()
+
+func follow(player: Player):
+	var dir = global_position.direction_to(player.global_position).normalized()
+	velocity.x = dir.x * speed
+	velocity.y = dir.y * speed

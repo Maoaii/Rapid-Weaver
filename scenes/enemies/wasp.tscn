@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://cwawrjs36jqe5"]
+[gd_scene load_steps=10 format=3 uid="uid://cwawrjs36jqe5"]
 
 [ext_resource type="Script" path="res://scripts/enemies/wasp.gd" id="1_2m428"]
 [ext_resource type="PackedScene" uid="uid://db8algl6onq53" path="res://scenes/components/health_component.tscn" id="1_o4xoc"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="2_o2djb"]
 [ext_resource type="PackedScene" uid="uid://ddwqea3byvpm8" path="res://assets/enemies/flying_enemy/flying_enemy_1.aseprite" id="3_lp1mt"]
 [ext_resource type="Script" path="res://scripts/state_machine/enemy_states/wasp/moving.gd" id="5_qu3j4"]
+[ext_resource type="Script" path="res://scripts/state_machine/enemy_states/dead.gd" id="6_mu074"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b04t4"]
 size = Vector2(10, 12)
@@ -15,16 +16,16 @@ radius = 40.0125
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v8u6t"]
 size = Vector2(12, 2)
 
-[node name="Wasp" type="CharacterBody2D" groups=["Enemy", "Moving"]]
+[node name="Wasp" type="CharacterBody2D" node_paths=PackedStringArray("health_component") groups=["Enemy", "Moving"]]
 script = ExtResource("1_2m428")
 amplitude = 20.0
 x_start_direction = Vector2(-1, 2.08165e-12)
 horizontal_speed = 30.0
+health_component = NodePath("HealthComponent")
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("3_lp1mt")]
 position = Vector2(0, -1)
 animation = &"Moving"
-frame_progress = 0.93376
 speed_scale = 0.5
 
 [node name="LeftWallDetector" type="RayCast2D" parent="."]
@@ -37,17 +38,20 @@ target_position = Vector2(7, 0)
 shape = SubResource("RectangleShape2D_b04t4")
 
 [node name="AggroRange" type="Area2D" parent="."]
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRange"]
 shape = SubResource("CircleShape2D_mqycg")
 
 [node name="HitBox" type="Area2D" parent="."]
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_v8u6t")
 
 [node name="HealthComponent" parent="." instance=ExtResource("1_o4xoc")]
+max_health = 10
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("2_o2djb")
@@ -56,3 +60,10 @@ initial_state = NodePath("Moving")
 
 [node name="Moving" type="Node" parent="StateMachine"]
 script = ExtResource("5_qu3j4")
+
+[node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource("6_mu074")
+
+[connection signal="body_entered" from="AggroRange" to="StateMachine/Moving" method="_on_aggro_range_body_entered"]
+[connection signal="body_exited" from="AggroRange" to="StateMachine/Moving" method="_on_aggro_range_body_exited"]
+[connection signal="body_entered" from="HitBox" to="StateMachine/Moving" method="_on_hit_box_body_entered"]

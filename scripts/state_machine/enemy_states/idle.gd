@@ -16,3 +16,8 @@ func _physics_update(_delta: float) -> void:
 
 func idle_timer_ended() -> void:
 	state_machine.transition_to("Walking")
+
+
+func _on_hit_box_body_entered(body):
+	if body.is_in_group("Player"):
+		state_machine.transition_to("Dead")

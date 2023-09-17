@@ -66,4 +66,5 @@ script = ExtResource("4_jh165")
 [node name="Dead" type="Node" parent="StateMachine"]
 script = ExtResource("5_2i1e1")
 
+[connection signal="body_entered" from="HitBox" to="StateMachine/Idle" method="_on_hit_box_body_entered"]
 [connection signal="body_entered" from="HitBox" to="StateMachine/Walking" method="_on_hit_box_body_entered"]
