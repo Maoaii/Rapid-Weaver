@@ -5,7 +5,7 @@ var last_dir: Vector2
 func _enter(_msg := {}) -> void:
 	enemy.play_animation("Walking")
 	if not last_dir:
-		last_dir = enemy.start_direction
+		last_dir = enemy.x_start_direction
 	
 	enemy.x_dir = last_dir
 	
@@ -17,7 +17,7 @@ func _exit() -> void:
 	last_dir = enemy.x_dir
 	enemy.moving_timer.stop()
 
-func _physics_process(_delta: float) -> void:
+func _physics_update(_delta: float) -> void:
 	enemy.move_x()
 	enemy.move_and_slide()
 	

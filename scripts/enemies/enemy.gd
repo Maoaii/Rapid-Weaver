@@ -2,11 +2,10 @@ class_name Enemy
 extends CharacterBody2D
 
 @export_group("Movement variables")
+@export var x_start_direction: Vector2 = Vector2.RIGHT
+@export var y_start_direction: Vector2 = Vector2.ZERO
 @export var horizontal_speed: float = 50.0
 @export var vertical_speed: float = 20.0
-@export var constant_roam: bool = false
-@export var idle_length: float = 1
-@export var move_length: float = 0.4
 
 @export_group("Death Variables")
 @export var death_animation_time: float = 2
@@ -19,14 +18,18 @@ extends CharacterBody2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
-var x_dir: Vector2 = Vector2.ZERO
-var y_dir: Vector2 = Vector2.ZERO
+var x_dir: Vector2
+var y_dir: Vector2
+
+func _ready() -> void:
+	x_dir = x_start_direction
+	y_dir = y_start_direction
 
 func flip_enemy() -> void:
 	if x_dir == Vector2.RIGHT:
-		position.x -= 10
+		position.x -= 5
 	else:
-		position.x += 10
+		position.x += 5
 	
 	x_dir = Vector2.RIGHT if x_dir == Vector2.LEFT else Vector2.LEFT
 	

@@ -1,10 +1,6 @@
 extends EnemyState
 
-var is_idle: bool = false
-
 func _enter(_msg := {}) -> void:
-	is_idle = true
-	
 	enemy.play_animation("Idle")
 	
 	enemy.idle_timer.start(enemy.idle_length)
@@ -13,12 +9,15 @@ func _enter(_msg := {}) -> void:
 	idle_timer_ended()
 
 func _exit() -> void:
-	is_idle = false
 	enemy.idle_timer.stop()
 
-func _physics_process(_delta: float) -> void:
-	if is_idle:
-		enemy.x_dir = Vector2.ZERO
+func _physics_update(_delta: float) -> void:
+	enemy.x_dir = Vector2.ZERO
 
 func idle_timer_ended() -> void:
 	state_machine.transition_to("Walking")
+
+
+func _on_hit_box_body_entered(body):
+	if body.is_in_group("Player"):
+		state_machine.transition_to("Dead")
