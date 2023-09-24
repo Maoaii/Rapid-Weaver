@@ -1,0 +1,63 @@
+[gd_scene load_steps=11 format=3 uid="uid://ciljpcy8dvt4y"]
+
+[ext_resource type="PackedScene" uid="uid://dm1o3dk5kk7xa" path="res://assets/enemies/shooter_enemy/shooter.aseprite" id="1_541tk"]
+[ext_resource type="Script" path="res://scripts/components/health_component.gd" id="1_lni0v"]
+[ext_resource type="Script" path="res://scripts/enemies/shooter.gd" id="1_ng17o"]
+[ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="2_t54hr"]
+[ext_resource type="Script" path="res://scripts/state_machine/enemy_states/shooter/idle.gd" id="4_ekomo"]
+[ext_resource type="Script" path="res://scripts/state_machine/enemy_states/shooter/shooting.gd" id="5_qesi3"]
+[ext_resource type="Script" path="res://scripts/state_machine/enemy_states/dead.gd" id="6_algir"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7urd5"]
+size = Vector2(12, 13)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bk4vi"]
+radius = 54.037
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u2f8r"]
+size = Vector2(10, 3)
+
+[node name="Shooter" type="CharacterBody2D"]
+script = ExtResource("1_ng17o")
+
+[node name="AnimatedSprite2D" parent="." instance=ExtResource("1_541tk")]
+animation = &"Shooting"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_7urd5")
+
+[node name="AggroRange" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRange"]
+shape = SubResource("CircleShape2D_bk4vi")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_u2f8r")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("1_lni0v")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_t54hr")
+state_type = "Enemy"
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_ekomo")
+
+[node name="Shooting" type="Node" parent="StateMachine"]
+script = ExtResource("5_qesi3")
+
+[node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource("6_algir")
+
+[connection signal="body_entered" from="AggroRange" to="StateMachine/Idle" method="_on_aggro_range_body_entered"]
+[connection signal="body_exited" from="AggroRange" to="StateMachine/Shooting" method="_on_aggro_range_body_exited"]
+[connection signal="body_entered" from="Hitbox" to="StateMachine/Idle" method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="Hitbox" to="StateMachine/Shooting" method="_on_hitbox_body_entered"]
