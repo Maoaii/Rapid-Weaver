@@ -50,6 +50,8 @@ shape = SubResource("RectangleShape2D_u2f8r")
 [node name="TrajectoryLine" type="Line2D" parent="."]
 width = 2.0
 
+[node name="ShootTimer" type="Timer" parent="."]
+
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("1_lni0v")
 
@@ -71,3 +73,4 @@ script = ExtResource("6_algir")
 [connection signal="body_exited" from="AggroRange" to="StateMachine/Shooting" method="_on_aggro_range_body_exited"]
 [connection signal="body_entered" from="Hitbox" to="StateMachine/Idle" method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="Hitbox" to="StateMachine/Shooting" method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="ShootTimer" to="StateMachine/Shooting" method="_on_shoot_timer_timeout"]

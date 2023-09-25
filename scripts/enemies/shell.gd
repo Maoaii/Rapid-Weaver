@@ -11,7 +11,7 @@ func set_dir(new_dir: Vector2) -> void:
 	velocity = dir * speed
 
 func _physics_process(delta: float) -> void:
-	velocity.y += gravity * delta
+	#velocity.y += gravity * delta
 	
 	var collision = move_and_collide(velocity * delta)
 	if not collision:
