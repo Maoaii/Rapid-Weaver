@@ -3,17 +3,25 @@
 [ext_resource type="Script" path="res://scripts/enemies/shell.gd" id="1_dt8lu"]
 [ext_resource type="Texture2D" uid="uid://bxj4temjhu8nq" path="res://assets/enemies/shooter_enemy/shell.aseprite" id="2_jlnw5"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ekx7y"]
-size = Vector2(12, 8)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qsasy"]
+size = Vector2(10, 6)
 
 [node name="Shell" type="CharacterBody2D"]
+collision_layer = 8
 collision_mask = 5
 script = ExtResource("1_dt8lu")
 speed = 200.0
 gravity = 100.0
 
-[node name="Sprited2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_jlnw5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_ekx7y")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("RectangleShape2D_qsasy")
+
+[connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]

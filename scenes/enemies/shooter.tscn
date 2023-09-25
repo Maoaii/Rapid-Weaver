@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ciljpcy8dvt4y"]
+[gd_scene load_steps=13 format=3 uid="uid://ciljpcy8dvt4y"]
 
 [ext_resource type="PackedScene" uid="uid://dm1o3dk5kk7xa" path="res://assets/enemies/shooter_enemy/shooter.aseprite" id="1_541tk"]
 [ext_resource type="Script" path="res://scripts/components/health_component.gd" id="1_lni0v"]
@@ -10,13 +10,16 @@
 [ext_resource type="Script" path="res://scripts/state_machine/enemy_states/dead.gd" id="6_algir"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7urd5"]
-size = Vector2(12, 13)
+size = Vector2(8, 8)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bk4vi"]
 radius = 120.067
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u2f8r"]
 size = Vector2(10, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ek7s3"]
+size = Vector2(10, 10)
 
 [node name="Shooter" type="CharacterBody2D"]
 collision_layer = 8
@@ -30,7 +33,7 @@ frame_progress = 0.258729
 speed_scale = 0.2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_7urd5")
 
 [node name="AggroRange" type="Area2D" parent="."]
@@ -46,6 +49,13 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(0, -5.5)
 shape = SubResource("RectangleShape2D_u2f8r")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_ek7s3")
 
 [node name="TrajectoryLine" type="Line2D" parent="."]
 width = 2.0
@@ -73,4 +83,5 @@ script = ExtResource("6_algir")
 [connection signal="body_exited" from="AggroRange" to="StateMachine/Shooting" method="_on_aggro_range_body_exited"]
 [connection signal="body_entered" from="Hitbox" to="StateMachine/Idle" method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="Hitbox" to="StateMachine/Shooting" method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="timeout" from="ShootTimer" to="StateMachine/Shooting" method="_on_shoot_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3d4smrwgcq4j"]
+[gd_scene load_steps=7 format=3 uid="uid://d3d4smrwgcq4j"]
 
 [ext_resource type="Script" path="res://scripts/enemies/fungus.gd" id="1_sgr2b"]
 [ext_resource type="SpriteFrames" uid="uid://br064q4w0bhhb" path="res://assets/enemies/fungus_enemy/fungus_2.tres" id="3_1tdmm"]
@@ -7,6 +7,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yx67y"]
 size = Vector2(14, 11)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_68tdv"]
+radius = 12.0
 
 [node name="Fungus" type="CharacterBody2D"]
 script = ExtResource("1_sgr2b")
@@ -23,6 +26,13 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_yx67y")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_68tdv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
@@ -47,3 +57,5 @@ scale_amount_min = 0.2
 scale_amount_max = 2.0
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_exited" from="Hurtbox" to="." method="_on_hurtbox_body_exited"]

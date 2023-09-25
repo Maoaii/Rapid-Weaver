@@ -8,3 +8,8 @@ extends Enemy
 
 @onready var idle_timer: Timer = $IdleTimer
 @onready var moving_timer: Timer = $MovingTimer
+
+
+func _on_hurtbox_body_entered(body):
+	if body.is_in_group("Player"):
+		EventBus._on_player_hurt.emit()

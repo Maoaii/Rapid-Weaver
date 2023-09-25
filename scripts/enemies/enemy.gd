@@ -20,6 +20,7 @@ extends CharacterBody2D
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var hurt_box: Area2D = $Hurtbox
 
 var x_dir: Vector2
 var y_dir: Vector2
@@ -72,4 +73,5 @@ func dead() -> void:
 	x_dir = Vector2.ZERO
 	y_dir = Vector2.ZERO
 	
+	hurt_box.set_deferred("monitoring", false)
 	collision_shape.set_deferred("disabled", true)

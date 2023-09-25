@@ -32,3 +32,8 @@ func follow(player: Player):
 	var dir = global_position.direction_to(player.global_position).normalized()
 	velocity.x = dir.x * speed
 	velocity.y = dir.y * speed
+
+
+func _on_hurtbox_body_entered(body):
+	if body.is_in_group("Player"):
+		EventBus._on_player_hurt.emit()

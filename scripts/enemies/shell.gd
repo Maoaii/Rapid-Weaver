@@ -13,8 +13,11 @@ func set_dir(new_dir: Vector2) -> void:
 func _physics_process(delta: float) -> void:
 	#velocity.y += gravity * delta
 	
-	var collision = move_and_collide(velocity * delta)
-	if not collision:
-		return
+	move_and_collide(velocity * delta)
+
+
+func _on_hurt_box_body_entered(body):
+	if body.is_in_group("Player"):
+		EventBus._on_player_hurt.emit()
 	
 	queue_free()

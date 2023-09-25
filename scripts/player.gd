@@ -129,6 +129,7 @@ func _ready() -> void:
 	zoom_buffer_timer.wait_time = zoom_buffer_time
 	
 	EventBus._on_web_released.connect(remove_web)
+	EventBus._on_player_hurt.connect(hurt)
 
 func _physics_process(delta: float) -> void:
 	# Apply gravity to the player
@@ -300,6 +301,12 @@ func is_simple_zooming() -> bool:
 """
 func get_health() -> int:
 	return health_component.health
+
+func hurt() -> void:
+	health_component.take_damage(1)
+	
+	if health_component.health <= 0:
+		EventBus._on_player_death.emit()
 
 
 """
