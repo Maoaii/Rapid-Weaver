@@ -7,18 +7,20 @@ func _enter(msg := {}) -> void:
 	
 	if msg.has("player"):
 		player = msg.get("player")
+	
+	get_tree().create_timer(enemy.shoot_time).timeout.connect(shoot)
 
 
 func _exit() -> void:
 	player = null
 
-
-func _physics_update(delta: float) -> void:
+func shoot():
 	if not is_instance_valid(player):
 		return
 	
-	pass
-
+	enemy.shoot(player.position)
+	
+	get_tree().create_timer(enemy.shoot_time).timeout.connect(shoot)
 
 func _on_aggro_range_body_exited(body) -> void:
 	if body.is_in_group("Player"):
@@ -27,4 +29,4 @@ func _on_aggro_range_body_exited(body) -> void:
 
 func _on_hitbox_body_entered(body) -> void:
 	if body.is_in_group("Player"):
-		pass
+		state_machine.transition_to("Dead")
