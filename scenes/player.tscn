@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://lmt4yjrdw8kk"]
+[gd_scene load_steps=20 format=3 uid="uid://lmt4yjrdw8kk"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_utnx1"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="4_32n45"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/player/web.gd" id="4_pnm6v"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/idle.gd" id="5_w8ll2"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/walking.gd" id="6_2cnoh"]
+[ext_resource type="PackedScene" uid="uid://db8algl6onq53" path="res://scenes/components/health_component.tscn" id="6_xbv81"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/air.gd" id="7_5cqmt"]
 [ext_resource type="PackedScene" uid="uid://dfh1g623koyt" path="res://assets/Player/player.ase" id="8_0oofm"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/wall_walking.gd" id="8_sl14v"]
@@ -126,6 +127,9 @@ one_shot = true
 wait_time = 0.1
 one_shot = true
 
+[node name="HealthComponent" parent="." instance=ExtResource("6_xbv81")]
+max_health = 3
+
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("4_32n45")
 state_type = "Player"
@@ -192,5 +196,13 @@ offset_bottom = 50.0
 theme_override_font_sizes/font_size = 8
 text = "21321"
 horizontal_alignment = 1
+
+[node name="CurrentHealth" type="Label" parent="PlayerDebug"]
+layout_mode = 0
+offset_top = -9.0
+offset_right = 41.0
+offset_bottom = 13.0
+theme_override_font_sizes/font_size = 8
+text = "Health: 3"
 
 [connection signal="body_entered" from="Collider" to="." method="_on_collider_body_entered"]

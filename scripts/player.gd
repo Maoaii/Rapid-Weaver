@@ -98,6 +98,9 @@ const STICK_SURFACE_CODE = {
 @onready
 var web : Web = $Web
 
+## Onready health component
+@onready var health_component: HealthComponent = $HealthComponent
+
 ## Onready collision detector
 @onready var collision_detector: CollisionDetector = $CollisionDetector
 
@@ -291,6 +294,12 @@ func get_zooming_acceleration() -> float:
 func is_simple_zooming() -> bool:
 	return simple_zooming
 
+
+"""
+	Health functions
+"""
+func get_health() -> int:
+	return health_component.health
 
 
 """
