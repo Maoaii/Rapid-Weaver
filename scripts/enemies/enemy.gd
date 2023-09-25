@@ -25,7 +25,6 @@ var x_dir: Vector2
 var y_dir: Vector2
 
 
-
 func _ready() -> void:
 	# Select a random spriteframe and load it
 	var selected_sprite = sprites.pick_random()

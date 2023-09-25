@@ -1265,9 +1265,9 @@ position = Vector2(366, 425)
 position = Vector2(345, 424)
 
 [node name="Fungus2" parent="." instance=ExtResource("10_axk7t")]
-position = Vector2(331, 424)
+position = Vector2(317, 424)
 
 [node name="Fungus3" parent="." instance=ExtResource("10_axk7t")]
-position = Vector2(317, 424)
+position = Vector2(331, 424)
 
 [connection signal="screen_entered" from="TopScreenNotifier" to="." method="_on_top_screen_notifier_screen_entered"]
