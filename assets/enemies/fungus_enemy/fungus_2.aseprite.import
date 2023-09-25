@@ -2,13 +2,13 @@
 
 importer="Aseprite AnimatedSprite2D Import"
 type="PackedScene"
-uid="uid://bhogrxp1dm7v3"
-path="res://.godot/imported/crawling_enemy_1.aseprite-6d8602f23c4ef49ed0c65c97962119ae.scn"
+uid="uid://chcbucegj8gfg"
+path="res://.godot/imported/fungus_2.aseprite-02747c65cf25aca991ae5920f611a512.scn"
 
 [deps]
 
-source_file="res://assets/enemies/crawling_enemy/crawling_enemy_1.aseprite"
-dest_files=["res://.godot/imported/crawling_enemy_1.aseprite-6d8602f23c4ef49ed0c65c97962119ae.scn"]
+source_file="res://assets/enemies/fungus_enemy/fungus_2.aseprite"
+dest_files=["res://.godot/imported/fungus_2.aseprite-02747c65cf25aca991ae5920f611a512.scn"]
 
 [params]
 

@@ -1,0 +1,64 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://bceyaihtt5qpr"]
+
+[ext_resource type="Texture2D" uid="uid://bt6hngkgmbapm" path="res://assets/enemies/crawling_enemy/crawling_enemy_1.png" id="1_oer87"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5scw"]
+atlas = ExtResource("1_oer87")
+region = Rect2(26, 7, 13, 6)
+margin = Rect2(0, 4, 1, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rasxx"]
+atlas = ExtResource("1_oer87")
+region = Rect2(13, 7, 13, 7)
+margin = Rect2(0, 3, 1, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5sul"]
+atlas = ExtResource("1_oer87")
+region = Rect2(0, 0, 13, 8)
+margin = Rect2(0, 2, 1, 2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnlof"]
+atlas = ExtResource("1_oer87")
+region = Rect2(13, 0, 14, 7)
+margin = Rect2(0, 3, 0, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhc70"]
+atlas = ExtResource("1_oer87")
+region = Rect2(27, 0, 14, 7)
+margin = Rect2(0, 3, 0, 3)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_o5scw")
+}],
+"loop": true,
+"name": &"Dead",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_rasxx")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_rasxx")
+}, {
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_e5sul")
+}, {
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_jnlof")
+}, {
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_yhc70")
+}],
+"loop": true,
+"name": &"Walking",
+"speed": 1.0
+}]

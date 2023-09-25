@@ -1,15 +1,19 @@
-[gd_scene load_steps=10 format=3 uid="uid://osik8dchik80"]
+[gd_scene load_steps=14 format=3 uid="uid://osik8dchik80"]
 
 [ext_resource type="Script" path="res://scripts/enemies/caterpillar.gd" id="1_4w0wg"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="2_hwfrl"]
-[ext_resource type="PackedScene" uid="uid://dm4bvgwdxeult" path="res://assets/enemies/crawling_enemy/crawling_enemy_1.aseprite" id="2_s25m3"]
+[ext_resource type="SpriteFrames" uid="uid://dfefmt5bo27ty" path="res://assets/enemies/crawling_enemy/caterpilar_2.tres" id="3_merie"]
+[ext_resource type="SpriteFrames" uid="uid://bceyaihtt5qpr" path="res://assets/enemies/crawling_enemy/caterpilar_1.tres" id="3_vwok2"]
 [ext_resource type="Script" path="res://scripts/state_machine/enemy_states/walking.gd" id="4_jh165"]
+[ext_resource type="SpriteFrames" uid="uid://cauj2nyy6fn2" path="res://assets/enemies/crawling_enemy/caterpilar_3.tres" id="4_y512k"]
 [ext_resource type="Script" path="res://scripts/state_machine/enemy_states/dead.gd" id="5_2i1e1"]
+[ext_resource type="SpriteFrames" uid="uid://w4befp3qtfbm" path="res://assets/enemies/crawling_enemy/caterpilar_4.tres" id="5_fnj7x"]
 [ext_resource type="PackedScene" uid="uid://db8algl6onq53" path="res://scenes/components/health_component.tscn" id="6_0gs7y"]
 [ext_resource type="Script" path="res://scripts/state_machine/enemy_states/idle.gd" id="7_y1dam"]
+[ext_resource type="PackedScene" uid="uid://bhogrxp1dm7v3" path="res://assets/enemies/crawling_enemy/crawling_enemy_1.aseprite" id="11_thocf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wknqq"]
-size = Vector2(14, 8)
+size = Vector2(14, 9)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_an6g2"]
 size = Vector2(10, 3)
@@ -19,18 +23,20 @@ collision_layer = 8
 script = ExtResource("1_4w0wg")
 idle_length = 0.5
 move_length = 1.0
+sprites = Array[SpriteFrames]([ExtResource("3_vwok2"), ExtResource("3_merie"), ExtResource("4_y512k"), ExtResource("5_fnj7x")])
 horizontal_speed = 30.0
 health_component = NodePath("HealthComponent")
 left_ledge_detector = NodePath("LeftLedgeDetector")
 right_ledge_detector = NodePath("RightLedgeDetector")
 
-[node name="AnimatedSprite2D" parent="." instance=ExtResource("2_s25m3")]
+[node name="AnimatedSprite2D" parent="." instance=ExtResource("11_thocf")]
+sprite_frames = ExtResource("5_fnj7x")
 animation = &"Walking"
-frame = 2
-frame_progress = 0.712143
-speed_scale = 0.4
+frame_progress = 0.426361
+speed_scale = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_wknqq")
 
 [node name="HitBox" type="Area2D" parent="."]
@@ -42,9 +48,11 @@ shape = SubResource("RectangleShape2D_an6g2")
 
 [node name="LeftLedgeDetector" type="RayCast2D" parent="."]
 position = Vector2(-9, 0)
+target_position = Vector2(0, 9)
 
 [node name="RightLedgeDetector" type="RayCast2D" parent="."]
 position = Vector2(9, 0)
+target_position = Vector2(0, 9)
 
 [node name="IdleTimer" type="Timer" parent="."]
 

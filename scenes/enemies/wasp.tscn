@@ -1,11 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://cwawrjs36jqe5"]
+[gd_scene load_steps=12 format=3 uid="uid://cwawrjs36jqe5"]
 
 [ext_resource type="Script" path="res://scripts/enemies/wasp.gd" id="1_2m428"]
 [ext_resource type="PackedScene" uid="uid://db8algl6onq53" path="res://scenes/components/health_component.tscn" id="1_o4xoc"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="2_o2djb"]
+[ext_resource type="SpriteFrames" uid="uid://d1s04st3d5vv6" path="res://assets/enemies/flying_enemy/wasp_1.tres" id="3_37lnf"]
 [ext_resource type="PackedScene" uid="uid://ddwqea3byvpm8" path="res://assets/enemies/flying_enemy/flying_enemy_1.aseprite" id="3_lp1mt"]
 [ext_resource type="Script" path="res://scripts/state_machine/enemy_states/wasp/moving.gd" id="5_qu3j4"]
 [ext_resource type="Script" path="res://scripts/state_machine/enemy_states/dead.gd" id="6_mu074"]
+[ext_resource type="SpriteFrames" uid="uid://bs7g3q0xtkeh0" path="res://assets/enemies/flying_enemy/wasp_2.tres" id="9_5impn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b04t4"]
 size = Vector2(10, 12)
@@ -19,12 +21,14 @@ size = Vector2(12, 2)
 [node name="Wasp" type="CharacterBody2D" node_paths=PackedStringArray("health_component") groups=["Enemy", "Moving"]]
 script = ExtResource("1_2m428")
 amplitude = 20.0
+sprites = Array[SpriteFrames]([ExtResource("3_37lnf"), ExtResource("9_5impn")])
 x_start_direction = Vector2(-1, 2.08165e-12)
 horizontal_speed = 30.0
 health_component = NodePath("HealthComponent")
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("3_lp1mt")]
 position = Vector2(0, -1)
+sprite_frames = ExtResource("3_37lnf")
 animation = &"Moving"
 speed_scale = 0.5
 

@@ -1,6 +1,9 @@
 class_name Enemy
 extends CharacterBody2D
 
+@export_group("Sprite Variables")
+@export var sprites: Array[SpriteFrames]
+
 @export_group("Movement variables")
 @export var x_start_direction: Vector2 = Vector2.RIGHT
 @export var y_start_direction: Vector2 = Vector2.ZERO
@@ -21,7 +24,14 @@ extends CharacterBody2D
 var x_dir: Vector2
 var y_dir: Vector2
 
+
+
 func _ready() -> void:
+	# Select a random spriteframe and load it
+	var selected_sprite = sprites.pick_random()
+	
+	sprite.set_sprite_frames(selected_sprite)
+	
 	x_dir = x_start_direction
 	y_dir = y_start_direction
 

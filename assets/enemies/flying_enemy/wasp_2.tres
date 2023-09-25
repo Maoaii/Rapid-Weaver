@@ -1,0 +1,40 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://bs7g3q0xtkeh0"]
+
+[ext_resource type="Texture2D" uid="uid://dn4xihhqjxwo" path="res://assets/enemies/flying_enemy/flying_enemy_2.png" id="1_et0sf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8kni6"]
+atlas = ExtResource("1_et0sf")
+region = Rect2(14, 8, 14, 8)
+margin = Rect2(1, 8, 2, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vum0j"]
+atlas = ExtResource("1_et0sf")
+region = Rect2(0, 0, 14, 9)
+margin = Rect2(1, 4, 2, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ry7m7"]
+atlas = ExtResource("1_et0sf")
+region = Rect2(14, 0, 14, 8)
+margin = Rect2(1, 4, 2, 8)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_8kni6")
+}],
+"loop": true,
+"name": &"Dead",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_vum0j")
+}, {
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_ry7m7")
+}],
+"loop": true,
+"name": &"Moving",
+"speed": 1.0
+}]
