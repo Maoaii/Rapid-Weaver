@@ -5,6 +5,11 @@ extends Enemy
 var is_dead: bool = false
 
 func _ready():
+	# Select a random spriteframe and load it
+	var selected_sprite = sprites.pick_random()
+	
+	sprite.set_sprite_frames(selected_sprite)
+	
 	play_animation("Idle")
 
 func _process(_delta: float) -> void:
