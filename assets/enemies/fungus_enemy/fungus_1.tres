@@ -1,0 +1,27 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://cndb4lwn1a3j2"]
+
+[ext_resource type="Texture2D" uid="uid://xe6cgwmb5jyn" path="res://assets/enemies/fungus_enemy/fungus_1.png" id="1_xdvyg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qolp7"]
+atlas = ExtResource("1_xdvyg")
+region = Rect2(0, 0, 14, 11)
+margin = Rect2(1, 5, 2, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wes5p"]
+atlas = ExtResource("1_xdvyg")
+region = Rect2(14, 0, 12, 10)
+margin = Rect2(2, 6, 4, 6)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_qolp7")
+}, {
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_wes5p")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 1.0
+}]
