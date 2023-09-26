@@ -108,6 +108,9 @@ var web : Web = $Web
 ## Onready collision detector
 @onready var collision_detector: CollisionDetector = $CollisionDetector
 
+## Onready animation player
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var hit_animation: AnimationPlayer = $HitAnimation
 
 
 """
@@ -327,7 +330,8 @@ func hurt() -> void:
 	# Activate invincibility
 	invincibility_timer.start()
 	
-	# Active flash shader
+	# Active flash animation
+	hit_animation.play("hit")
 
 func slow(slow_time: float) -> void:
 	# Slow player
@@ -366,7 +370,7 @@ func is_stuck_left() -> bool:
 	Sprite and Player Manipulation functions
 """
 func play_squash_animation() -> void:
-	$AnimationPlayer.play("squash")
+	animation_player.play("squash")
 
 
 func stretch_based_on_velocity() -> void:
