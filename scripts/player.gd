@@ -128,7 +128,8 @@ var gravity_on : bool = true
 var zooming : bool = false
 ## Variable to know if the player is standing on a hurtable
 var on_hurtable: bool = false
-
+## Variable to know if the player is slowed
+var slowed: bool = false
 
 func _ready() -> void:
 	# Assign timers to export variables
@@ -142,10 +143,16 @@ func _ready() -> void:
 	
 	EventBus._on_web_released.connect(remove_web)
 	EventBus._on_player_hurt.connect(hurt)
+	EventBus._on_fungus_contact.connect(slow)
 
 func _process(_delta: float) -> void:
 	if on_hurtable:
 		EventBus._on_player_hurt.emit()
+
+func set_jump_properties() -> void:
+	jump_velocity = ((2.0 * jump_height) / jump_time_to_peak) * -1.0
+	jump_gravity = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
+	fall_gravity = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
 
 func _physics_process(delta: float) -> void:
 	# Apply gravity to the player
@@ -333,14 +340,29 @@ func hurt() -> void:
 	# Active flash animation
 	hit_animation.play("hit")
 
-func slow(slow_time: float) -> void:
-	# Slow player
-	
-	# Create timer to reset speed
-	get_tree().create_timer(slow_time).timeout.connect(reset_speed)
-
-func reset_speed() -> void:
-	pass
+func slow(speed_slow: float, zoom_slow: float, web_travel_slow: float, jump_height_slow: float, duration: float) -> void:
+	if not slowed:
+		# Apply debuffs
+		# max_speed, web_zoom_speed, web_travel_time
+		slowed = true
+		max_speed -= speed_slow
+		zooming_max_speed -= zoom_slow
+		web_travelling_speed -= web_travel_slow
+		jump_height -= jump_height_slow
+		set_jump_properties()
+		
+		# Set timer
+		var timer = get_tree().create_timer(duration)
+		
+		await timer.timeout
+		
+		# Redo debuffs
+		slowed = false
+		max_speed += speed_slow
+		zooming_max_speed += zoom_slow
+		web_travelling_speed += web_travel_slow
+		jump_height += jump_height_slow
+		set_jump_properties()
 
 """
 	Colliders functions

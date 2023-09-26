@@ -1,5 +1,11 @@
 extends Enemy
 
+@export var speed_slow: float
+@export var zoom_slow: float
+@export var web_travel_slow: float
+@export var jump_height_slow: float
+@export var slow_time: float
+
 @onready var poof_particles: CPUParticles2D = $PoofParticles
 @onready var hitbox: Area2D = $Hitbox
 
@@ -22,7 +28,7 @@ func _process(_delta: float) -> void:
 		EventBus._on_player_hurt.emit()
 		
 		# Send signal through event bus to slow player down
-		EventBus._on_fungus_contact.emit()
+		EventBus._on_fungus_contact.emit(speed_slow, zoom_slow, web_travel_slow, jump_height_slow, slow_time)
 
 
 func _on_hitbox_body_entered(body):
