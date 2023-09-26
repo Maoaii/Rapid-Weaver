@@ -383,7 +383,7 @@ func knockback(knockback_origin: Vector2) -> void:
 	elif dir.x < 0:
 		dir = Vector2.LEFT + Vector2.UP
 	
-	velocity += dir * knockback_force
+	velocity = dir * knockback_force
 
 """
 	Colliders functions

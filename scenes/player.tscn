@@ -121,7 +121,6 @@ web_travelling_speed = 600.0
 zoom_buffer_time = 0.1
 max_health = 20
 invincibility_time = 1.5
-knockback_force = Vector2(400, 100)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 enabled = false
