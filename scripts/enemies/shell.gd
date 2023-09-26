@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var gravity: float = 1000.0
 @export_range(0, 1, 0.05) var bounce_damping: float = 0.6
 
+
 func set_dir(new_dir: Vector2) -> void:
 	dir = new_dir
 	
@@ -26,4 +27,5 @@ func _on_hurt_box_body_entered(body):
 
 func _on_hit_box_body_entered(body):
 	if body.is_in_group("Player"):
+		EventBus._on_player_bounce.emit()
 		queue_free()

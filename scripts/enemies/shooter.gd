@@ -7,6 +7,7 @@ extends Enemy
 
 @onready var trajectory_line: Line2D = $TrajectoryLine
 @onready var shoot_timer: Timer = $ShootTimer
+@onready var hit_box: Area2D = $Hitbox
 
 func _ready() -> void:
 	shoot_timer.wait_time = shoot_time
@@ -22,3 +23,6 @@ func shoot(enemy_pos: Vector2) -> void:
 	
 	# Give it velocity to hit the player
 	shell_instance.set_dir(global_position.direction_to(enemy_pos).normalized())
+
+func disable_hitbox() -> void:
+	hit_box.set_deferred("monitoring", false)

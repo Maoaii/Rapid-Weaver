@@ -8,3 +8,7 @@ extends Enemy
 
 @onready var idle_timer: Timer = $IdleTimer
 @onready var moving_timer: Timer = $MovingTimer
+@onready var hit_box: Area2D = $HitBox
+
+func disable_hitbox() -> void:
+	hit_box.set_deferred("monitoring", false)

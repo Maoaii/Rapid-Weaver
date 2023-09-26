@@ -24,10 +24,15 @@ size = Vector2(10, 2)
 [node name="Wasp" type="CharacterBody2D" node_paths=PackedStringArray("health_component") groups=["Enemy", "Moving"]]
 collision_layer = 8
 script = ExtResource("1_2m428")
+frequency = null
 amplitude = 20.0
+speed = null
 sprites = Array[SpriteFrames]([ExtResource("3_37lnf"), ExtResource("9_5impn")])
 x_start_direction = Vector2(-1, 2.08165e-12)
+y_start_direction = null
 horizontal_speed = 30.0
+vertical_speed = null
+death_animation_time = null
 health_component = NodePath("HealthComponent")
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("3_lp1mt")]

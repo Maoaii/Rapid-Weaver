@@ -53,6 +53,7 @@ const STICK_SURFACE_CODE = {
 @export var jump_time_to_peak : float    ## Amount of time, in seconds, the player takes to reach the peak of their jump
 @export var jump_time_to_descent : float ## Amount of time, in seconds, the player takes to reach the ground after jumping
 @export var wall_jump_velocity : float   ## Velocity to jump from a wall
+@export var bounce_force: float
 ## Amount of time the player has, before touching a surface, to prep a new jump
 @export_range(0, 1, 0.05) var jump_buffer_time: float
 ## Amount of time the player has, after leaving the ground, to prep a new jump
@@ -146,6 +147,7 @@ func _ready() -> void:
 	EventBus._on_player_hurt.connect(hurt)
 	EventBus._on_fungus_contact.connect(slow)
 	EventBus._on_knockback_player.connect(knockback)
+	EventBus._on_player_bounce.connect(bounce)
 
 func _process(_delta: float) -> void:
 	if on_hurtable:
@@ -264,6 +266,9 @@ func handle_jump(direction: Global.DIRECTIONS) -> void:	# Jump buffer
 			velocity = Vector2(-wall_jump_velocity, -wall_jump_velocity)
 	else:
 		jump_buffer_timer.start()
+
+func bounce() -> void:
+	velocity.y = -bounce_force
 
 func reset_velocity() -> void:
 	velocity = Vector2.ZERO
