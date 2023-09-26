@@ -7,7 +7,7 @@
 size = Vector2(10, 6)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o0umk"]
-size = Vector2(10, 3)
+size = Vector2(12, 3)
 
 [node name="Shell" type="CharacterBody2D"]
 collision_layer = 8
@@ -28,6 +28,7 @@ collision_mask = 5
 shape = SubResource("RectangleShape2D_qsasy")
 
 [node name="HitBox" type="Area2D" parent="."]
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(0, -3.5)
