@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://scripts/state_machine/enemy_states/dead.gd" id="6_algir"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7urd5"]
-size = Vector2(8, 8)
+size = Vector2(8, 10)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bk4vi"]
 radius = 120.067
@@ -27,13 +27,10 @@ script = ExtResource("1_ng17o")
 shell = ExtResource("2_jfjkw")
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("1_541tk")]
-animation = &"Shooting"
-frame = 1
-frame_progress = 0.258729
 speed_scale = 0.2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
+position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_7urd5")
 
 [node name="AggroRange" type="Area2D" parent="."]

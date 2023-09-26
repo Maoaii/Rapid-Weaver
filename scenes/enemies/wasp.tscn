@@ -10,7 +10,7 @@
 [ext_resource type="SpriteFrames" uid="uid://bs7g3q0xtkeh0" path="res://assets/enemies/flying_enemy/wasp_2.tres" id="9_5impn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b04t4"]
-size = Vector2(8, 10)
+size = Vector2(8, 11)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mqycg"]
 radius = 59.0085
@@ -19,9 +19,10 @@ radius = 59.0085
 size = Vector2(8, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v8u6t"]
-size = Vector2(12, 2)
+size = Vector2(10, 2)
 
 [node name="Wasp" type="CharacterBody2D" node_paths=PackedStringArray("health_component") groups=["Enemy", "Moving"]]
+collision_layer = 8
 script = ExtResource("1_2m428")
 amplitude = 20.0
 sprites = Array[SpriteFrames]([ExtResource("3_37lnf"), ExtResource("9_5impn")])
@@ -42,6 +43,7 @@ target_position = Vector2(-7, 0)
 target_position = Vector2(7, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_b04t4")
 
 [node name="AggroRange" type="Area2D" parent="."]

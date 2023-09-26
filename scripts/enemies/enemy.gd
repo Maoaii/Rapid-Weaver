@@ -73,13 +73,19 @@ func is_on_ledge() -> bool:
 	return not left_ledge_detector.is_colliding() or \
 		   not right_ledge_detector.is_colliding()
 
+func fall_down() -> void:
+	velocity.y += 10
 
 func dead() -> void:
+	velocity.x = 0
 	x_dir = Vector2.ZERO
 	y_dir = Vector2.ZERO
 	
 	hurt_box.set_deferred("monitoring", false)
-	collision_shape.set_deferred("disabled", true)
+	#set_collision_mask_value(1, false)
+	#set_collision_layer_value(1, false)
+	set_collision_layer_value(4, false)
+	#collision_shape.set_deferred("disabled", true)
 
 func _on_hurtbox_body_entered(body):
 	if body.is_in_group("Player"):
