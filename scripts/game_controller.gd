@@ -22,7 +22,8 @@ func _ready() -> void:
 	player = get_tree().get_first_node_in_group("Player")
 	
 	EventBus._on_section_passed.connect(add_new_section)
-	EventBus._on_player_hurt.connect(restart_game)
+	EventBus._on_death_area_touched.connect(restart_game)
+	EventBus._on_player_death.connect(restart_game)
 
 
 func _process(delta: float) -> void:

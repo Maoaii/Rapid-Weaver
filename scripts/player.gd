@@ -76,7 +76,11 @@ const STICK_SURFACE_CODE = {
 ## Amount of time the player has, before touching a surface, to prep a new web zooming
 @export_range(0, 1, 0.05) var zoom_buffer_time: float
 
-
+## Variables related to health variables
+@export_group("Health Variables")
+@export var max_health: int = 3
+@export var invincibility_time: float = 2
+@export var knockback_force: Vector2 = Vector2(400, 250)
 
 """
 	Onready variables
@@ -90,6 +94,7 @@ const STICK_SURFACE_CODE = {
 @onready var coyote_timer : Timer = $CoyoteTimer
 @onready var jump_buffer_timer : Timer = $JumpBufferTimer
 @onready var zoom_buffer_timer : Timer = $ZoomBufferTimer
+@onready var invincibility_timer: Timer = $InvincibilityTimer
 
 ## Onreedy Animation player
 @onready var animation_sprite : AnimatedSprite2D = $AnimatedSprite2D
@@ -98,9 +103,15 @@ const STICK_SURFACE_CODE = {
 @onready
 var web : Web = $Web
 
+## Onready health component
+@onready var health_component: HealthComponent = $HealthComponent
+
 ## Onready collision detector
 @onready var collision_detector: CollisionDetector = $CollisionDetector
 
+## Onready animation player
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var hit_animation: AnimationPlayer = $HitAnimation
 
 
 """
@@ -116,16 +127,34 @@ var current_down : Vector2 = Vector2.DOWN
 var gravity_on : bool = true
 ## Variable to know if player is zooming
 var zooming : bool = false
-
-
+## Variable to know if the player is standing on a hurtable
+var on_hurtable: bool = false
+## Variable to know if the player is slowed
+var slowed: bool = false
 
 func _ready() -> void:
 	# Assign timers to export variables
 	coyote_timer.wait_time = coyote_time
 	jump_buffer_timer.wait_time = jump_buffer_time
 	zoom_buffer_timer.wait_time = zoom_buffer_time
+	invincibility_timer.wait_time = invincibility_time
+	
+	# Assign health
+	health_component.set_max_health(max_health)
 	
 	EventBus._on_web_released.connect(remove_web)
+	EventBus._on_player_hurt.connect(hurt)
+	EventBus._on_fungus_contact.connect(slow)
+	EventBus._on_knockback_player.connect(knockback)
+
+func _process(_delta: float) -> void:
+	if on_hurtable:
+		EventBus._on_player_hurt.emit()
+
+func set_jump_properties() -> void:
+	jump_velocity = ((2.0 * jump_height) / jump_time_to_peak) * -1.0
+	jump_gravity = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
+	fall_gravity = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
 
 func _physics_process(delta: float) -> void:
 	# Apply gravity to the player
@@ -292,6 +321,64 @@ func is_simple_zooming() -> bool:
 	return simple_zooming
 
 
+"""
+	Health functions
+"""
+func get_health() -> int:
+	return health_component.health
+
+func hurt() -> void:
+	if not invincibility_timer.is_stopped():
+		return
+	
+	health_component.take_damage(1)
+	
+	if health_component.health <= 0:
+		EventBus._on_player_death.emit()
+	
+	# Activate invincibility
+	invincibility_timer.start()
+	
+	# Active flash animation
+	hit_animation.play("hit")
+
+func slow(speed_slow: float, zoom_slow: float, web_travel_slow: float, jump_height_slow: float, duration: float) -> void:
+	if not slowed:
+		# Apply debuffs
+		# max_speed, web_zoom_speed, web_travel_time
+		slowed = true
+		max_speed -= speed_slow
+		zooming_max_speed -= zoom_slow
+		web_travelling_speed -= web_travel_slow
+		jump_height -= jump_height_slow
+		set_jump_properties()
+		
+		# Set timer
+		var timer = get_tree().create_timer(duration)
+		
+		await timer.timeout
+		
+		# Redo debuffs
+		slowed = false
+		max_speed += speed_slow
+		zooming_max_speed += zoom_slow
+		web_travelling_speed += web_travel_slow
+		jump_height += jump_height_slow
+		set_jump_properties()
+
+
+func knockback(knockback_origin: Vector2) -> void:
+	if not invincibility_timer.is_stopped():
+		return
+	
+	var dir: Vector2 = knockback_origin.direction_to(global_position).normalized()
+	
+	if dir.x > 0:
+		dir = Vector2.RIGHT + Vector2.UP
+	elif dir.x < 0:
+		dir = Vector2.LEFT + Vector2.UP
+	
+	velocity += dir * knockback_force
 
 """
 	Colliders functions
@@ -321,7 +408,7 @@ func is_stuck_left() -> bool:
 	Sprite and Player Manipulation functions
 """
 func play_squash_animation() -> void:
-	$AnimationPlayer.play("squash")
+	animation_player.play("squash")
 
 
 func stretch_based_on_velocity() -> void:
@@ -443,8 +530,11 @@ func has_input_left() -> bool:
 """
 func _on_collider_body_entered(body) -> void:
 	if body.name == "Hurtables":
-		EventBus._on_player_hurt.emit()
+		on_hurtable = true
 
+func _on_collider_body_exited(body):
+	if body.name == "Hurtables":
+		on_hurtable = false
 
 func shoot_web() -> Hook:
 	var hook: Hook = load("res://hook.tscn").instantiate()
@@ -458,3 +548,5 @@ func shoot_web() -> Hook:
 	hook.set_collision_mask_value(4, true)
 	
 	return hook
+
+

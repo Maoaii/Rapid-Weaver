@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://osik8dchik80"]
+[gd_scene load_steps=15 format=3 uid="uid://osik8dchik80"]
 
 [ext_resource type="Script" path="res://scripts/enemies/caterpillar.gd" id="1_4w0wg"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="2_hwfrl"]
@@ -13,10 +13,13 @@
 [ext_resource type="PackedScene" uid="uid://bhogrxp1dm7v3" path="res://assets/enemies/crawling_enemy/crawling_enemy_1.aseprite" id="11_thocf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wknqq"]
-size = Vector2(14, 9)
+size = Vector2(10, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_an6g2"]
 size = Vector2(10, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chtyy"]
+size = Vector2(12, 8)
 
 [node name="Caterpillar" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "left_ledge_detector", "right_ledge_detector") groups=["Enemy", "Moving"]]
 collision_layer = 8
@@ -36,7 +39,7 @@ frame_progress = 0.426361
 speed_scale = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
+position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_wknqq")
 
 [node name="HitBox" type="Area2D" parent="."]
@@ -45,6 +48,13 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(0, -3.5)
 shape = SubResource("RectangleShape2D_an6g2")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_chtyy")
 
 [node name="LeftLedgeDetector" type="RayCast2D" parent="."]
 position = Vector2(-9, 0)
@@ -76,3 +86,5 @@ script = ExtResource("5_2i1e1")
 
 [connection signal="body_entered" from="HitBox" to="StateMachine/Idle" method="_on_hit_box_body_entered"]
 [connection signal="body_entered" from="HitBox" to="StateMachine/Walking" method="_on_hit_box_body_entered"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_exited" from="Hurtbox" to="." method="_on_hurtbox_body_exited"]

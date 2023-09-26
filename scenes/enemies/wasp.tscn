@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cwawrjs36jqe5"]
+[gd_scene load_steps=13 format=3 uid="uid://cwawrjs36jqe5"]
 
 [ext_resource type="Script" path="res://scripts/enemies/wasp.gd" id="1_2m428"]
 [ext_resource type="PackedScene" uid="uid://db8algl6onq53" path="res://scenes/components/health_component.tscn" id="1_o4xoc"]
@@ -10,10 +10,13 @@
 [ext_resource type="SpriteFrames" uid="uid://bs7g3q0xtkeh0" path="res://assets/enemies/flying_enemy/wasp_2.tres" id="9_5impn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b04t4"]
-size = Vector2(10, 12)
+size = Vector2(8, 10)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mqycg"]
 radius = 59.0085
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_31pbl"]
+size = Vector2(8, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v8u6t"]
 size = Vector2(12, 2)
@@ -47,6 +50,12 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRange"]
 shape = SubResource("CircleShape2D_mqycg")
 
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_31pbl")
+
 [node name="HitBox" type="Area2D" parent="."]
 collision_mask = 4
 
@@ -70,4 +79,6 @@ script = ExtResource("6_mu074")
 
 [connection signal="body_entered" from="AggroRange" to="StateMachine/Moving" method="_on_aggro_range_body_entered"]
 [connection signal="body_exited" from="AggroRange" to="StateMachine/Moving" method="_on_aggro_range_body_exited"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_exited" from="Hurtbox" to="." method="_on_hurtbox_body_exited"]
 [connection signal="body_entered" from="HitBox" to="StateMachine/Moving" method="_on_hit_box_body_entered"]

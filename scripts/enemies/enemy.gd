@@ -20,10 +20,11 @@ extends CharacterBody2D
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var hurt_box: Area2D = $Hurtbox
 
 var x_dir: Vector2
 var y_dir: Vector2
-
+var hurt_player: bool = false
 
 func _ready() -> void:
 	# Select a random spriteframe and load it
@@ -33,6 +34,11 @@ func _ready() -> void:
 	
 	x_dir = x_start_direction
 	y_dir = y_start_direction
+
+func _process(_delta: float) -> void:
+	if hurt_player:
+		EventBus._on_knockback_player.emit(global_position)
+		EventBus._on_player_hurt.emit()
 
 func flip_enemy() -> void:
 	if x_dir == Vector2.RIGHT:
@@ -72,4 +78,13 @@ func dead() -> void:
 	x_dir = Vector2.ZERO
 	y_dir = Vector2.ZERO
 	
+	hurt_box.set_deferred("monitoring", false)
 	collision_shape.set_deferred("disabled", true)
+
+func _on_hurtbox_body_entered(body):
+	if body.is_in_group("Player"):
+		hurt_player = true
+
+func _on_hurtbox_body_exited(body):
+	if body.is_in_group("Player"):
+		hurt_player = false
