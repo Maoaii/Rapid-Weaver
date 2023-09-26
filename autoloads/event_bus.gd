@@ -11,6 +11,7 @@ signal _on_player_hurt()
 signal _on_death_area_touched()
 signal _on_player_death()
 signal _on_fungus_contact()
+signal _on_knockback_player()
 
 signal _on_web_released()
 

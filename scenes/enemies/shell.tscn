@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://djfc2wf6fe1e5"]
+[gd_scene load_steps=5 format=3 uid="uid://djfc2wf6fe1e5"]
 
 [ext_resource type="Script" path="res://scripts/enemies/shell.gd" id="1_dt8lu"]
 [ext_resource type="Texture2D" uid="uid://bxj4temjhu8nq" path="res://assets/enemies/shooter_enemy/shell.aseprite" id="2_jlnw5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qsasy"]
 size = Vector2(10, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o0umk"]
+size = Vector2(10, 3)
 
 [node name="Shell" type="CharacterBody2D"]
 collision_layer = 8
@@ -24,4 +27,11 @@ collision_mask = 5
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("RectangleShape2D_qsasy")
 
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, -3.5)
+shape = SubResource("RectangleShape2D_o0umk")
+
 [connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

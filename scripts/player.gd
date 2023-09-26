@@ -80,6 +80,7 @@ const STICK_SURFACE_CODE = {
 @export_group("Health Variables")
 @export var max_health: int = 3
 @export var invincibility_time: float = 2
+@export var knockback_force: Vector2 = Vector2(400, 250)
 
 """
 	Onready variables
@@ -144,6 +145,7 @@ func _ready() -> void:
 	EventBus._on_web_released.connect(remove_web)
 	EventBus._on_player_hurt.connect(hurt)
 	EventBus._on_fungus_contact.connect(slow)
+	EventBus._on_knockback_player.connect(knockback)
 
 func _process(_delta: float) -> void:
 	if on_hurtable:
@@ -363,6 +365,20 @@ func slow(speed_slow: float, zoom_slow: float, web_travel_slow: float, jump_heig
 		web_travelling_speed += web_travel_slow
 		jump_height += jump_height_slow
 		set_jump_properties()
+
+
+func knockback(knockback_origin: Vector2) -> void:
+	if not invincibility_timer.is_stopped():
+		return
+	
+	var dir: Vector2 = knockback_origin.direction_to(global_position).normalized()
+	
+	if dir.x > 0:
+		dir = Vector2.RIGHT + Vector2.UP
+	elif dir.x < 0:
+		dir = Vector2.LEFT + Vector2.UP
+	
+	velocity += dir * knockback_force
 
 """
 	Colliders functions

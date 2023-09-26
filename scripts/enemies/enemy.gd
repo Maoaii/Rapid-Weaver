@@ -35,8 +35,9 @@ func _ready() -> void:
 	x_dir = x_start_direction
 	y_dir = y_start_direction
 
-func _process(delta) -> void:
+func _process(_delta: float) -> void:
 	if hurt_player:
+		EventBus._on_knockback_player.emit(global_position)
 		EventBus._on_player_hurt.emit()
 
 func flip_enemy() -> void:

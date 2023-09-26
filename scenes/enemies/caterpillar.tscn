@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bhogrxp1dm7v3" path="res://assets/enemies/crawling_enemy/crawling_enemy_1.aseprite" id="11_thocf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wknqq"]
-size = Vector2(12, 8)
+size = Vector2(10, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_an6g2"]
 size = Vector2(10, 3)
@@ -39,7 +39,7 @@ frame_progress = 0.426361
 speed_scale = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
+position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_wknqq")
 
 [node name="HitBox" type="Area2D" parent="."]

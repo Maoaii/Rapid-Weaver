@@ -18,6 +18,12 @@ func _physics_process(delta: float) -> void:
 
 func _on_hurt_box_body_entered(body):
 	if body.is_in_group("Player"):
+		EventBus._on_knockback_player.emit(global_position)
 		EventBus._on_player_hurt.emit()
 	
 	queue_free()
+
+
+func _on_hit_box_body_entered(body):
+	if body.is_in_group("Player"):
+		queue_free()

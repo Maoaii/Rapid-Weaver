@@ -84,4 +84,5 @@ script = ExtResource("6_algir")
 [connection signal="body_entered" from="Hitbox" to="StateMachine/Idle" method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="Hitbox" to="StateMachine/Shooting" method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_exited" from="Hurtbox" to="." method="_on_hurtbox_body_exited"]
 [connection signal="timeout" from="ShootTimer" to="StateMachine/Shooting" method="_on_shoot_timer_timeout"]

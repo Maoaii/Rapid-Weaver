@@ -80,4 +80,5 @@ script = ExtResource("6_mu074")
 [connection signal="body_entered" from="AggroRange" to="StateMachine/Moving" method="_on_aggro_range_body_entered"]
 [connection signal="body_exited" from="AggroRange" to="StateMachine/Moving" method="_on_aggro_range_body_exited"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_exited" from="Hurtbox" to="." method="_on_hurtbox_body_exited"]
 [connection signal="body_entered" from="HitBox" to="StateMachine/Moving" method="_on_hit_box_body_entered"]
