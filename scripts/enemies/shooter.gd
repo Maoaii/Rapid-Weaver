@@ -22,9 +22,3 @@ func shoot(enemy_pos: Vector2) -> void:
 	
 	# Give it velocity to hit the player
 	shell_instance.set_dir(global_position.direction_to(enemy_pos).normalized())
-
-
-func _on_hurtbox_body_entered(body):
-	if body.is_in_group("Player"):
-		print("hurt player")
-		EventBus._on_player_hurt.emit()

@@ -127,6 +127,9 @@ one_shot = true
 wait_time = 0.1
 one_shot = true
 
+[node name="InvincibilityTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="HealthComponent" parent="." instance=ExtResource("6_xbv81")]
 max_health = 3
 
@@ -206,3 +209,4 @@ theme_override_font_sizes/font_size = 8
 text = "Health: 3"
 
 [connection signal="body_entered" from="Collider" to="." method="_on_collider_body_entered"]
+[connection signal="body_exited" from="Collider" to="." method="_on_collider_body_exited"]
