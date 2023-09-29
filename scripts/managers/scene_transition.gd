@@ -16,3 +16,5 @@ func transition_dissolve(target: String) -> void:
 	await animation_player.animation_finished
 	get_tree().change_scene_to_file(target)
 	animation_player.play_backwards("dissolve")
+	await animation_player.animation_finished
+	hide()
