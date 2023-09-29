@@ -3,8 +3,12 @@ extends CanvasLayer
 @onready var dissolve_rect: ColorRect = $DissolveRect
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+func _ready() -> void:
+	hide()
+
 func change_scene(target: String, type: String = "dissolve") -> void:
 	if type == "dissolve":
+		show()
 		transition_dissolve(target)
 
 func transition_dissolve(target: String) -> void:
