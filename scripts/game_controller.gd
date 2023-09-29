@@ -39,7 +39,7 @@ func _unhandled_input(_event) -> void:
 
 func restart_game() -> void:
 	EventBus._on_game_restart.emit()
-	get_tree().change_scene_to_file("res://scenes/world.tscn")
+	SceneTransition.change_scene("res://scenes/world.tscn")
 
 
 func update_camera(delta: float) -> void:

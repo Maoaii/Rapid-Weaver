@@ -24,6 +24,7 @@ aseprite_executable_path="/Applications/Aseprite.app/Contents/MacOS/aseprite"
 
 Global="*res://autoloads/global.gd"
 EventBus="*res://autoloads/event_bus.gd"
+SceneTransition="*res://scripts/managers/scene_transition.tscn"
 
 [debug]
 
