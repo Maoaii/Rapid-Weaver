@@ -14,7 +14,7 @@ func _on_start_pressed():
 
 
 func _on_settings_pressed():
-	pass # Replace with function body.
+	SceneTransition.change_scene("res://scenes/menus/settings_menu/settings.tscn")
 
 
 func _on_quit_pressed():
