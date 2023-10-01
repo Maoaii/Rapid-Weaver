@@ -25,3 +25,6 @@ func section_passed() -> void:
 func reset_score() -> void:
 	score = 0
 	EventBus._on_score_changed.emit(score)
+
+func get_score() -> int:
+	return score

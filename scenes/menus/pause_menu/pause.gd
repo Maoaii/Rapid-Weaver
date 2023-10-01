@@ -10,6 +10,9 @@ func set_is_paused(value: bool) -> void:
 	is_paused = value
 	get_tree().paused = is_paused
 	visible = is_paused
+	
+	if visible:
+		$CenterContainer/VBoxContainer/VBoxContainer/Resume.grab_focus()
 
 
 func _on_resume_pressed():
