@@ -1,0 +1,75 @@
+[gd_scene load_steps=2 format=3 uid="uid://be18lcttwk7jk"]
+
+[ext_resource type="Script" path="res://scenes/menus/death_menu/death_menu.gd" id="1_25qhw"]
+
+[node name="DeathMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_25qhw")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "You died"
+
+[node name="Scores" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Score" type="Label" parent="CenterContainer/VBoxContainer/Scores"]
+layout_mode = 2
+text = "Score: XXX"
+horizontal_alignment = 1
+
+[node name="Highscore" type="Label" parent="CenterContainer/VBoxContainer/Scores"]
+layout_mode = 2
+text = "Highscore: XXX"
+horizontal_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Restart" type="Button" parent="CenterContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+text = "Restart"
+flat = true
+
+[node name="MainMenu" type="Button" parent="CenterContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+text = "Main Menu"
+flat = true
+
+[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+text = "Quit"
+flat = true
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/Quit" to="." method="_on_quit_pressed"]
