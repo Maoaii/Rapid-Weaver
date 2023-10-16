@@ -553,5 +553,3 @@ func shoot_web() -> Hook:
 	hook.set_collision_mask_value(4, true)
 	
 	return hook
-
-
