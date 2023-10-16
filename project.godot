@@ -26,6 +26,8 @@ Global="*res://autoloads/global.gd"
 EventBus="*res://autoloads/event_bus.gd"
 SceneTransition="*res://scripts/managers/scene_transition.tscn"
 ScoreManager="*res://scripts/managers/score_manager.gd"
+SaveGame="*res://autoloads/SaveGame.gd"
+SettingsManager="*res://autoloads/SettingsManager.gd"
 
 [debug]
 

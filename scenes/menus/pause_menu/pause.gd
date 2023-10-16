@@ -18,12 +18,11 @@ func set_is_paused(value: bool) -> void:
 func _on_resume_pressed():
 	set_is_paused(false)
 
+
 func _on_menu_pressed():
 	set_is_paused(false)
 	SceneTransition.change_scene("res://scenes/menus/main_menu/main_menu.tscn")
 
+
 func _on_quit_pressed():
 	get_tree().quit()
-
-
-
