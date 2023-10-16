@@ -11,6 +11,8 @@ var highscore: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	EventBus._on_game_restart.connect(reset_score)
+	EventBus._on_player_death.connect(reset_score)
 	EventBus._on_fly_eaten.connect(fly_eaten)
 	EventBus._on_section_passed.connect(section_passed)
 	
@@ -41,6 +43,8 @@ func reset_score() -> void:
 func get_score() -> int:
 	return score
 
+func get_highscore() -> int:
+	return highscore
 
 func save_highscore() -> void:
 	highscore = score

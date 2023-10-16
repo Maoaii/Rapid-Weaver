@@ -5,7 +5,12 @@ extends Control
 
 func _ready() -> void:
 	score_label.text = "Score: " + str(ScoreManager.get_score())
-	highscore_label.text = "Highscore: " + str(ScoreManager.get_score())
+	
+	var stored_highscore = SaveGame.load_data("Highscore").get("Highscore")
+	if stored_highscore == null:
+		stored_highscore = 0
+	
+	highscore_label.text = "Highscore: " + str(stored_highscore)
 	
 	$CenterContainer/VBoxContainer/Buttons/Restart.grab_focus()
 
