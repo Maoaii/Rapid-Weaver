@@ -40,6 +40,7 @@ color = Color(0, 0, 0, 1)
 
 [node name="Game Controller" parent="." node_paths=PackedStringArray("camera", "death_area") instance=ExtResource("3_lvjia")]
 camera = NodePath("../Camera2D")
+enable_following_camera = true
 death_area = NodePath("../DeathArea")
 
 [node name="ScoreManager" parent="." instance=ExtResource("5_jrtd7")]

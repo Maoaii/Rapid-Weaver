@@ -11,4 +11,4 @@ func _process(delta):
 	pass
 
 func update_trajectory() -> void:
-	
+	pass

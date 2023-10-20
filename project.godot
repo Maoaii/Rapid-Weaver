@@ -40,6 +40,10 @@ window/size/viewport_height=480
 window/size/mode=2
 window/stretch/mode="viewport"
 
+[dotnet]
+
+project/assembly_name="Rapid Weaver"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/nklbdev.aseprite_importers/plugin.cfg")
