@@ -253,5 +253,5 @@ offset_bottom = 13.0
 theme_override_font_sizes/font_size = 8
 text = "Health: 3"
 
-[connection signal="body_entered" from="Collider" to="." method="_on_collider_body_entered"]
-[connection signal="body_exited" from="Collider" to="." method="_on_collider_body_exited"]
+[connection signal="body_shape_entered" from="Collider" to="." method="_on_collider_body_shape_entered"]
+[connection signal="body_shape_exited" from="Collider" to="." method="_on_collider_body_shape_exited"]
