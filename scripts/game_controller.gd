@@ -44,7 +44,7 @@ func restart_game() -> void:
 
 func update_camera(delta: float) -> void:
 	if enable_following_camera:
-		camera.position = player.position
+		camera.position.y = player.position.y
 	else:
 		camera.offset += Vector2(0, -camera_speed * delta)
 		death_area.position += Vector2(0, -camera_speed * delta)
@@ -60,7 +60,7 @@ func create_new_section() -> BaseSection:
 	var new_section: BaseSection = sections.pick_random().instantiate()
 	new_section.set_name("BaseSection" + str(spawned_sections.size()))
 	get_parent().get_node("Sections").add_child.call_deferred(new_section)
-	new_section.position += Vector2(0, -Global.WINDOW_HEIGHT * spawned_sections.size())
+	new_section.position += Vector2(0, -Global.WINDOW_HEIGHT * (spawned_sections.size() + 1))
 	spawned_sections.push_back(new_section)
 	
 	return new_section

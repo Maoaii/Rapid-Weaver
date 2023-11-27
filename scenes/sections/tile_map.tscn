@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://druq273210d8b"]
+
+[ext_resource type="TileSet" uid="uid://drap3i3m8y6tj" path="res://assets/tileset/tileset.tres" id="1_nqg4p"]
+
+[node name="TileMap" type="TileMap"]
+tile_set = ExtResource("1_nqg4p")
+format = 2
+layer_0/name = "Tilemap"
+layer_1/name = "Hurtables"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "Foreground"
+layer_2/enabled = true
+layer_2/modulate = Color(1, 1, 1, 1)
+layer_2/y_sort_enabled = false
+layer_2/y_sort_origin = 0
+layer_2/z_index = 1
+layer_2/tile_data = PackedInt32Array()
+layer_3/name = "Background"
+layer_3/enabled = true
+layer_3/modulate = Color(1, 1, 1, 1)
+layer_3/y_sort_enabled = false
+layer_3/y_sort_origin = 0
+layer_3/z_index = -1
+layer_3/tile_data = PackedInt32Array()
