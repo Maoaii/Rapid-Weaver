@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" path="res://scripts/sections/background.gd" id="1_0g753"]
 [ext_resource type="Texture2D" uid="uid://cv7brs6irb5kl" path="res://assets/bg.png" id="1_fwi8d"]
-[ext_resource type="PackedScene" uid="uid://b2cfcxn7occ3y" path="res://scenes/background.tscn" id="1_pc4qi"]
+[ext_resource type="Texture2D" uid="uid://h3tjkt27j0ml" path="res://assets/background.ase" id="3_wtkw1"]
 
 [node name="Background" type="ParallaxBackground"]
+scroll_ignore_camera_zoom = true
 script = ExtResource("1_0g753")
 
 [node name="BG" type="ParallaxLayer" parent="."]
@@ -19,4 +20,7 @@ centered = false
 [node name="FG" type="ParallaxLayer" parent="."]
 motion_mirroring = Vector2(2.08165e-12, 480)
 
-[node name="Background" parent="FG" instance=ExtResource("1_pc4qi")]
+[node name="Sprite2D" type="Sprite2D" parent="FG"]
+texture = ExtResource("3_wtkw1")
+centered = false
+offset = Vector2(160, 2.08165e-12)

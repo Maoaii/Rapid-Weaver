@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dwrwq0svk1grr"]
+[gd_scene load_steps=9 format=3 uid="uid://dwrwq0svk1grr"]
 
+[ext_resource type="PackedScene" uid="uid://cqvnliqs7mvfe" path="res://scenes/sections/background.tscn" id="1_1kev4"]
 [ext_resource type="PackedScene" uid="uid://bsv6277ple8ro" path="res://scenes/game_controller.tscn" id="3_lvjia"]
 [ext_resource type="PackedScene" uid="uid://lmt4yjrdw8kk" path="res://scenes/player.tscn" id="4_1iyyg"]
 [ext_resource type="PackedScene" uid="uid://kdubal300fkt" path="res://scenes/managers/score_manager.tscn" id="5_jrtd7"]
@@ -13,6 +14,8 @@
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(320, 360)
 zoom = Vector2(2, 2)
+
+[node name="Background" parent="." instance=ExtResource("1_1kev4")]
 
 [node name="Sections" type="Node2D" parent="."]
 

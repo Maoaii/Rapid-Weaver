@@ -1,13 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://fem6elchyntt"]
+[gd_scene load_steps=3 format=3 uid="uid://fem6elchyntt"]
 
 [ext_resource type="Script" path="res://scripts/base_section.gd" id="1_w8vip"]
 [ext_resource type="TileSet" uid="uid://drap3i3m8y6tj" path="res://assets/tileset/tileset.tres" id="2_jl1ax"]
-[ext_resource type="PackedScene" uid="uid://b2cfcxn7occ3y" path="res://scenes/background.tscn" id="4_ffeip"]
 
 [node name="BaseSection" type="Node2D"]
 script = ExtResource("1_w8vip")
-
-[node name="Background" parent="." instance=ExtResource("4_ffeip")]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("2_jl1ax")
