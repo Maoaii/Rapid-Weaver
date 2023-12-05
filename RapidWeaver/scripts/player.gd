@@ -535,16 +535,14 @@ func has_input_left() -> bool:
 """
 func _on_collider_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	if body.name == "TileMap":
-		var new_body: TileMap = body
-		var layer_name: String = new_body.get_layer_name(new_body.get_layer_for_body_rid(body_rid))
+		var layer_name: String = body.get_layer_name(body.get_layer_for_body_rid(body_rid))
 		
 		if layer_name == "Hurtables":
 			on_hurtable = true
 
 func _on_collider_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
 	if body.name == "TileMap":
-		var new_body: TileMap = body
-		var layer_name: String = new_body.get_layer_name(new_body.get_layer_for_body_rid(body_rid))
+		var layer_name: String = body.get_layer_name(body.get_layer_for_body_rid(body_rid))
 		
 		if layer_name == "Hurtables":
 			on_hurtable = false

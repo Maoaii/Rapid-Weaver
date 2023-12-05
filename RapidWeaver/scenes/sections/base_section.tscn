@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://kdhe48dcjwn3"]
+
+[ext_resource type="Script" path="res://scripts/base_section.gd" id="1_u2ymb"]
+[ext_resource type="PackedScene" uid="uid://druq273210d8b" path="res://scenes/sections/tile_map.tscn" id="3_d7s3p"]
+
+[node name="BaseSection" type="Node2D"]
+script = ExtResource("1_u2ymb")
+
+[node name="TileMap" parent="." instance=ExtResource("3_d7s3p")]
+
+[node name="TopScreenNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(321, 0)
+scale = Vector2(33.1, 1)
+
+[connection signal="screen_entered" from="TopScreenNotifier" to="." method="_on_top_screen_notifier_screen_entered"]
