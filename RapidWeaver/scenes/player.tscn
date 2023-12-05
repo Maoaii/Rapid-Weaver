@@ -143,7 +143,7 @@ libraries = {
 }
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("8_0oofm")]
-frame_progress = 0.491315
+animation = &"Idle"
 speed_scale = 0.7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

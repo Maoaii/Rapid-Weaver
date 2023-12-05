@@ -57,6 +57,9 @@ func add_new_section() -> void:
 
 
 func create_new_section() -> BaseSection:
+	if sections.size() == 0:
+		return null
+	
 	var new_section: BaseSection = sections.pick_random().instantiate()
 	new_section.set_name("BaseSection" + str(spawned_sections.size()))
 	get_parent().get_node("Sections").add_child.call_deferred(new_section)

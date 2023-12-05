@@ -1,13 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bbpedf6qq0x4s"]
+[gd_scene load_steps=2 format=3 uid="uid://cnhg6812dokbu"]
 
 [ext_resource type="Script" path="res://scripts/game_controller.gd" id="1_7jrm6"]
-[ext_resource type="PackedScene" uid="uid://kdhe48dcjwn3" path="res://scenes/sections/base_section.tscn" id="2_3vi46"]
-[ext_resource type="PackedScene" uid="uid://ukhpsrb5wxek" path="res://scenes/sections/base_section2.tscn" id="3_c8rr1"]
-[ext_resource type="PackedScene" uid="uid://fem6elchyntt" path="res://scenes/sections/base_section3.tscn" id="4_tuqkx"]
-[ext_resource type="PackedScene" uid="uid://c88rkixgsxyd8" path="res://scenes/sections/base_section4.tscn" id="5_tepep"]
-[ext_resource type="PackedScene" uid="uid://urntin516n2l" path="res://scenes/sections/base_section5.tscn" id="6_lnnhc"]
 
-[node name="Game Controller" type="Node2D"]
+[node name="GameController" type="Node2D"]
 script = ExtResource("1_7jrm6")
-enable_following_camera = true
-sections = Array[PackedScene]([ExtResource("2_3vi46"), ExtResource("3_c8rr1"), ExtResource("4_tuqkx"), ExtResource("5_tepep"), ExtResource("6_lnnhc")])
