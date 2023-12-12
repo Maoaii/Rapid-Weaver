@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dwrwq0svk1grr"]
+[gd_scene load_steps=25 format=3 uid="uid://dwrwq0svk1grr"]
 
 [ext_resource type="PackedScene" uid="uid://cqvnliqs7mvfe" path="res://scenes/sections/background.tscn" id="1_1kev4"]
 [ext_resource type="PackedScene" uid="uid://lmt4yjrdw8kk" path="res://scenes/player.tscn" id="4_1iyyg"]
@@ -15,6 +15,15 @@
 [ext_resource type="PackedScene" uid="uid://bl2oc40fr2mag" path="res://scenes/sections/levels/section5.tscn" id="12_tio3p"]
 [ext_resource type="PackedScene" uid="uid://d2mbt6g0fg3oo" path="res://scenes/sections/levels/section6.tscn" id="13_libq4"]
 [ext_resource type="PackedScene" uid="uid://scvobgbx8jgm" path="res://scenes/sections/levels/section7.tscn" id="14_xvq43"]
+[ext_resource type="PackedScene" uid="uid://caikanws4v5aq" path="res://scenes/sections/levels/section8.tscn" id="16_ssddy"]
+[ext_resource type="PackedScene" uid="uid://dbivxjyojhhfy" path="res://scenes/sections/levels/section9.tscn" id="17_05yow"]
+[ext_resource type="PackedScene" uid="uid://dqm5clbjx71q" path="res://scenes/sections/levels/section10.tscn" id="18_a6gpd"]
+[ext_resource type="PackedScene" uid="uid://c5ug1hkicbgyy" path="res://scenes/sections/levels/section11.tscn" id="19_xko0e"]
+[ext_resource type="PackedScene" uid="uid://dfmlrfr2clkxu" path="res://scenes/sections/levels/section12.tscn" id="20_tfy7w"]
+[ext_resource type="PackedScene" uid="uid://da8vapsn1joqw" path="res://scenes/sections/levels/section13.tscn" id="21_rximh"]
+[ext_resource type="PackedScene" uid="uid://b2h6sicmksnue" path="res://scenes/sections/levels/section14.tscn" id="22_qt7sd"]
+[ext_resource type="PackedScene" uid="uid://pkyto6ksnufj" path="res://scenes/sections/levels/section15.tscn" id="23_ek622"]
+[ext_resource type="PackedScene" uid="uid://cn821l32gn6dp" path="res://scenes/sections/foreground.tscn" id="24_21ghe"]
 
 [node name="World" type="Node2D"]
 
@@ -26,6 +35,8 @@ position = Vector2(320, 360)
 zoom = Vector2(2, 2)
 
 [node name="Background" parent="." instance=ExtResource("1_1kev4")]
+
+[node name="Foreground" parent="." instance=ExtResource("24_21ghe")]
 
 [node name="Sections" type="Node2D" parent="."]
 
@@ -45,6 +56,5 @@ collision_mask = 4
 
 [node name="GameController" parent="." node_paths=PackedStringArray("camera", "death_area") instance=ExtResource("8_3jnm1")]
 camera = NodePath("../Camera2D")
-enable_following_camera = true
 death_area = NodePath("../DeathArea")
-sections = Array[PackedScene]([ExtResource("8_kpplr"), ExtResource("9_vfiup"), ExtResource("10_hxf2s"), ExtResource("11_gafvw"), ExtResource("12_tio3p"), ExtResource("13_libq4"), ExtResource("14_xvq43")])
+sections = Array[PackedScene]([ExtResource("8_kpplr"), ExtResource("9_vfiup"), ExtResource("10_hxf2s"), ExtResource("11_gafvw"), ExtResource("12_tio3p"), ExtResource("13_libq4"), ExtResource("14_xvq43"), ExtResource("16_ssddy"), ExtResource("17_05yow"), ExtResource("18_a6gpd"), ExtResource("19_xko0e"), ExtResource("20_tfy7w"), ExtResource("21_rximh"), ExtResource("22_qt7sd"), ExtResource("23_ek622")])

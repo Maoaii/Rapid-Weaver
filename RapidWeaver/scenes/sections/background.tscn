@@ -1,26 +1,39 @@
 [gd_scene load_steps=4 format=3 uid="uid://cqvnliqs7mvfe"]
 
-[ext_resource type="Script" path="res://scripts/sections/background.gd" id="1_0g753"]
-[ext_resource type="Texture2D" uid="uid://cv7brs6irb5kl" path="res://assets/bg.png" id="1_fwi8d"]
-[ext_resource type="Texture2D" uid="uid://h3tjkt27j0ml" path="res://assets/background.ase" id="3_wtkw1"]
+[ext_resource type="Texture2D" uid="uid://c4e7qx0ynijci" path="res://assets/background.png" id="2_1ayra"]
+[ext_resource type="Texture2D" uid="uid://cxila3kq5m51w" path="res://assets/background0.png" id="3_5w3a8"]
+[ext_resource type="Texture2D" uid="uid://dy6qsagjlqffl" path="res://assets/background1.png" id="4_ifbkl"]
 
 [node name="Background" type="ParallaxBackground"]
 scroll_ignore_camera_zoom = true
-script = ExtResource("1_0g753")
 
 [node name="BG" type="ParallaxLayer" parent="."]
+position = Vector2(2.08165e-12, 2.08165e-12)
 motion_mirroring = Vector2(2.08165e-12, 480)
 
 [node name="Sprite2D" type="Sprite2D" parent="BG"]
 position = Vector2(2.08165e-12, 2.08165e-12)
-scale = Vector2(40, 30)
-texture = ExtResource("1_fwi8d")
+texture = ExtResource("2_1ayra")
 centered = false
+region_enabled = true
+region_rect = Rect2(320, 240, 640, 480)
 
-[node name="FG" type="ParallaxLayer" parent="."]
-motion_mirroring = Vector2(2.08165e-12, 480)
+[node name="BG0" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(2.08165e-12, 100)
 
-[node name="Sprite2D" type="Sprite2D" parent="FG"]
-texture = ExtResource("3_wtkw1")
+[node name="Sprite2D" type="Sprite2D" parent="BG0"]
+texture = ExtResource("3_5w3a8")
 centered = false
-offset = Vector2(160, 2.08165e-12)
+region_enabled = true
+region_rect = Rect2(320, 240, 640, 480)
+
+[node name="BG1" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(2.08165e-12, 400)
+
+[node name="Sprite2D" type="Sprite2D" parent="BG1"]
+texture = ExtResource("4_ifbkl")
+centered = false
+region_enabled = true
+region_rect = Rect2(320, 240, 640, 480)
