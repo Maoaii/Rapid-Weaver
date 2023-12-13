@@ -36,7 +36,7 @@ layer_0/tile_data = PackedInt32Array(1507339, 917504, 3, 1507356, 917504, 3, 150
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(320, 360)
-zoom = Vector2(2, 2)
+zoom = Vector2(1.5, 1.5)
 
 [node name="Background" parent="." instance=ExtResource("1_1kev4")]
 
@@ -51,7 +51,7 @@ position = Vector2(325, 324)
 position = Vector2(314, 194)
 
 [node name="DeathArea" parent="." instance=ExtResource("6_qaw3s")]
-position = Vector2(0, 496)
+position = Vector2(0, 537)
 collision_mask = 4
 
 [node name="UI" parent="." instance=ExtResource("10_uby7a")]
