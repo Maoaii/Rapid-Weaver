@@ -46,8 +46,9 @@ func update_camera(delta: float) -> void:
 	if enable_following_camera:
 		camera.position.y = player.position.y
 	else:
-		camera.offset += Vector2(0, -camera_speed * delta)
+		camera.position += Vector2(0, -camera_speed * delta)
 		death_area.position += Vector2(0, -camera_speed * delta)
+		
 	
 	death_area.position.x = player.position.x - (Global.SECTION_WIDTH / 2)
 
