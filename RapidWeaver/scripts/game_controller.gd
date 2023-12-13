@@ -47,9 +47,8 @@ func update_camera(delta: float) -> void:
 		camera.position.y = player.position.y
 	else:
 		camera.position += Vector2(0, -camera_speed * delta)
-		death_area.position += Vector2(0, -camera_speed * delta)
-		
 	
+	death_area.position.y += -camera_speed * delta
 	death_area.position.x = player.position.x - (Global.SECTION_WIDTH / 2)
 
 
