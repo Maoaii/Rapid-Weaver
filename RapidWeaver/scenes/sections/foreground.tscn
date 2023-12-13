@@ -33,7 +33,7 @@ region_rect = Rect2(320, 240, 640, 480)
 
 [node name="BG3" type="ParallaxLayer" parent="."]
 z_index = -1
-position = Vector2(0, -623)
+position = Vector2(0, -620)
 motion_scale = Vector2(3, 3)
 motion_offset = Vector2(2.08165e-12, 1200)
 motion_mirroring = Vector2(2.08165e-12, 2300)

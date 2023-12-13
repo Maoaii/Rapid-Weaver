@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cydsd27rpksoo"]
+
+[ext_resource type="TileSet" uid="uid://bh1s8mkcj6aso" path="res://assets/tileset/decorations.tres" id="1_0bymb"]
+
+[node name="Decorations" type="TileMap"]
+tile_set = ExtResource("1_0bymb")
+format = 2
+layer_0/name = "Decorations"
+layer_1/name = "Hurtables"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array()

@@ -27,7 +27,7 @@ func move_sinusoid(delta: float, dir: Vector2) -> void:
 	velocity += movement
 
 func hit_wall() -> bool:
-	return left_wall_detector.is_colliding() or right_wall_detector.is_colliding()
+	return left_wall_detector.is_colliding() or right_wall_detector.is_colliding() or global_position.x <= 160 or global_position.x >= 480
 
 func follow(player: Player):
 	var dir = global_position.direction_to(player.global_position).normalized()
