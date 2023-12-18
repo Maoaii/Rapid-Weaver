@@ -32,7 +32,7 @@ func _ready() -> void:
 	
 	sprite.set_sprite_frames(selected_sprite)
 	
-	x_dir = x_start_direction
+	x_dir = [Vector2(-1, 0), Vector2(1, 0)].pick_random()
 	y_dir = y_start_direction
 
 func _process(_delta: float) -> void:

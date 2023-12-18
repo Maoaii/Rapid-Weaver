@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://scvobgbx8jgm"]
+[gd_scene load_steps=6 format=3 uid="uid://scvobgbx8jgm"]
 
 [ext_resource type="PackedScene" uid="uid://kdhe48dcjwn3" path="res://scenes/sections/base_section.tscn" id="1_xkdap"]
+[ext_resource type="PackedScene" uid="uid://cydsd27rpksoo" path="res://scenes/sections/decorations.tscn" id="2_6f5mg"]
+[ext_resource type="PackedScene" uid="uid://c74c7gcct02cs" path="res://scenes/fly.tscn" id="3_4qkau"]
+[ext_resource type="PackedScene" uid="uid://osik8dchik80" path="res://scenes/enemies/caterpillar.tscn" id="4_oylol"]
+[ext_resource type="PackedScene" uid="uid://d3d4smrwgcq4j" path="res://scenes/enemies/fungus.tscn" id="5_o7dp2"]
 
 [node name="Section7" instance=ExtResource("1_xkdap")]
 metadata/_edit_vertical_guides_ = [160.0, 480.0, 320.0]
@@ -8,3 +12,58 @@ metadata/_edit_horizontal_guides_ = [80.0, 480.0]
 
 [node name="TileMap" parent="." index="0"]
 layer_0/tile_data = PackedInt32Array(458775, 786432, 7, 393239, 786432, 6, 327703, 786432, 5, 458774, 720896, 7, 393238, 720896, 6, 327702, 720896, 5, 458773, 720896, 7, 393237, 720896, 6, 327701, 720896, 5, 458772, 720896, 7, 393236, 720896, 6, 327700, 720896, 5, 458771, 720896, 7, 393235, 720896, 6, 327699, 720896, 5, 458770, 720896, 7, 393234, 720896, 6, 327698, 720896, 5, 458769, 720896, 7, 393233, 720896, 6, 327697, 720896, 5, 458768, 655360, 7, 393232, 655360, 6, 327696, 655360, 5, 1900567, 786432, 7, 1835031, 786432, 6, 1769495, 786432, 6, 1703959, 786432, 6, 1638423, 786432, 6, 1572887, 786432, 6, 1900566, 720896, 7, 1835030, 720896, 6, 1769494, 720896, 6, 1703958, 720896, 6, 1638422, 720896, 6, 1572886, 720896, 6, 1900565, 720896, 7, 1835029, 720896, 6, 1769493, 720896, 6, 1703957, 720896, 6, 1638421, 720896, 6, 1572885, 720896, 6, 1900564, 720896, 7, 1835028, 720896, 6, 1769492, 720896, 6, 1703956, 720896, 6, 1638420, 720896, 6, 1572884, 720896, 6, 1900563, 720896, 7, 1835027, 720896, 6, 1769491, 720896, 6, 1703955, 720896, 6, 1638419, 720896, 6, 1572883, 720896, 6, 1900562, 720896, 7, 1835026, 720896, 6, 1769490, 720896, 6, 1703954, 720896, 6, 1638418, 720896, 6, 1572882, 720896, 6, 1900561, 720896, 7, 1835025, 720896, 6, 1769489, 720896, 6, 1703953, 720896, 6, 1638417, 720896, 6, 1572881, 720896, 6, 1900560, 655360, 7, 1835024, 655360, 6, 1769488, 655360, 6, 1703952, 655360, 6, 1638416, 655360, 6, 1572880, 655360, 6, 1507351, 786432, 5, 1507350, 720896, 5, 1507349, 720896, 5, 1507348, 720896, 5, 1507347, 720896, 5, 1507346, 720896, 5, 1507345, 720896, 5, 1507344, 655360, 5, 1048603, 786432, 7, 983067, 786432, 6, 917531, 786432, 5, 1048602, 720896, 7, 983066, 720896, 6, 917530, 720896, 5, 1048601, 720896, 7, 983065, 720896, 6, 917529, 720896, 5, 1048600, 720896, 7, 983064, 720896, 6, 917528, 720896, 5, 1048599, 720896, 7, 983063, 720896, 6, 917527, 720896, 5, 1048598, 720896, 7, 983062, 720896, 6, 917526, 720896, 5, 1048597, 720896, 7, 983061, 720896, 6, 917525, 720896, 5, 1048596, 720896, 7, 983060, 720896, 6, 917524, 720896, 5, 1048595, 720896, 7, 983059, 720896, 6, 917523, 720896, 5, 1048594, 720896, 7, 983058, 720896, 6, 917522, 720896, 5, 1048593, 720896, 7, 983057, 720896, 6, 917521, 720896, 5, 1048592, 720896, 7, 983056, 720896, 6, 917520, 720896, 5, 1048591, 720896, 7, 983055, 720896, 6, 917519, 720896, 5, 1048590, 720896, 7, 983054, 720896, 6, 917518, 720896, 5, 1048589, 720896, 7, 983053, 720896, 6, 917517, 720896, 5, 1048588, 655360, 7, 983052, 655360, 6, 917516, 655360, 5)
+
+[node name="Decorations" parent="." index="2" instance=ExtResource("2_6f5mg")]
+layer_0/tile_data = PackedInt32Array(851981, 1114112, 0, 851982, 1048576, 0, 851983, 1179648, 1, 851984, 1179648, 1, 851987, 1114112, 1, 851988, 1114112, 1, 851990, 1048576, 0, 851991, 1179648, 1, 851992, 1114112, 0, 851993, 1179648, 1, 851994, 1114112, 0, 1441813, 1048576, 1, 1441810, 1114112, 0, 1441809, 1048576, 0, 262160, 1048576, 0, 262161, 1048576, 0, 262162, 1048576, 1, 262163, 1179648, 0, 262164, 1048576, 1, 262165, 1114112, 1, 524307, 1245184, 0, 589843, 1245184, 0, 655379, 1245184, 0, 720915, 1245184, 0, 524308, 1245184, 0, 589844, 1245184, 0, 786451, 1245184, 1, 655380, 1245184, 1, 1114127, 1245184, 0, 1179663, 1245184, 0, 1245199, 1245184, 0, 1114130, 1245184, 0, 1179666, 1245184, 0, 1114137, 1245184, 0, 1179673, 1245184, 0, 1245209, 1245184, 0, 1310745, 1245184, 0, 1376281, 1245184, 0, 1441817, 1245184, 1, 1245202, 1245184, 1, 1310735, 1245184, 1)
+
+[node name="Fly" parent="." index="3" instance=ExtResource("3_4qkau")]
+position = Vector2(320, 288)
+
+[node name="Fly2" parent="." index="4" instance=ExtResource("3_4qkau")]
+position = Vector2(320, 144)
+
+[node name="Caterpillar" parent="." index="5" instance=ExtResource("4_oylol")]
+position = Vector2(384, 217)
+
+[node name="Fungus" parent="." index="6" instance=ExtResource("5_o7dp2")]
+position = Vector2(290, 134)
+rotation = 3.14159
+
+[node name="Fungus2" parent="." index="7" instance=ExtResource("5_o7dp2")]
+position = Vector2(348, 134)
+rotation = 3.14159
+
+[node name="Fungus3" parent="." index="8" instance=ExtResource("5_o7dp2")]
+position = Vector2(362, 134)
+rotation = 3.14159
+
+[node name="Fungus4" parent="." index="9" instance=ExtResource("5_o7dp2")]
+position = Vector2(276, 134)
+rotation = 3.14159
+
+[node name="Fungus5" parent="." index="10" instance=ExtResource("5_o7dp2")]
+position = Vector2(267, 278)
+rotation = 3.14159
+
+[node name="Fungus6" parent="." index="11" instance=ExtResource("5_o7dp2")]
+position = Vector2(253, 278)
+rotation = 3.14159
+
+[node name="Fungus7" parent="." index="12" instance=ExtResource("5_o7dp2")]
+position = Vector2(239, 278)
+rotation = 3.14159
+
+[node name="Fungus8" parent="." index="13" instance=ExtResource("5_o7dp2")]
+position = Vector2(395, 278)
+rotation = 3.14159
+
+[node name="Fungus9" parent="." index="14" instance=ExtResource("5_o7dp2")]
+position = Vector2(381, 278)
+rotation = 3.14159
+
+[node name="Fungus10" parent="." index="15" instance=ExtResource("5_o7dp2")]
+position = Vector2(367, 278)
+rotation = 3.14159
+
+[node name="Caterpillar2" parent="." index="16" instance=ExtResource("4_oylol")]
+position = Vector2(281, 217)
