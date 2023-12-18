@@ -1,15 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://cbc5jyuaxunxf"]
+[gd_scene load_steps=5 format=3 uid="uid://cbc5jyuaxunxf"]
 
 [ext_resource type="Script" path="res://scripts/death_area.gd" id="1_8mods"]
+[ext_resource type="Shader" path="res://scripts/shaders/death_area.gdshader" id="2_8408n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1iwm3"]
 size = Vector2(882, 37)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wnwbn"]
+shader = ExtResource("2_8408n")
+shader_parameter/speed = 1.0
+shader_parameter/amplitude = 20.0
+shader_parameter/frequency = 1.0
+
 [node name="DeathArea" type="Area2D"]
+scale = Vector2(4.12, 1)
 script = ExtResource("1_8mods")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(320, 0)
 shape = SubResource("RectangleShape2D_1iwm3")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_wnwbn")
+offset_right = 640.0
+offset_bottom = 480.0
+scale = Vector2(0.456311, 0.495146)
+color = Color(0.207843, 0.207843, 0.207843, 1)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
