@@ -138,6 +138,7 @@ animation = &"Idle"
 shape = SubResource("RectangleShape2D_k2drm")
 
 [node name="Collider" type="Area2D" parent="."]
+collision_layer = 4
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collider"]

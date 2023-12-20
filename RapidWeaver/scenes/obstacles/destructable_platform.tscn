@@ -18,6 +18,7 @@ script = ExtResource("1_ebjbm")
 shape = SubResource("RectangleShape2D_k1tp0")
 
 [node name="TouchDetector" type="Area2D" parent="."]
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TouchDetector"]
 shape = SubResource("RectangleShape2D_38a41")
