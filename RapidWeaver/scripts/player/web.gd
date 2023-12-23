@@ -10,7 +10,7 @@ var hook: Hook
 func _ready() -> void:
 	EventBus._on_web_released.connect(remove_hook)
 
-func emit_web_vfx(collided_objects, position_collided: Vector2) -> void:
+func emit_web_vfx(_collided_objects, position_collided: Vector2) -> void:
 	web_hit_vfx.global_position = position_collided
 	web_hit_vfx.restart()
 
