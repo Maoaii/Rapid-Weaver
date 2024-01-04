@@ -23,6 +23,7 @@ size = Vector2(10, 2)
 
 [node name="Wasp" type="CharacterBody2D" node_paths=PackedStringArray("health_component") groups=["Enemy", "Moving"]]
 collision_layer = 8
+motion_mode = 1
 script = ExtResource("1_2m428")
 amplitude = 20.0
 sprites = Array[SpriteFrames]([ExtResource("3_37lnf"), ExtResource("9_5impn")])
