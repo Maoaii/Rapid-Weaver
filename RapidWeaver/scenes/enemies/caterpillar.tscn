@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://osik8dchik80"]
+[gd_scene load_steps=16 format=3 uid="uid://osik8dchik80"]
 
 [ext_resource type="Script" path="res://scripts/enemies/caterpillar.gd" id="1_4w0wg"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="2_hwfrl"]
@@ -21,16 +21,22 @@ size = Vector2(10, 3)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chtyy"]
 size = Vector2(12, 8)
 
-[node name="Caterpillar" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "left_ledge_detector", "right_ledge_detector") groups=["Enemy", "Moving"]]
+[sub_resource type="Curve" id="Curve_dc6is"]
+_data = [Vector2(0.0140263, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Caterpillar" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "left_ledge_detector", "right_ledge_detector", "death_vfx") groups=["Enemy", "Moving"]]
 collision_layer = 8
 script = ExtResource("1_4w0wg")
 idle_length = 0.5
 move_length = 1.0
 sprites = Array[SpriteFrames]([ExtResource("3_vwok2"), ExtResource("3_merie"), ExtResource("4_y512k"), ExtResource("5_fnj7x")])
 horizontal_speed = 30.0
+death_animation_time = 1.0
 health_component = NodePath("HealthComponent")
 left_ledge_detector = NodePath("LeftLedgeDetector")
 right_ledge_detector = NodePath("RightLedgeDetector")
+death_vfx = NodePath("PoofParticles")
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("11_thocf")]
 sprite_frames = ExtResource("5_fnj7x")
@@ -83,6 +89,21 @@ script = ExtResource("4_jh165")
 
 [node name="Dead" type="Node" parent="StateMachine"]
 script = ExtResource("5_2i1e1")
+
+[node name="PoofParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 4.04
+spread = 180.0
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_max = 5.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_dc6is")
 
 [connection signal="body_entered" from="HitBox" to="StateMachine/Idle" method="_on_hit_box_body_entered"]
 [connection signal="body_entered" from="HitBox" to="StateMachine/Walking" method="_on_hit_box_body_entered"]

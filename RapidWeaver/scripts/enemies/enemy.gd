@@ -17,6 +17,7 @@ extends CharacterBody2D
 @export var health_component: HealthComponent
 @export var left_ledge_detector: RayCast2D
 @export var right_ledge_detector: RayCast2D
+@export var death_vfx: CPUParticles2D
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
@@ -25,6 +26,7 @@ extends CharacterBody2D
 var x_dir: Vector2
 var y_dir: Vector2
 var hurt_player: bool = false
+var is_dead: bool = false
 
 func _ready() -> void:
 	# Select a random spriteframe and load it
@@ -39,6 +41,12 @@ func _process(_delta: float) -> void:
 	if hurt_player:
 		EventBus._on_knockback_player.emit(global_position)
 		EventBus._on_player_hurt.emit()
+	
+	if death_vfx:
+		if is_dead and death_vfx.emitting == false:
+			queue_free()
+	elif is_dead:
+		queue_free()
 
 func flip_enemy() -> void:
 	if x_dir == Vector2.RIGHT:
@@ -84,6 +92,15 @@ func dead() -> void:
 	hurt_box.set_deferred("monitoring", false)
 	
 	set_collision_layer_value(4, false)
+
+
+func die() -> void:
+	if death_vfx:
+		death_vfx.restart()
+		sprite.visible = false
+		hurt_box.set_deferred("monitoring", false)
+	
+	is_dead = true
 
 func _on_hurtbox_body_entered(body):
 	if body.is_in_group("Player"):
