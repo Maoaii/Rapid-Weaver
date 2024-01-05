@@ -4,7 +4,7 @@ extends Node2D
 @export_group("Camera Variables")
 @export var camera: Camera2D
 @export var enable_following_camera: bool = false
-@export var camera_speed: int = 50
+@export var camera_speed: float = 50
 
 @export_group("Death Area Variables")
 @export var death_area: DeathArea
@@ -32,6 +32,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if moving_camera:
 		update_camera(delta)
+		
+		# Increase camera movement
+		camera_speed += delta*2
+		print(camera_speed)
 
 func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("quit"):
