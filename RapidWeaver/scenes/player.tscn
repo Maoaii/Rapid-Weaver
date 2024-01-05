@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://lmt4yjrdw8kk"]
+[gd_scene load_steps=23 format=3 uid="uid://lmt4yjrdw8kk"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_utnx1"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="4_32n45"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://scripts/state_machine/states/zooming.gd" id="10_4ayft"]
 [ext_resource type="Script" path="res://scripts/player_debug.gd" id="11_xt54t"]
 [ext_resource type="PackedScene" uid="uid://cvt6by16chuvj" path="res://assets/Player/player1.ase" id="13_hiojt"]
+[ext_resource type="Script" path="res://scripts/state_machine/states/dead.gd" id="13_kulqf"]
 
 [sub_resource type="Animation" id="Animation_hg0np"]
 length = 0.001
@@ -118,8 +119,23 @@ zooming_max_speed = 80.0
 zooming_acceleration = 8.0
 web_travelling_speed = 600.0
 zoom_buffer_time = 0.1
-max_health = 20
 invincibility_time = 1.5
+death_force = Vector2(100, 200)
+
+[node name="WebHit" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 100
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 2.0
+direction = Vector2(2.08165e-12, 1)
+spread = 180.0
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_max = 15.81
+scale_amount_min = 0.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -189,6 +205,9 @@ script = ExtResource("9_bxddi")
 
 [node name="Zooming" type="Node" parent="StateMachine"]
 script = ExtResource("10_4ayft")
+
+[node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource("13_kulqf")
 
 [node name="PlayerDebug" type="Control" parent="."]
 layout_mode = 3

@@ -7,6 +7,13 @@ func _enter(_msg := {}) -> void:
 
 func _physics_update(_delta: float) -> void:
 	"""
+		Transition to dead
+	"""
+	if player.dead == true:
+		state_machine.transition_to("Dead")
+		return
+	
+	"""
 		Transition to zooming
 	"""
 	if Input.is_action_just_pressed("shoot_web"):

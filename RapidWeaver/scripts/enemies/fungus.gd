@@ -9,7 +9,7 @@ extends Enemy
 @onready var poof_particles: CPUParticles2D = $PoofParticles
 @onready var hitbox: Area2D = $Hitbox
 
-var is_dead: bool = false
+var is_popped: bool = false
 
 func _ready():
 	# Select a random spriteframe and load it
@@ -20,10 +20,10 @@ func _ready():
 	play_animation("Idle")
 
 func _process(_delta: float) -> void:
-	if is_dead and poof_particles.emitting == false:
+	if is_popped and poof_particles.emitting == false:
 		queue_free()
 	
-	if is_dead and hurt_player:
+	if is_popped and hurt_player:
 		# Send signal to hurt player
 		EventBus._on_player_hurt.emit()
 		
@@ -40,4 +40,4 @@ func _on_hitbox_body_entered(body):
 		sprite.hide()
 		hitbox.set_deferred("monitoring", false)
 		
-		is_dead = true
+		is_popped = true

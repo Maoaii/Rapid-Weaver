@@ -69,6 +69,13 @@ func _exit() -> void:
 
 
 func _physics_update(delta: float) -> void:
+	"""
+		Transition to dead
+	"""
+	if player.dead == true:
+		state_machine.transition_to("Dead")
+		return
+	
 	# Rotate sprite to match web collided position
 	player.sprite_look_at(zooming_pos)
 	

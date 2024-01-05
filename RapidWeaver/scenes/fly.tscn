@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c74c7gcct02cs"]
+[gd_scene load_steps=9 format=3 uid="uid://c74c7gcct02cs"]
 
 [ext_resource type="Texture2D" uid="uid://dxqltolsias3m" path="res://assets/Tiles/Transparent/tile_0346.png" id="1_embv5"]
 [ext_resource type="Script" path="res://scripts/fly.gd" id="1_j2ue8"]
@@ -69,6 +69,10 @@ _data = {
 "RESET": SubResource("Animation_dktyl")
 }
 
+[sub_resource type="Curve" id="Curve_j17lj"]
+_data = [Vector2(0.0140263, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="Fly" type="Area2D"]
 position = Vector2(2.08165e-12, 2.08165e-12)
 collision_layer = 32
@@ -86,6 +90,21 @@ shape = SubResource("RectangleShape2D_13vpk")
 libraries = {
 "": SubResource("AnimationLibrary_lyraa")
 }
+
+[node name="PoofParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 4.04
+spread = 180.0
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_max = 5.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_j17lj")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

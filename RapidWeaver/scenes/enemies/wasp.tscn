@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cwawrjs36jqe5"]
+[gd_scene load_steps=14 format=3 uid="uid://cwawrjs36jqe5"]
 
 [ext_resource type="Script" path="res://scripts/enemies/wasp.gd" id="1_2m428"]
 [ext_resource type="PackedScene" uid="uid://db8algl6onq53" path="res://scenes/components/health_component.tscn" id="1_o4xoc"]
@@ -21,14 +21,21 @@ size = Vector2(8, 10)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v8u6t"]
 size = Vector2(10, 2)
 
-[node name="Wasp" type="CharacterBody2D" node_paths=PackedStringArray("health_component") groups=["Enemy", "Moving"]]
+[sub_resource type="Curve" id="Curve_x12rx"]
+_data = [Vector2(0.0140263, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Wasp" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "death_vfx") groups=["Enemy", "Moving"]]
 collision_layer = 8
+motion_mode = 1
 script = ExtResource("1_2m428")
 amplitude = 20.0
 sprites = Array[SpriteFrames]([ExtResource("3_37lnf"), ExtResource("9_5impn")])
 x_start_direction = Vector2(-1, 2.08165e-12)
 horizontal_speed = 30.0
+death_animation_time = 1.0
 health_component = NodePath("HealthComponent")
+death_vfx = NodePath("PoofParticles")
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("3_lp1mt")]
 position = Vector2(0, -1)
@@ -64,6 +71,21 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_v8u6t")
+
+[node name="PoofParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 4.04
+spread = 180.0
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_max = 5.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_x12rx")
 
 [node name="HealthComponent" parent="." instance=ExtResource("1_o4xoc")]
 max_health = 10

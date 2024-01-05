@@ -28,6 +28,13 @@ func _enter(msg := {}) -> void:
 
 
 func _physics_update(delta: float) -> void:
+	"""
+		Transition to dead
+	"""
+	if player.dead == true:
+		state_machine.transition_to("Dead")
+		return
+	
 	if player.get_x_input() or \
 		player.collision_detector.is_colliding_left() or \
 		player.collision_detector.is_colliding_right() or \

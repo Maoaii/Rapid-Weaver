@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ciljpcy8dvt4y"]
+[gd_scene load_steps=14 format=3 uid="uid://ciljpcy8dvt4y"]
 
 [ext_resource type="PackedScene" uid="uid://dm1o3dk5kk7xa" path="res://assets/enemies/shooter_enemy/shooter.aseprite" id="1_541tk"]
 [ext_resource type="Script" path="res://scripts/components/health_component.gd" id="1_lni0v"]
@@ -21,10 +21,17 @@ size = Vector2(10, 3)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ek7s3"]
 size = Vector2(10, 10)
 
-[node name="Shooter" type="CharacterBody2D"]
+[sub_resource type="Curve" id="Curve_fe7g2"]
+_data = [Vector2(0.0140263, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Shooter" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "death_vfx")]
 collision_layer = 8
 script = ExtResource("1_ng17o")
 shell = ExtResource("2_jfjkw")
+death_animation_time = 1.0
+health_component = NodePath("HealthComponent")
+death_vfx = NodePath("PoofParticles")
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("1_541tk")]
 speed_scale = 0.2
@@ -75,6 +82,21 @@ script = ExtResource("5_qesi3")
 
 [node name="Dead" type="Node" parent="StateMachine"]
 script = ExtResource("6_algir")
+
+[node name="PoofParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 4.04
+spread = 180.0
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_max = 5.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_fe7g2")
 
 [connection signal="body_entered" from="AggroRange" to="StateMachine/Idle" method="_on_aggro_range_body_entered"]
 [connection signal="body_exited" from="AggroRange" to="StateMachine/Shooting" method="_on_aggro_range_body_exited"]

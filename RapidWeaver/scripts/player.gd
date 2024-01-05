@@ -82,6 +82,7 @@ const STICK_SURFACE_CODE = {
 @export var max_health: int = 3
 @export var invincibility_time: float = 2
 @export var knockback_force: Vector2 = Vector2(400, 250)
+@export var death_force: Vector2
 
 """
 	Onready variables
@@ -132,6 +133,8 @@ var zooming : bool = false
 var on_hurtable: bool = false
 ## Variable to know if the player is slowed
 var slowed: bool = false
+
+var dead: bool = false
 
 func _ready() -> void:
 	# Assign timers to export variables
@@ -339,13 +342,24 @@ func hurt() -> void:
 	health_component.take_damage(1)
 	
 	if health_component.health <= 0:
-		EventBus._on_player_death.emit()
+		dead = true
 	
 	# Activate invincibility
 	invincibility_timer.start()
 	
 	# Active flash animation
 	hit_animation.play("hit")
+
+func death_animation() -> void:
+	$CollisionShape2D.set_deferred("disabled", true)
+	$Collider.set_deferred("monitoring", false)
+	velocity = Vector2(randf_range(-death_force.x, death_force.x), -death_force.y) 
+	
+	EventBus._unfollow_camera.emit()
+	
+	await get_tree().create_timer(1).timeout
+	
+	EventBus._on_player_death.emit()
 
 func slow(speed_slow: float, zoom_slow: float, web_travel_slow: float, jump_height_slow: float, duration: float) -> void:
 	if not slowed:

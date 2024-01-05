@@ -17,3 +17,4 @@ signal _on_player_bounce()
 
 signal _on_web_released()
 
+signal _unfollow_camera()
