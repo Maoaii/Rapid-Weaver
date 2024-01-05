@@ -10,6 +10,13 @@ func _enter(_msg := {}) -> void:
 	
 
 func _physics_update(delta: float) -> void:
+	"""
+		Transition to dead
+	"""
+	if player.dead == true:
+		state_machine.transition_to("Dead")
+		return
+	
 	player.move_x(delta)
 	player.flip_sprite_ceiling()
 	

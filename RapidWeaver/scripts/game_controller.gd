@@ -15,8 +15,10 @@ extends Node2D
 
 var spawned_sections: Array[BaseSection]
 var player: Player
+var moving_camera: bool
 
 func _ready() -> void:
+	moving_camera = true
 	create_new_section()
 	
 	player = get_tree().get_first_node_in_group("Player")
@@ -24,10 +26,12 @@ func _ready() -> void:
 	EventBus._on_section_passed.connect(add_new_section)
 	EventBus._on_death_area_touched.connect(restart_game)
 	EventBus._on_player_death.connect(restart_game)
+	EventBus._unfollow_camera.connect(func(): moving_camera = false)
 
 
 func _process(delta: float) -> void:
-	update_camera(delta)
+	if moving_camera:
+		update_camera(delta)
 
 func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("quit"):
