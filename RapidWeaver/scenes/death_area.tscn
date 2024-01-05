@@ -1,30 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbc5jyuaxunxf"]
+[gd_scene load_steps=6 format=3 uid="uid://cbc5jyuaxunxf"]
 
 [ext_resource type="Script" path="res://scripts/death_area.gd" id="1_8mods"]
-[ext_resource type="Shader" path="res://scripts/shaders/death_area.gdshader" id="2_8408n"]
+[ext_resource type="Texture2D" uid="uid://dha10b6n0d7cc" path="res://assets/rising_thingie.png" id="2_kaody"]
+[ext_resource type="Shader" path="res://scripts/shaders/death_area.gdshader" id="2_xjrvo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1iwm3"]
 size = Vector2(882, 37)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wnwbn"]
-shader = ExtResource("2_8408n")
-shader_parameter/speed = 1.0
-shader_parameter/amplitude = 20.0
-shader_parameter/frequency = 1.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o4jhw"]
+shader = ExtResource("2_xjrvo")
+shader_parameter/direction = Vector2(1, 0)
+shader_parameter/speed = 0.02
 
 [node name="DeathArea" type="Area2D"]
-scale = Vector2(4.12, 1)
+z_index = 100
 script = ExtResource("1_8mods")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(320, 0)
+position = Vector2(320, 48)
 shape = SubResource("RectangleShape2D_1iwm3")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_wnwbn")
-offset_right = 640.0
-offset_bottom = 480.0
-scale = Vector2(0.456311, 0.495146)
-color = Color(0.207843, 0.207843, 0.207843, 1)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_o4jhw")
+texture = ExtResource("2_kaody")
+centered = false
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
