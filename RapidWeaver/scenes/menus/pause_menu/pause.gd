@@ -13,20 +13,20 @@ func set_is_paused(value: bool) -> void:
 	
 	if visible:
 		$CenterContainer/VBoxContainer/VBoxContainer/Resume.grab_focus()
-		BgMusicManager.muffle_music()
+		Soundmanager.muffle_music()
 	else:
-		BgMusicManager.unmuffle_music()
+		Soundmanager.unmuffle_music()
 
 
 func _on_resume_pressed():
 	set_is_paused(false)
-	BgMusicManager.unmuffle_music()
+	Soundmanager.unmuffle_music()
 
 
 func _on_menu_pressed():
 	set_is_paused(false)
 	SceneTransition.change_scene("res://scenes/menus/main_menu/main_menu.tscn")
-	BgMusicManager.play_music("menu")
+	Soundmanager.play_music("menu")
 
 
 func _on_quit_pressed():

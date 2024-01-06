@@ -28,7 +28,7 @@ SceneTransition="*res://scripts/managers/scene_transition.tscn"
 ScoreManager="*res://scripts/managers/score_manager.gd"
 SaveGame="*res://autoloads/SaveGame.gd"
 SettingsManager="*res://autoloads/SettingsManager.gd"
-BgMusicManager="*res://scripts/managers/bg_music_manager.gd"
+Soundmanager="*res://scripts/managers/sound_manager.gd"
 
 [debug]
 

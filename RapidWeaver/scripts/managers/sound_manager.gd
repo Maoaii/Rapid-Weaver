@@ -1,4 +1,4 @@
-class_name BGMusicManager
+class_name SoundManager
 extends Node2D
 
 ## Master bus for audio playing
@@ -17,7 +17,7 @@ const type_to_music: Dictionary = {
 	},
 	"gameplay": {
 		"asset": preload("res://assets/sound/music/blockman.mp3"),
-		"volume": -20
+		"volume": -6
 	}
 }
 
@@ -42,7 +42,7 @@ func _ready() -> void:
 					linear_to_db(SaveGame.load_data("Music Volume").get("Music Volume")), \
 					linear_to_db(SaveGame.load_data("SFX Volume").get("SFX Volume")))
 	
-	setup_audio_player()
+	await setup_audio_player()
 	
 	play_music("menu")
 
