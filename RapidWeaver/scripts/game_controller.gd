@@ -35,7 +35,6 @@ func _process(delta: float) -> void:
 		
 		# Increase camera movement
 		camera_speed += delta*2
-		print(camera_speed)
 
 func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("quit"):
@@ -48,6 +47,7 @@ func _unhandled_input(_event) -> void:
 func restart_game() -> void:
 	EventBus._on_game_restart.emit()
 	SceneTransition.change_scene("res://scenes/menus/death_menu/death_menu.tscn")
+	Soundmanager.muffle_music()
 
 
 func update_camera(delta: float) -> void:

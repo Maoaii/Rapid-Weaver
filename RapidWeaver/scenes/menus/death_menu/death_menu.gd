@@ -17,10 +17,13 @@ func _ready() -> void:
 
 func _on_restart_pressed():
 	SceneTransition.change_scene("res://scenes/world.tscn")
+	Soundmanager.unmuffle_music()
 
 
 func _on_main_menu_pressed():
 	SceneTransition.change_scene("res://scenes/menus/main_menu/main_menu.tscn")
+	Soundmanager.play_music("menu")
+	Soundmanager.unmuffle_music()
 
 
 func _on_quit_pressed():
