@@ -11,6 +11,7 @@ func _ready() -> void:
 
 func _on_start_pressed():
 	SceneTransition.change_scene("res://scenes/world.tscn")
+	BgMusicManager.play_music("gameplay")
 
 
 func _on_settings_pressed():

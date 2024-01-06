@@ -35,7 +35,6 @@ func _process(delta: float) -> void:
 		
 		# Increase camera movement
 		camera_speed += delta*2
-		print(camera_speed)
 
 func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("quit"):

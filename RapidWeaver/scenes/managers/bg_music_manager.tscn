@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ce2xx4edvohnp"]
+
+[ext_resource type="AudioStream" uid="uid://d1hy0ko6mm6cm" path="res://assets/sound/music/blockman.mp3" id="1_ek4xr"]
+
+[node name="BGMusicManager" type="Node2D"]
+
+[node name="BGMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_ek4xr")
+volume_db = -4.0
+bus = &"Muffle"

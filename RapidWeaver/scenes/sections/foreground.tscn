@@ -10,7 +10,7 @@ scroll_ignore_camera_zoom = true
 
 [node name="FG" type="ParallaxLayer" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
-motion_scale = Vector2(2.08165e-12, 2)
+motion_scale = Vector2(2.5, 2.5)
 motion_mirroring = Vector2(2.08165e-12, 4000)
 
 [node name="Sprite2D" type="Sprite2D" parent="FG"]
@@ -19,6 +19,7 @@ texture = ExtResource("1_m5sqb")
 centered = false
 
 [node name="BG2" type="ParallaxLayer" parent="."]
+visible = false
 z_index = -1
 position = Vector2(0, -623)
 motion_scale = Vector2(3, 3)
@@ -32,6 +33,7 @@ region_enabled = true
 region_rect = Rect2(320, 240, 640, 480)
 
 [node name="BG3" type="ParallaxLayer" parent="."]
+visible = false
 z_index = -1
 position = Vector2(0, -620)
 motion_scale = Vector2(3, 3)
