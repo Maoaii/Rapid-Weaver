@@ -13,6 +13,9 @@ extends CharacterBody2D
 @export_group("Death Variables")
 @export var death_animation_time: float = 2
 
+@export_group("Sounds")
+@export var death_sfx: AudioStream
+
 @export_group("Components")
 @export var health_component: HealthComponent
 @export var left_ledge_detector: RayCast2D
@@ -27,6 +30,8 @@ var x_dir: Vector2
 var y_dir: Vector2
 var hurt_player: bool = false
 var is_dead: bool = false
+var last_pitch: float = 1.0
+var death_audio_player: AudioStreamPlayer2D
 
 func _ready() -> void:
 	# Select a random spriteframe and load it
@@ -36,6 +41,14 @@ func _ready() -> void:
 	
 	x_dir = [Vector2(-1, 0), Vector2(1, 0)].pick_random()
 	y_dir = y_start_direction
+	
+	death_audio_player = AudioStreamPlayer2D.new()
+	death_audio_player.volume_db = -15
+	death_audio_player.bus = "SFX"
+	death_audio_player.stream = death_sfx
+	
+	await self.ready
+	add_child(death_audio_player)
 
 func _process(_delta: float) -> void:
 	if hurt_player:
@@ -66,7 +79,8 @@ func flip_sprite() -> void:
 
 
 func play_animation(animation_name: String) -> void:
-	sprite.play(animation_name)
+	if sprite.sprite_frames.has_animation(animation_name):
+		sprite.play(animation_name)
 
 
 func move_x() -> void:
@@ -92,13 +106,27 @@ func dead() -> void:
 	hurt_box.set_deferred("monitoring", false)
 	
 	set_collision_layer_value(4, false)
+	
+	play_sfx()
 
+func play_sfx() -> void:
+	randomize()
+	var pitch_scale: float = randf_range(0.8, 1.2)
+	
+	while abs(pitch_scale - last_pitch) < 0.1:
+		randomize()
+		pitch_scale = randf_range(0.8, 1.2)
+	
+	last_pitch = pitch_scale
+	death_audio_player.pitch_scale = pitch_scale
+	death_audio_player.play()
 
 func die() -> void:
 	if death_vfx:
 		death_vfx.restart()
 		sprite.visible = false
 		hurt_box.set_deferred("monitoring", false)
+		
 	
 	is_dead = true
 

@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://cwawrjs36jqe5"]
+[gd_scene load_steps=15 format=3 uid="uid://cwawrjs36jqe5"]
 
 [ext_resource type="Script" path="res://scripts/enemies/wasp.gd" id="1_2m428"]
 [ext_resource type="PackedScene" uid="uid://db8algl6onq53" path="res://scenes/components/health_component.tscn" id="1_o4xoc"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="2_o2djb"]
 [ext_resource type="SpriteFrames" uid="uid://d1s04st3d5vv6" path="res://assets/enemies/flying_enemy/wasp_1.tres" id="3_37lnf"]
 [ext_resource type="PackedScene" uid="uid://ddwqea3byvpm8" path="res://assets/enemies/flying_enemy/flying_enemy_1.aseprite" id="3_lp1mt"]
+[ext_resource type="AudioStream" uid="uid://dplpi8mfb4qbo" path="res://assets/sound/sfx/enemies/EnemyDeath.wav" id="4_hr4ie"]
 [ext_resource type="Script" path="res://scripts/state_machine/enemy_states/wasp/moving.gd" id="5_qu3j4"]
 [ext_resource type="Script" path="res://scripts/state_machine/enemy_states/dead.gd" id="6_mu074"]
 [ext_resource type="SpriteFrames" uid="uid://bs7g3q0xtkeh0" path="res://assets/enemies/flying_enemy/wasp_2.tres" id="9_5impn"]
@@ -34,6 +35,7 @@ sprites = Array[SpriteFrames]([ExtResource("3_37lnf"), ExtResource("9_5impn")])
 x_start_direction = Vector2(-1, 2.08165e-12)
 horizontal_speed = 30.0
 death_animation_time = 1.0
+death_sfx = ExtResource("4_hr4ie")
 health_component = NodePath("HealthComponent")
 death_vfx = NodePath("PoofParticles")
 

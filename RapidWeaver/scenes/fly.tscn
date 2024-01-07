@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://c74c7gcct02cs"]
+[gd_scene load_steps=10 format=3 uid="uid://c74c7gcct02cs"]
 
 [ext_resource type="Texture2D" uid="uid://dxqltolsias3m" path="res://assets/Tiles/Transparent/tile_0346.png" id="1_embv5"]
 [ext_resource type="Script" path="res://scripts/fly.gd" id="1_j2ue8"]
 [ext_resource type="Texture2D" uid="uid://b4x5vfbscefxd" path="res://assets/Tiles/Transparent/tile_0326.png" id="2_dqq60"]
+[ext_resource type="AudioStream" uid="uid://dtgrcgjfna047" path="res://assets/sound/sfx/ui/Fly.wav" id="4_sb327"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13vpk"]
 size = Vector2(16, 16)
@@ -105,6 +106,11 @@ gravity = Vector2(2.08165e-12, 2.08165e-12)
 initial_velocity_max = 5.0
 scale_amount_max = 2.0
 scale_amount_curve = SubResource("Curve_j17lj")
+
+[node name="EatenSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_sb327")
+volume_db = -20.0
+bus = &"SFX"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bpilkvcv6kwcy"]
+[gd_scene load_steps=7 format=3 uid="uid://bpilkvcv6kwcy"]
 
 [ext_resource type="Script" path="res://scripts/obstacles/destructable_platform.gd" id="1_ebjbm"]
 [ext_resource type="PackedScene" uid="uid://c4r0xs1ochlgn" path="res://assets/obstacles/destructable_platform.aseprite" id="1_uwo2t"]
+[ext_resource type="AudioStream" uid="uid://bwacysaf7n4fj" path="res://assets/sound/sfx/ui/PlatformDestroy.wav" id="3_bwa2b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k1tp0"]
 size = Vector2(48, 16)
@@ -43,6 +44,11 @@ gravity = Vector2(2.08165e-12, 5)
 initial_velocity_max = 5.0
 scale_amount_max = 2.0
 scale_amount_curve = SubResource("Curve_wgvfd")
+
+[node name="PoofSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_bwa2b")
+volume_db = -10.0
+bus = &"SFX"
 
 [connection signal="body_entered" from="TouchDetector" to="." method="_on_touch_detector_body_entered"]
 [connection signal="timeout" from="DestroyTimer" to="." method="_on_destroy_timer_timeout"]

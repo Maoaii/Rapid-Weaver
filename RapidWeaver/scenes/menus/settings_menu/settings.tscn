@@ -64,7 +64,7 @@ script = ExtResource("1_i3dg3")
 layout_mode = 2
 alignment = 1
 
-[node name="CheckButton" type="CheckButton" parent="MarginContainer/VBoxContainer/SettingsContainer/Settings/FullscreenContainer"]
+[node name="CheckButton" type="CheckButton" parent="MarginContainer/VBoxContainer/SettingsContainer/Settings/FullscreenContainer" groups=["Button"]]
 layout_mode = 2
 text = "Fullscreen"
 flat = true
@@ -112,7 +112,7 @@ layout_mode = 2
 max_value = 1.0
 step = 0.01
 
-[node name="Back" type="Button" parent="MarginContainer/VBoxContainer/SettingsContainer/Settings"]
+[node name="Back" type="Button" parent="MarginContainer/VBoxContainer/SettingsContainer/Settings" groups=["Button"]]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Back"

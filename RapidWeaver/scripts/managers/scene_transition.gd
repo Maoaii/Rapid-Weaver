@@ -9,7 +9,8 @@ func _ready() -> void:
 func change_scene(target: String, type: String = "dissolve") -> void:
 	if type == "dissolve":
 		show()
-		transition_dissolve(target)
+		await transition_dissolve(target)
+		Soundmanager.setup_button_sounds()
 
 func transition_dissolve(target: String) -> void:
 	animation_player.play("dissolve")

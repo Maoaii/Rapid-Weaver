@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bl4rvk81k11bl"]
+[gd_scene load_steps=3 format=3 uid="uid://bl4rvk81k11bl"]
 
 [ext_resource type="Script" path="res://scenes/menus/pause_menu/pause.gd" id="1_mt8we"]
+[ext_resource type="AudioStream" uid="uid://ca1pnqn48pwbi" path="res://assets/sound/sfx/ui/Pause.wav" id="2_wnbtp"]
 
 [node name="Pause" type="Control"]
 process_mode = 3
@@ -45,20 +46,25 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Resume" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="Resume" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer" groups=["Button"]]
 layout_mode = 2
 text = "Resume Game"
 flat = true
 
-[node name="Menu" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="Menu" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer" groups=["Button"]]
 layout_mode = 2
 text = "Main Menu"
 flat = true
 
-[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer" groups=["Button"]]
 layout_mode = 2
 text = "Quit"
 flat = true
+
+[node name="PauseSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_wnbtp")
+volume_db = -10.0
+bus = &"SFX"
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Menu" to="." method="_on_menu_pressed"]
