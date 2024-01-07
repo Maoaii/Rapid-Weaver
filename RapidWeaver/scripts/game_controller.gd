@@ -21,6 +21,7 @@ var game_started: bool = false
 
 func _ready() -> void:
 	moving_camera = true
+	await get_tree().root.ready
 	create_new_section()
 	
 	player = get_tree().get_first_node_in_group("Player")
@@ -30,10 +31,13 @@ func _ready() -> void:
 	EventBus._on_player_death.connect(restart_game)
 	EventBus._unfollow_camera.connect(func(): moving_camera = false)
 	EventBus._on_game_started.connect(start_game)
+	
+	Soundmanager.play_music("menu")
 
 func start_game() -> void:
 	if not game_started:
 		get_tree().root.get_node("World").add_child(ui.instantiate())
+		Soundmanager.play_music("gameplay", true)
 	
 	game_started = true
 
