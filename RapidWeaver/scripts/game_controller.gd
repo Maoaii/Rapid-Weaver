@@ -32,6 +32,7 @@ func _ready() -> void:
 	EventBus._unfollow_camera.connect(func(): moving_camera = false)
 	EventBus._on_game_started.connect(start_game)
 	
+	await Soundmanager.ready
 	Soundmanager.play_music("menu")
 
 func start_game() -> void:
