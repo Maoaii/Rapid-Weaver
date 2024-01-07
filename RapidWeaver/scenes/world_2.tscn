@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dya7qxd1tr3gq"]
+[gd_scene load_steps=14 format=3 uid="uid://dya7qxd1tr3gq"]
 
 [ext_resource type="PackedScene" uid="uid://druq273210d8b" path="res://scenes/sections/tile_map.tscn" id="1_04kq6"]
 [ext_resource type="PackedScene" uid="uid://cqvnliqs7mvfe" path="res://scenes/sections/background.tscn" id="2_dr1mk"]
@@ -6,9 +6,19 @@
 [ext_resource type="PackedScene" uid="uid://c8a3uhby50eog" path="res://scenes/menus/dust_particles.tscn" id="4_6h5e2"]
 [ext_resource type="PackedScene" uid="uid://lmt4yjrdw8kk" path="res://scenes/player.tscn" id="5_7wutl"]
 [ext_resource type="PackedScene" uid="uid://cydsd27rpksoo" path="res://scenes/sections/decorations.tscn" id="6_pgmhg"]
+[ext_resource type="Script" path="res://scripts/menus/settings_area.gd" id="7_fkrux"]
+[ext_resource type="Script" path="res://scripts/menus/game_start_area.gd" id="7_xgp62"]
+[ext_resource type="Script" path="res://scripts/menus/quit_area.gd" id="8_1losw"]
+[ext_resource type="PackedScene" uid="uid://b5l843x4m6sg4" path="res://scenes/menus/settings_menu/settings.tscn" id="10_6vku2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_msvqj"]
 size = Vector2(404, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gxrhv"]
+size = Vector2(66, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mcvy8"]
+size = Vector2(66, 18)
 
 [node name="World" type="Node2D"]
 
@@ -43,7 +53,7 @@ theme_override_font_sizes/font_size = 24
 text = "Rapid Weaver"
 horizontal_alignment = 1
 
-[node name="Settings" type="Label" parent="."]
+[node name="SettingsLabel" type="Label" parent="."]
 offset_left = 185.0
 offset_top = 350.0
 offset_right = 329.0
@@ -52,7 +62,7 @@ theme_override_font_sizes/font_size = 8
 text = "Settings"
 horizontal_alignment = 1
 
-[node name="Quit" type="Label" parent="."]
+[node name="QuitLabel" type="Label" parent="."]
 offset_left = 312.0
 offset_top = 351.0
 offset_right = 456.0
@@ -61,8 +71,39 @@ theme_override_font_sizes/font_size = 8
 text = "Quit"
 horizontal_alignment = 1
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="GameStartArea" type="Area2D" parent="."]
+collision_mask = 4
+script = ExtResource("7_xgp62")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameStartArea"]
 position = Vector2(321, 232)
 shape = SubResource("RectangleShape2D_msvqj")
+
+[node name="SettingsArea" type="Area2D" parent="."]
+position = Vector2(248, 361)
+collision_mask = 16
+script = ExtResource("7_fkrux")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SettingsArea"]
+position = Vector2(8, -3)
+shape = SubResource("RectangleShape2D_gxrhv")
+
+[node name="Settings" parent="SettingsArea" instance=ExtResource("10_6vku2")]
+visible = false
+offset_left = 77.0
+offset_top = 2.0
+offset_right = 77.0
+offset_bottom = 2.0
+
+[node name="QuitArea" type="Area2D" parent="."]
+position = Vector2(382, 359)
+collision_mask = 16
+script = ExtResource("8_1losw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="QuitArea"]
+position = Vector2(2, -1)
+shape = SubResource("RectangleShape2D_mcvy8")
+
+[connection signal="area_entered" from="GameStartArea" to="GameStartArea" method="_on_area_entered"]
+[connection signal="area_entered" from="SettingsArea" to="SettingsArea" method="_on_area_entered"]
+[connection signal="area_entered" from="QuitArea" to="QuitArea" method="_on_area_entered"]

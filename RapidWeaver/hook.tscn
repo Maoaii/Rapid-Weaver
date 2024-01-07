@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_klo50"]
 size = Vector2(4, 4)
 
-[node name="Hook" type="Area2D"]
+[node name="Hook" type="Area2D" groups=["Hook"]]
 collision_layer = 16
 collision_mask = 41
 script = ExtResource("1_c131f")
