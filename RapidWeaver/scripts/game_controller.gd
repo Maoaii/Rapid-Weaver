@@ -12,6 +12,7 @@ extends Node2D
 @export_group("Section Variables")
 @export var sections: Array[PackedScene]
 
+@onready var ui = preload("res://scenes/ui.tscn")
 
 var spawned_sections: Array[BaseSection]
 var player: Player
@@ -31,6 +32,9 @@ func _ready() -> void:
 	EventBus._on_game_started.connect(start_game)
 
 func start_game() -> void:
+	if not game_started:
+		get_tree().root.get_node("World").add_child(ui.instantiate())
+	
 	game_started = true
 
 func _process(delta: float) -> void:
