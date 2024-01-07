@@ -16,6 +16,7 @@ extends Node2D
 var spawned_sections: Array[BaseSection]
 var player: Player
 var moving_camera: bool
+var game_started: bool = false
 
 func _ready() -> void:
 	moving_camera = true
@@ -27,14 +28,18 @@ func _ready() -> void:
 	EventBus._on_death_area_touched.connect(restart_game)
 	EventBus._on_player_death.connect(restart_game)
 	EventBus._unfollow_camera.connect(func(): moving_camera = false)
+	EventBus._on_game_started.connect(start_game)
 
+func start_game() -> void:
+	game_started = true
 
 func _process(delta: float) -> void:
 	if moving_camera:
 		update_camera(delta)
 		
 		# Increase camera movement
-		camera_speed += delta*2
+		if game_started:
+			camera_speed += delta*2
 
 func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("quit"):
@@ -56,8 +61,9 @@ func update_camera(delta: float) -> void:
 	else:
 		camera.position += Vector2(0, -camera_speed * delta)
 	
-	death_area.position.y += -camera_speed * delta
-	#death_area.position.x = player.position.x - (Global.SECTION_WIDTH / 2)
+	if game_started:
+		death_area.position.y += -camera_speed * delta
+		#death_area.position.x = player.position.x - (Global.SECTION_WIDTH / 2)
 
 
 func add_new_section() -> void:
@@ -71,7 +77,11 @@ func create_new_section() -> BaseSection:
 	var new_section: BaseSection = sections.pick_random().instantiate()
 	new_section.set_name("BaseSection" + str(spawned_sections.size()))
 	get_parent().get_node("Sections").add_child.call_deferred(new_section)
-	new_section.position += Vector2(0, -Global.WINDOW_HEIGHT * (spawned_sections.size() + 1))
+	if spawned_sections.size() == 0:
+		new_section.position += Vector2(0, -360)
+	else:
+		new_section.position += Vector2(0, 120 - Global.WINDOW_HEIGHT * (spawned_sections.size() + 1))
+	
 	spawned_sections.push_back(new_section)
 	
 	return new_section

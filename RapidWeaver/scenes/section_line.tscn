@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://fikthwf1ruin"]
+
+[ext_resource type="Texture2D" uid="uid://bcdlx37awpbyu" path="res://assets/dot.png" id="1_ewqid"]
+
+[node name="SectionLine" type="Node2D"]
+metadata/_edit_vertical_guides_ = [480.0, 160.0]
+
+[node name="Line2D" type="Line2D" parent="."]
+texture_repeat = 2
+position = Vector2(0, 225)
+points = PackedVector2Array(2.08165e-12, 2.08165e-12, 640, 2.08165e-12)
+width = 2.0
+texture = ExtResource("1_ewqid")
+texture_mode = 1
+
+[node name="Label" type="Label" parent="."]
+offset_left = 428.0
+offset_top = 204.0
+offset_right = 472.0
+offset_bottom = 221.0
+theme_override_font_sizes/font_size = 8
+text = "X meters"
