@@ -110,6 +110,7 @@ scale_amount_curve = SubResource("Curve_j17lj")
 [node name="EatenSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_sb327")
 volume_db = -20.0
+bus = &"SFX"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

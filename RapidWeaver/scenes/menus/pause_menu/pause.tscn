@@ -46,17 +46,17 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Resume" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="Resume" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer" groups=["Button"]]
 layout_mode = 2
 text = "Resume Game"
 flat = true
 
-[node name="Menu" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="Menu" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer" groups=["Button"]]
 layout_mode = 2
 text = "Main Menu"
 flat = true
 
-[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer" groups=["Button"]]
 layout_mode = 2
 text = "Quit"
 flat = true

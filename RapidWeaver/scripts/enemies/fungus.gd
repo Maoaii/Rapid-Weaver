@@ -10,7 +10,7 @@ extends Enemy
 @onready var hitbox: Area2D = $Hitbox
 
 var is_popped: bool = false
-var last_pitch: float = 1.0
+#var last_pitch: float = 1.0
 
 
 func _ready():
@@ -43,18 +43,18 @@ func _on_hitbox_body_entered(body):
 		hitbox.set_deferred("monitoring", false)
 		
 		is_popped = true
-		play_sfx()
+		#play_sfx()
 
 
-func play_sfx() -> void:
-	randomize()
-	var pitch_scale: float = randf_range(0.8, 1.2)
-	
-	while abs(pitch_scale - last_pitch) < 0.1:
-		randomize()
-		pitch_scale = randf_range(0.8, 1.2)
-	
-	last_pitch = pitch_scale
-	$ExplodeSFX.pitch_scale = pitch_scale
-	$ExplodeSFX.play()
+#func play_sfx() -> void:
+#	randomize()
+#	var pitch_scale: float = randf_range(0.8, 1.2)
+#	
+#	while abs(pitch_scale - last_pitch) < 0.1:
+#		randomize()
+#		pitch_scale = randf_range(0.8, 1.2)
+#	
+#	last_pitch = pitch_scale
+#	$ExplodeSFX.pitch_scale = pitch_scale
+#	$ExplodeSFX.play()
 

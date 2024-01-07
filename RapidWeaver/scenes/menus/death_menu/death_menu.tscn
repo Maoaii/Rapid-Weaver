@@ -55,17 +55,17 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Restart" type="Button" parent="CenterContainer/VBoxContainer/Buttons"]
+[node name="Restart" type="Button" parent="CenterContainer/VBoxContainer/Buttons" groups=["Button"]]
 layout_mode = 2
 text = "Restart"
 flat = true
 
-[node name="MainMenu" type="Button" parent="CenterContainer/VBoxContainer/Buttons"]
+[node name="MainMenu" type="Button" parent="CenterContainer/VBoxContainer/Buttons" groups=["Button"]]
 layout_mode = 2
 text = "Main Menu"
 flat = true
 
-[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer/Buttons"]
+[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer/Buttons" groups=["Button"]]
 layout_mode = 2
 text = "Quit"
 flat = true

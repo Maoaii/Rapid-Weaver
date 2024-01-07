@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://osik8dchik80"]
+[gd_scene load_steps=17 format=3 uid="uid://osik8dchik80"]
 
 [ext_resource type="Script" path="res://scripts/enemies/caterpillar.gd" id="1_4w0wg"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="2_hwfrl"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/state_machine/enemy_states/dead.gd" id="5_2i1e1"]
 [ext_resource type="SpriteFrames" uid="uid://w4befp3qtfbm" path="res://assets/enemies/crawling_enemy/caterpilar_4.tres" id="5_fnj7x"]
 [ext_resource type="PackedScene" uid="uid://db8algl6onq53" path="res://scenes/components/health_component.tscn" id="6_0gs7y"]
+[ext_resource type="AudioStream" uid="uid://dplpi8mfb4qbo" path="res://assets/sound/sfx/enemies/EnemyDeath.wav" id="6_bskjq"]
 [ext_resource type="Script" path="res://scripts/state_machine/enemy_states/idle.gd" id="7_y1dam"]
 [ext_resource type="PackedScene" uid="uid://bhogrxp1dm7v3" path="res://assets/enemies/crawling_enemy/crawling_enemy_1.aseprite" id="11_thocf"]
 
@@ -33,6 +34,7 @@ move_length = 1.0
 sprites = Array[SpriteFrames]([ExtResource("3_vwok2"), ExtResource("3_merie"), ExtResource("4_y512k"), ExtResource("5_fnj7x")])
 horizontal_speed = 30.0
 death_animation_time = 1.0
+death_sfx = ExtResource("6_bskjq")
 health_component = NodePath("HealthComponent")
 left_ledge_detector = NodePath("LeftLedgeDetector")
 right_ledge_detector = NodePath("RightLedgeDetector")

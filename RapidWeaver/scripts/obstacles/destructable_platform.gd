@@ -41,6 +41,7 @@ func _on_destroy_timer_timeout():
 	$CollisionShape2D.set_deferred("disabled", true)
 	touch_detector.set_deferred("monitoring", false)
 	destroyed = true
+	$PoofSFX.play()
 
 func _on_touch_detector_body_entered(body):
 	if body.is_in_group("Player"):
