@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bnh8hpjkx4xsq"
+path="res://.godot/imported/Web Shoot 1.wav-640af7876b6c43a2db7086ea6fd7d363.sample"
+
+[deps]
+
+source_file="res://assets/sound/sfx/player/Web Shoot 1.wav"
+dest_files=["res://.godot/imported/Web Shoot 1.wav-640af7876b6c43a2db7086ea6fd7d363.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

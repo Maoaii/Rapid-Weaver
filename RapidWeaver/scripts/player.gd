@@ -115,6 +115,12 @@ var web : Web = $Web
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hit_animation: AnimationPlayer = $HitAnimation
 
+## Onready jump audio stream player
+@onready var jump_sfx: AudioStreamPlayer2D = $JumpSFX
+## Onready shoot audio stream player
+@onready var shoot_sfx: AudioStreamPlayer2D = $ShootSFX
+## Onready death audio stream player
+@onready var death_sfx: AudioStreamPlayer2D = $DeathSFX
 
 """
 	Normal instance variables
@@ -135,6 +141,31 @@ var on_hurtable: bool = false
 var slowed: bool = false
 
 var dead: bool = false
+
+
+@onready var sfx_nodes: Dictionary = {
+	"jump": $JumpSFX,
+	"shoot": $ShootSFX,
+	"death": $DeathSFX,
+	"hurt": $HurtSFX,
+	"web_hit": $WebHitSFX
+}
+
+var last_pitch: float = 1.0
+func play_sfx(sfx_name: String) -> void:
+	if sfx_nodes.get(sfx_name) == null:
+		return
+	
+	randomize()
+	var pitch_scale: float = randf_range(0.8, 1.2)
+	
+	while abs(pitch_scale - last_pitch) < 0.1:
+		randomize()
+		pitch_scale = randf_range(0.8, 1.2)
+	
+	last_pitch = pitch_scale
+	sfx_nodes.get(sfx_name).pitch_scale = pitch_scale
+	sfx_nodes.get(sfx_name).play()
 
 func _ready() -> void:
 	# Assign timers to export variables
@@ -349,6 +380,8 @@ func hurt() -> void:
 	
 	# Active flash animation
 	hit_animation.play("hit")
+	
+	play_sfx("hurt")
 
 func death_animation() -> void:
 	$CollisionShape2D.set_deferred("disabled", true)
@@ -561,6 +594,9 @@ func _on_collider_body_shape_exited(body_rid, body, _body_shape_index, _local_sh
 		if layer_name == "Hurtables":
 			on_hurtable = false
 
+func emit_web_sfx(_a, _b) -> void:
+	play_sfx("web_hit")
+
 func shoot_web() -> Hook:
 	var hook: Hook = load("res://hook.tscn").instantiate()
 	hook.global_position = global_position
@@ -571,5 +607,7 @@ func shoot_web() -> Hook:
 	hook.set_traveling_speed(web_travelling_speed)
 	
 	hook.set_collision_mask_value(4, true)
+	hook._on_destination_reached.connect(emit_web_sfx)
 	
+	play_sfx("shoot")
 	return hook

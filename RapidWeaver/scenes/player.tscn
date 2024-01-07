@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://lmt4yjrdw8kk"]
+[gd_scene load_steps=27 format=3 uid="uid://lmt4yjrdw8kk"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_utnx1"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="4_32n45"]
@@ -14,6 +14,10 @@
 [ext_resource type="Script" path="res://scripts/player_debug.gd" id="11_xt54t"]
 [ext_resource type="PackedScene" uid="uid://cvt6by16chuvj" path="res://assets/Player/player1.ase" id="13_hiojt"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/dead.gd" id="13_kulqf"]
+[ext_resource type="AudioStream" uid="uid://bh4c4wam2n85f" path="res://assets/sound/sfx/player/Jump.wav" id="15_itvlm"]
+[ext_resource type="AudioStream" uid="uid://cl2lie78vrul3" path="res://assets/sound/sfx/player/Hurt.wav" id="16_fwa3b"]
+[ext_resource type="AudioStream" uid="uid://d1ejgoo5sljic" path="res://assets/sound/sfx/player/WebShoot2.wav" id="16_im600"]
+[ext_resource type="AudioStream" uid="uid://btfgoadhq4gaj" path="res://assets/sound/sfx/player/Web Hit.wav" id="18_xaftb"]
 
 [sub_resource type="Animation" id="Animation_hg0np"]
 length = 0.001
@@ -260,6 +264,29 @@ offset_right = 41.0
 offset_bottom = 13.0
 theme_override_font_sizes/font_size = 8
 text = "Health: 3"
+
+[node name="JumpSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_itvlm")
+volume_db = -15.0
+bus = &"SFX"
+
+[node name="ShootSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_im600")
+volume_db = -30.0
+bus = &"SFX"
+
+[node name="DeathSFX" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
+
+[node name="HurtSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_fwa3b")
+volume_db = -12.0
+bus = &"SFX"
+
+[node name="WebHitSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("18_xaftb")
+volume_db = -20.0
+bus = &"SFX"
 
 [connection signal="body_shape_entered" from="Collider" to="." method="_on_collider_body_shape_entered"]
 [connection signal="body_shape_exited" from="Collider" to="." method="_on_collider_body_shape_exited"]

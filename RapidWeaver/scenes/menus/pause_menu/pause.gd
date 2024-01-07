@@ -14,6 +14,7 @@ func set_is_paused(value: bool) -> void:
 	if visible:
 		$CenterContainer/VBoxContainer/VBoxContainer/Resume.grab_focus()
 		Soundmanager.muffle_music()
+		$PauseSFX.play()
 	else:
 		Soundmanager.unmuffle_music()
 

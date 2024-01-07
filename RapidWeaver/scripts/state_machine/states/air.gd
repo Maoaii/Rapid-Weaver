@@ -20,6 +20,7 @@ func _enter(msg := {}) -> void:
 	
 	# Went to Air State with a jump
 	if msg.has("jump"):
+		player.play_sfx("jump")
 		player.handle_jump(JUMP_DIRECTIONS.get(msg.get("direction")))
 	
 	# Keep momentum

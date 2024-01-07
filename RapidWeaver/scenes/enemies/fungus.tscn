@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://d3d4smrwgcq4j"]
+[gd_scene load_steps=8 format=3 uid="uid://d3d4smrwgcq4j"]
 
 [ext_resource type="Script" path="res://scripts/enemies/fungus.gd" id="1_sgr2b"]
 [ext_resource type="SpriteFrames" uid="uid://br064q4w0bhhb" path="res://assets/enemies/fungus_enemy/fungus_2.tres" id="3_1tdmm"]
 [ext_resource type="SpriteFrames" uid="uid://cndb4lwn1a3j2" path="res://assets/enemies/fungus_enemy/fungus_1.tres" id="3_r0mmt"]
 [ext_resource type="SpriteFrames" uid="uid://dluftir0ixc5" path="res://assets/enemies/fungus_enemy/fungus_3.tres" id="4_8diwu"]
+[ext_resource type="AudioStream" uid="uid://b24s2p4d5xltt" path="res://assets/sound/sfx/enemies/FungusExplode.wav" id="5_8ub1p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yx67y"]
 size = Vector2(14, 11)
@@ -60,6 +61,10 @@ damping_min = 60.0
 damping_max = 60.0
 scale_amount_min = 0.2
 scale_amount_max = 2.0
+
+[node name="ExplodeSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_8ub1p")
+volume_db = -20.0
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
