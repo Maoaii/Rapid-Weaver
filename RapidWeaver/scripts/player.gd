@@ -142,6 +142,8 @@ var slowed: bool = false
 
 var dead: bool = false
 
+var can_move: bool = true
+
 
 @onready var sfx_nodes: Dictionary = {
 	"jump": $JumpSFX,
@@ -182,6 +184,8 @@ func _ready() -> void:
 	EventBus._on_fungus_contact.connect(slow)
 	EventBus._on_knockback_player.connect(knockback)
 	EventBus._on_player_bounce.connect(bounce)
+	EventBus._on_popup_show.connect(func(): can_move = false)
+	EventBus._on_popup_hide.connect(func(): can_move = true)
 
 func _process(_delta: float) -> void:
 	if on_hurtable:
@@ -193,6 +197,9 @@ func set_jump_properties() -> void:
 	fall_gravity = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
 
 func _physics_process(delta: float) -> void:
+	if not can_move:
+		return
+	
 	# Apply gravity to the player
 	apply_gravity(delta)
 	
@@ -609,5 +616,6 @@ func shoot_web() -> Hook:
 	hook.set_collision_mask_value(4, true)
 	hook._on_destination_reached.connect(emit_web_sfx)
 	
-	play_sfx("shoot")
+	if can_move:
+		play_sfx("shoot")
 	return hook

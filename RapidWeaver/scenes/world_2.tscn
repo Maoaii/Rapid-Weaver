@@ -111,11 +111,6 @@ position = Vector2(16, -3)
 shape = SubResource("RectangleShape2D_gxrhv")
 
 [node name="Settings" parent="SettingsArea" instance=ExtResource("10_6vku2")]
-visible = false
-offset_left = 77.0
-offset_top = 2.0
-offset_right = 77.0
-offset_bottom = 2.0
 
 [node name="QuitArea" type="Area2D" parent="."]
 position = Vector2(382, 359)
@@ -127,6 +122,7 @@ position = Vector2(10, -1)
 shape = SubResource("RectangleShape2D_mcvy8")
 
 [node name="PopupPanel" type="PopupPanel" parent="QuitArea"]
+process_mode = 3
 title = "Escape?"
 initial_position = 2
 size = Vector2i(148, 139)
@@ -181,6 +177,8 @@ sections = Array[PackedScene]([ExtResource("14_bp0m6"), ExtResource("15_kdhey"),
 
 [connection signal="body_exited" from="GameStartArea" to="GameStartArea" method="_on_body_exited"]
 [connection signal="area_entered" from="SettingsArea" to="SettingsArea" method="_on_area_entered"]
+[connection signal="popup_hide" from="SettingsArea/Settings" to="SettingsArea" method="_on_settings_popup_hide"]
 [connection signal="area_entered" from="QuitArea" to="QuitArea" method="_on_area_entered"]
+[connection signal="popup_hide" from="QuitArea/PopupPanel" to="QuitArea" method="_on_popup_panel_popup_hide"]
 [connection signal="pressed" from="QuitArea/PopupPanel/MarginContainer/VBoxContainer/HBoxContainer/Yes" to="QuitArea" method="_on_yes_pressed"]
 [connection signal="pressed" from="QuitArea/PopupPanel/MarginContainer/VBoxContainer/HBoxContainer/No" to="QuitArea" method="_on_no_pressed"]

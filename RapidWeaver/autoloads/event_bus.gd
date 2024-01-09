@@ -20,3 +20,6 @@ signal _on_web_released()
 signal _unfollow_camera()
 
 signal _on_game_started()
+
+signal _on_popup_show()
+signal _on_popup_hide()

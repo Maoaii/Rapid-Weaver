@@ -59,4 +59,4 @@ func _on_sfx_slider_value_changed(value: float):
 
 
 func _on_back_pressed():
-	SceneTransition.change_scene("res://scenes/menus/main_menu/main_menu.tscn")
+	$"../../../..".hide()
