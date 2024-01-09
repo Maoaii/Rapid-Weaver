@@ -229,8 +229,6 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("11_xt54t")
-enable_state_debug = false
-enable_velocity_debug = false
 
 [node name="CurrentState" type="Label" parent="PlayerDebug"]
 layout_mode = 1
@@ -291,6 +289,15 @@ bus = &"SFX"
 stream = ExtResource("18_xaftb")
 volume_db = -20.0
 bus = &"SFX"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(2.08165e-12, -20)
+zoom = Vector2(2, 2)
+limit_left = 160
+limit_right = 480
+limit_bottom = 480
+limit_smoothed = true
+position_smoothing_enabled = true
 
 [connection signal="body_shape_entered" from="Collider" to="." method="_on_collider_body_shape_entered"]
 [connection signal="body_shape_exited" from="Collider" to="." method="_on_collider_body_shape_exited"]
