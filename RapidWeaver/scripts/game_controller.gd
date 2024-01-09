@@ -16,12 +16,11 @@ extends Node2D
 
 var spawned_sections: Array[BaseSection]
 var player: Player
-var moving_camera: bool
+var moving_camera: bool = true
 var game_started: bool = false
 
 func _ready() -> void:
-	moving_camera = true
-	await get_tree().root.ready
+	await get_parent().ready
 	create_new_section()
 	
 	player = get_tree().get_first_node_in_group("Player")

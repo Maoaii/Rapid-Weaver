@@ -26,7 +26,7 @@ func _on_resume_pressed():
 
 func _on_menu_pressed():
 	set_is_paused(false)
-	SceneTransition.change_scene("res://scenes/menus/main_menu/main_menu.tscn")
+	SceneTransition.change_scene("res://scenes/world_2.tscn")
 	Soundmanager.play_music("menu")
 
 

@@ -12,16 +12,10 @@ func _ready() -> void:
 	
 	highscore_label.text = "Highscore: " + str(stored_highscore)
 	
-	$CenterContainer/VBoxContainer/Buttons/Restart.grab_focus()
-
-
-func _on_restart_pressed():
-	SceneTransition.change_scene("res://scenes/world.tscn")
-	Soundmanager.unmuffle_music()
-
+	$CenterContainer/VBoxContainer/Buttons/MainMenu.grab_focus()
 
 func _on_main_menu_pressed():
-	SceneTransition.change_scene("res://scenes/menus/main_menu/main_menu.tscn")
+	SceneTransition.change_scene("res://scenes/world_2.tscn")
 	Soundmanager.play_music("menu")
 	Soundmanager.unmuffle_music()
 
