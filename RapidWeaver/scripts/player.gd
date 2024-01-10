@@ -186,6 +186,7 @@ func _ready() -> void:
 	EventBus._on_player_bounce.connect(bounce)
 	EventBus._on_popup_show.connect(func(): can_move = false)
 	EventBus._on_popup_hide.connect(func(): can_move = true)
+	EventBus._on_death_area_touched.connect(death_area_touched)
 
 func _process(_delta: float) -> void:
 	if on_hurtable:
@@ -372,6 +373,12 @@ func is_simple_zooming() -> bool:
 """
 func get_health() -> int:
 	return health_component.health
+
+func death_area_touched() -> void:
+	health_component.take_damage(100)
+	
+	if health_component.health <= 0:
+		dead = true
 
 func hurt() -> void:
 	if not invincibility_timer.is_stopped():
