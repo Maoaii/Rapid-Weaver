@@ -14,6 +14,8 @@ extends Node2D
 
 @onready var ui = preload("res://scenes/ui.tscn")
 
+@onready var section_line = preload("res://scenes/section_line.tscn")
+
 var spawned_sections: Array[BaseSection]
 var player: Player
 var moving_camera: bool = true
@@ -90,6 +92,14 @@ func create_new_section() -> BaseSection:
 	else:
 		new_section.position += Vector2(0, 120 - Global.WINDOW_HEIGHT * (spawned_sections.size() + 1))
 	
+	var new_section_line: SectionLine = section_line.instantiate()
+	
+	new_section_line.set_name("SectionLine" + str(spawned_sections.size()))
+	new_section_line.position = Vector2(0, new_section.position.y + 60)
+	new_section_line.set_label(abs(new_section_line.position.y) / 10)
+	
+	get_parent().get_node("Sections").add_child.call_deferred(new_section_line)
 	spawned_sections.push_back(new_section)
+	
 	
 	return new_section

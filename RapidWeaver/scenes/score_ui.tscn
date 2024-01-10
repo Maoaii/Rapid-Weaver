@@ -63,9 +63,14 @@ libraries = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+visible = false
 layout_mode = 2
 texture = ExtResource("1_m5p6f")
 expand_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Score:"
 
 [node name="Score" type="Label" parent="HBoxContainer"]
 layout_mode = 2

@@ -378,7 +378,7 @@ func hurt() -> void:
 		return
 	
 	health_component.take_damage(1)
-	
+	EventBus._on_player_damage_taken.emit()
 	if health_component.health <= 0:
 		dead = true
 	

@@ -4,6 +4,7 @@ extends Node2D
 @export_group("Score Variables")
 @export var fly_pickup_score: int = 5
 @export var section_passed_score: int = 10
+@export var enemy_killed_score: int = 5
 
 
 var score: int = 0
@@ -15,12 +16,19 @@ func _ready():
 	EventBus._on_player_death.connect(reset_score)
 	EventBus._on_fly_eaten.connect(fly_eaten)
 	EventBus._on_section_passed.connect(section_passed)
+	EventBus._on_enemy_killed.connect(enemy_killed)
 	
 	# Load highscore
 	var stored_highscore = SaveGame.load_data("Highscore").get("Highscore")
 	if stored_highscore != null:
 		highscore = stored_highscore
 
+func enemy_killed() -> void:
+	score += enemy_killed_score
+	if score > highscore:
+		save_highscore()
+		
+	EventBus._on_score_changed.emit(score)
 
 func fly_eaten() -> void:
 	score += fly_pickup_score

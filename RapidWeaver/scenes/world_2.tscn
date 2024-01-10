@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dya7qxd1tr3gq"]
+[gd_scene load_steps=35 format=3 uid="uid://dya7qxd1tr3gq"]
 
 [ext_resource type="PackedScene" uid="uid://druq273210d8b" path="res://scenes/sections/tile_map.tscn" id="1_04kq6"]
 [ext_resource type="PackedScene" uid="uid://cqvnliqs7mvfe" path="res://scenes/sections/background.tscn" id="2_dr1mk"]
@@ -29,6 +29,8 @@
 [ext_resource type="PackedScene" uid="uid://b2h6sicmksnue" path="res://scenes/sections/levels/section14.tscn" id="27_krarm"]
 [ext_resource type="PackedScene" uid="uid://pkyto6ksnufj" path="res://scenes/sections/levels/section15.tscn" id="28_yshjn"]
 [ext_resource type="PackedScene" uid="uid://bqck8rk8hujhh" path="res://scenes/moving_platform.tscn" id="29_fj62h"]
+[ext_resource type="Script" path="res://scripts/menus/hints.gd" id="30_55r05"]
+[ext_resource type="PackedScene" uid="uid://cxefob7rm2dht" path="res://assets/mouse.aseprite" id="31_15bi6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_msvqj"]
 size = Vector2(404, 4)
@@ -84,12 +86,12 @@ position = Vector2(321, 224)
 shape = SubResource("RectangleShape2D_msvqj")
 
 [node name="SectionLine" parent="GameStartArea" instance=ExtResource("7_grw8f")]
+position = Vector2(0, 225)
 
 [node name="SettingsArea" type="Area2D" parent="."]
 position = Vector2(320, 345)
 collision_mask = 20
 script = ExtResource("7_fkrux")
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SettingsArea"]
 position = Vector2(16.5, -3)
@@ -200,6 +202,95 @@ position = Vector2(245, 338)
 distance = Vector2(2.08165e-12, 80)
 phase_time = 12.0
 debug = false
+
+[node name="Hints" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.392157)
+position = Vector2(272, 368)
+scale = Vector2(0.48, 0.48)
+script = ExtResource("30_55r05")
+
+[node name="DBG" type="ColorRect" parent="Hints"]
+offset_left = 95.8334
+offset_top = 52.0
+offset_right = 139.833
+offset_bottom = 96.0
+color = Color(1, 1, 1, 0.145098)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Hints/DBG"]
+layout_mode = 2
+offset_left = -6.10352e-05
+offset_top = 0.083374
+offset_right = 45.9999
+offset_bottom = 46.0834
+text = "D/→"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ABG" type="ColorRect" parent="Hints"]
+offset_top = 52.0
+offset_right = 44.0
+offset_bottom = 96.0
+color = Color(1, 1, 1, 0.145098)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Hints/ABG"]
+layout_mode = 2
+offset_left = -6.10352e-05
+offset_top = 0.083374
+offset_right = 45.9999
+offset_bottom = 46.0834
+text = "A/←"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WBG" type="ColorRect" parent="Hints"]
+offset_left = 47.9167
+offset_top = 4.16669
+offset_right = 91.9167
+offset_bottom = 48.1667
+color = Color(1, 1, 1, 0.145098)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Hints/WBG"]
+layout_mode = 2
+offset_left = -6.10352e-05
+offset_top = 0.083374
+offset_right = 45.9999
+offset_bottom = 46.0834
+text = "W/↑"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SBG" type="ColorRect" parent="Hints"]
+offset_left = 47.9167
+offset_top = 52.0
+offset_right = 91.9167
+offset_bottom = 96.0
+color = Color(1, 1, 1, 0.15)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Hints/SBG"]
+layout_mode = 2
+offset_left = -6.10352e-05
+offset_top = 0.083374
+offset_right = 45.9999
+offset_bottom = 46.0834
+text = "S/↓"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Mouse" type="ColorRect" parent="Hints"]
+offset_left = 162.5
+offset_top = 12.5
+offset_right = 233.5
+offset_bottom = 95.5
+color = Color(1, 1, 1, 0.145098)
+
+[node name="mouse" parent="Hints/Mouse" instance=ExtResource("31_15bi6")]
+position = Vector2(35.6667, 41.4885)
+scale = Vector2(1.21264, 1.21264)
+animation = &"None"
 
 [connection signal="body_exited" from="GameStartArea" to="GameStartArea" method="_on_body_exited"]
 [connection signal="body_entered" from="SettingsArea" to="SettingsArea" method="_on_body_entered"]

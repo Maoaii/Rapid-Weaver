@@ -7,6 +7,8 @@ func _enter(_msg := {}) -> void:
 	enemy.disable_hitbox()
 	enemy.dead()
 	
+	EventBus._on_enemy_killed.emit()
+	
 	get_tree().create_timer(enemy.death_animation_time).timeout.connect(enemy.die)
 
 func _physics_update(_delta: float) -> void:
