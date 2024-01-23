@@ -1,0 +1,94 @@
+[gd_scene load_steps=7 format=3 uid="uid://dtvlmeppcinkd"]
+
+[ext_resource type="Script" path="res://scripts/menus/info_sign.gd" id="1_7h3xn"]
+[ext_resource type="Texture2D" uid="uid://byv2pkaaf2v5t" path="res://assets/Tilemap/monochrome_tilemap_transparent_packed.png" id="1_51sb8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6bbsm"]
+size = Vector2(18, 17)
+
+[sub_resource type="Animation" id="Animation_xqduf"]
+resource_name = "float"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FloatingArrow/DownArrow:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -16), Vector2(0, -19), Vector2(2.08165e-12, -16)]
+}
+
+[sub_resource type="Animation" id="Animation_ne65r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FloatingArrow/DownArrow:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -16)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7yiig"]
+_data = {
+"RESET": SubResource("Animation_ne65r"),
+"float": SubResource("Animation_xqduf")
+}
+
+[node name="InfoSign" type="Area2D"]
+collision_mask = 4
+script = ExtResource("1_7h3xn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_51sb8")
+region_enabled = true
+region_rect = Rect2(272, 48, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_6bbsm")
+
+[node name="FloatingArrow" type="Node2D" parent="."]
+
+[node name="DownArrow" type="Sprite2D" parent="FloatingArrow"]
+position = Vector2(0, -16)
+texture = ExtResource("1_51sb8")
+region_enabled = true
+region_rect = Rect2(242.652, 64.0434, 10.8782, 12.0933)
+
+[node name="SignText" type="Label" parent="FloatingArrow/DownArrow"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = -0.368
+anchor_right = 0.5
+anchor_bottom = -0.368
+offset_left = -16.0
+offset_top = -14.3797
+offset_right = 6.0
+offset_bottom = 2.62029
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 8
+text = "Text"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FloatingArrow"]
+root_node = NodePath("../..")
+autoplay = "float"
+libraries = {
+"": SubResource("AnimationLibrary_7yiig")
+}
+
+[node name="Marker" type="Marker2D" parent="."]
+position = Vector2(0, -23)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

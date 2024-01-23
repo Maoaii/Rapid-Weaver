@@ -27,3 +27,5 @@ signal _on_popup_hide()
 signal _on_player_damage_taken()
 
 signal _on_enemy_killed()
+
+signal _on_score_popup(score)

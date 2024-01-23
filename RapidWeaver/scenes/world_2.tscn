@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dya7qxd1tr3gq"]
+[gd_scene load_steps=36 format=3 uid="uid://dya7qxd1tr3gq"]
 
 [ext_resource type="PackedScene" uid="uid://druq273210d8b" path="res://scenes/sections/tile_map.tscn" id="1_04kq6"]
 [ext_resource type="PackedScene" uid="uid://cqvnliqs7mvfe" path="res://scenes/sections/background.tscn" id="2_dr1mk"]
@@ -29,8 +29,9 @@
 [ext_resource type="PackedScene" uid="uid://b2h6sicmksnue" path="res://scenes/sections/levels/section14.tscn" id="27_krarm"]
 [ext_resource type="PackedScene" uid="uid://pkyto6ksnufj" path="res://scenes/sections/levels/section15.tscn" id="28_yshjn"]
 [ext_resource type="PackedScene" uid="uid://bqck8rk8hujhh" path="res://scenes/moving_platform.tscn" id="29_fj62h"]
-[ext_resource type="Script" path="res://scripts/menus/hints.gd" id="30_55r05"]
-[ext_resource type="PackedScene" uid="uid://cxefob7rm2dht" path="res://assets/mouse.aseprite" id="31_15bi6"]
+[ext_resource type="PackedScene" uid="uid://ckaeu18ux3mw1" path="res://scenes/menus/highscore_ui_sign.tscn" id="32_771yv"]
+[ext_resource type="PackedScene" uid="uid://dtvlmeppcinkd" path="res://scenes/menus/info_sign.tscn" id="32_ogyav"]
+[ext_resource type="PackedScene" uid="uid://cx7qlh0o3clg0" path="res://scenes/menus/controls.tscn" id="33_x7xa7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_msvqj"]
 size = Vector2(404, 4)
@@ -42,8 +43,7 @@ size = Vector2(65, 18)
 size = Vector2(49, 18)
 
 [node name="World" type="Node2D"]
-metadata/_edit_horizontal_guides_ = [120.0, 480.0]
-metadata/_edit_vertical_guides_ = [160.0, 480.0]
+metadata/_edit_horizontal_guides_ = [120.0]
 
 [node name="TileMap" parent="." instance=ExtResource("1_04kq6")]
 layer_0/tile_data = PackedInt32Array(1900569, 720896, 6, 1835033, 720896, 5, 1900568, 720896, 6, 1835032, 720896, 5, 1900567, 720896, 6, 1835031, 720896, 5, 1900566, 720896, 6, 1835030, 720896, 5, 1900565, 720896, 6, 1835029, 720896, 5, 1900564, 720896, 6, 1835028, 720896, 5, 1900563, 720896, 6, 1835027, 720896, 5, 1900562, 720896, 6, 1835026, 720896, 5, 1900561, 720896, 6, 1835025, 720896, 5, 1900560, 720896, 6, 1835024, 720896, 5, 1900559, 720896, 6, 1835023, 720896, 5, 1900558, 720896, 6, 1835022, 720896, 5, 1900571, 720896, 6, 1835035, 720896, 5, 1900570, 720896, 6, 1835034, 720896, 5, 1900557, 720896, 6, 1835021, 720896, 5, 1900556, 720896, 6, 1835020, 720896, 5, 1900573, 720896, 6, 1835037, 720896, 6, 1900572, 720896, 6, 1835036, 720896, 5, 1900555, 720896, 6, 1835019, 720896, 5, 1900554, 720896, 6, 1835018, 720896, 6, 1769482, 786432, 6, 1703946, 786432, 6, 1638410, 786432, 6, 1572874, 786432, 6, 1507338, 786432, 6, 1441802, 786432, 6, 1376266, 786432, 6, 1310730, 786432, 6, 1245194, 786432, 6, 1179658, 786432, 6, 1114122, 786432, 6, 1048586, 786432, 6, 983050, 786432, 6, 1900553, 655360, 6, 1835017, 655360, 6, 1769481, 655360, 6, 1703945, 655360, 6, 1638409, 655360, 6, 1572873, 655360, 6, 1507337, 655360, 6, 1441801, 655360, 6, 1376265, 655360, 6, 1310729, 655360, 6, 1245193, 655360, 6, 1179657, 655360, 6, 1114121, 655360, 6, 1048585, 655360, 6, 983049, 655360, 6, 1835038, 786432, 6, 1769502, 786432, 6, 1703966, 786432, 6, 1638430, 786432, 6, 1572894, 786432, 6, 1507358, 786432, 6, 1441822, 786432, 6, 1376286, 786432, 6, 1310750, 786432, 6, 1245214, 786432, 6, 1179678, 786432, 6, 1114142, 786432, 6, 1048606, 786432, 6, 983070, 786432, 6, 1769501, 655360, 6, 1703965, 655360, 6, 1638429, 655360, 6, 1572893, 655360, 6, 1507357, 655360, 6, 1441821, 655360, 6, 1376285, 655360, 6, 1310749, 720896, 6, 1245213, 720896, 6, 1179677, 720896, 6, 1114141, 655360, 6, 1048605, 655360, 6, 983069, 655360, 6, 1900574, 786432, 6, 917514, 720896, 6, 917513, 655360, 6, 917534, 786432, 6, 917533, 720896, 6, 1966110, 786432, 7, 1966109, 720896, 7, 1966108, 720896, 7, 1966107, 720896, 7, 1966106, 720896, 7, 1966105, 720896, 7, 1966104, 720896, 7, 1966103, 720896, 7, 1966102, 720896, 7, 1966101, 720896, 7, 1966100, 720896, 7, 1966099, 720896, 7, 1966098, 720896, 7, 1966097, 720896, 7, 1966096, 720896, 7, 1966095, 720896, 7, 1966094, 720896, 7, 1966093, 720896, 7, 1966092, 720896, 7, 1966091, 720896, 7, 1966090, 720896, 7, 1966089, 655360, 7, 917516, 786432, 7, 917515, 720896, 7, 851980, 786432, 5, 851979, 720896, 5, 851978, 720896, 5, 851977, 655360, 5, 851998, 786432, 5, 851997, 720896, 5, 917532, 720896, 7, 851996, 720896, 5, 917531, 655360, 7, 851995, 655360, 5, 1376283, 786432, 7, 1376282, 720896, 7, 1376278, 786432, 7, 1376277, 720896, 7, 1376276, 720896, 7, 1179668, 720896, 5, 1245204, 720896, 6, 1310740, 720896, 6, 1179669, 720896, 5, 1245205, 720896, 6, 1310741, 720896, 6, 1179670, 720896, 5, 1245206, 720896, 6, 1310742, 720896, 6, 1179671, 720896, 5, 1245207, 720896, 6, 1310743, 720896, 7, 1179672, 720896, 5, 1245208, 720896, 6, 1310744, 720896, 7, 1179673, 720896, 5, 1245209, 720896, 6, 1310745, 720896, 6, 1179674, 720896, 5, 1245210, 720896, 6, 1310746, 720896, 6, 1179675, 720896, 5, 1245211, 720896, 6, 1310747, 720896, 6, 1376275, 655360, 7, 1310739, 655360, 6, 1245203, 655360, 6, 1179667, 655360, 5, 1376281, 655360, 7, 1179676, 720896, 5, 1245212, 720896, 6, 1310748, 720896, 7)
@@ -190,6 +190,7 @@ position = Vector2(0, 537)
 collision_mask = 4
 
 [node name="ScoreManager" parent="." instance=ExtResource("12_1t867")]
+enemy_killed_score = 10
 
 [node name="GameController" parent="." node_paths=PackedStringArray("camera", "death_area") instance=ExtResource("13_mxqul")]
 camera = NodePath("../Camera2D")
@@ -203,94 +204,15 @@ distance = Vector2(2.08165e-12, 80)
 phase_time = 12.0
 debug = false
 
-[node name="Hints" type="Node2D" parent="."]
-modulate = Color(1, 1, 1, 0.392157)
-position = Vector2(272, 368)
-scale = Vector2(0.48, 0.48)
-script = ExtResource("30_55r05")
+[node name="ControlsSign" parent="." instance=ExtResource("32_ogyav")]
+position = Vector2(365, 438)
+sign_hover_text = "Controls"
+sign_display_scene = ExtResource("33_x7xa7")
 
-[node name="DBG" type="ColorRect" parent="Hints"]
-offset_left = 95.8334
-offset_top = 52.0
-offset_right = 139.833
-offset_bottom = 96.0
-color = Color(1, 1, 1, 0.145098)
-metadata/_edit_group_ = true
-
-[node name="Label" type="Label" parent="Hints/DBG"]
-layout_mode = 2
-offset_left = -6.10352e-05
-offset_top = 0.083374
-offset_right = 45.9999
-offset_bottom = 46.0834
-text = "D/→"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ABG" type="ColorRect" parent="Hints"]
-offset_top = 52.0
-offset_right = 44.0
-offset_bottom = 96.0
-color = Color(1, 1, 1, 0.145098)
-metadata/_edit_group_ = true
-
-[node name="Label" type="Label" parent="Hints/ABG"]
-layout_mode = 2
-offset_left = -6.10352e-05
-offset_top = 0.083374
-offset_right = 45.9999
-offset_bottom = 46.0834
-text = "A/←"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="WBG" type="ColorRect" parent="Hints"]
-offset_left = 47.9167
-offset_top = 4.16669
-offset_right = 91.9167
-offset_bottom = 48.1667
-color = Color(1, 1, 1, 0.145098)
-metadata/_edit_group_ = true
-
-[node name="Label" type="Label" parent="Hints/WBG"]
-layout_mode = 2
-offset_left = -6.10352e-05
-offset_top = 0.083374
-offset_right = 45.9999
-offset_bottom = 46.0834
-text = "W/↑"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="SBG" type="ColorRect" parent="Hints"]
-offset_left = 47.9167
-offset_top = 52.0
-offset_right = 91.9167
-offset_bottom = 96.0
-color = Color(1, 1, 1, 0.15)
-metadata/_edit_group_ = true
-
-[node name="Label" type="Label" parent="Hints/SBG"]
-layout_mode = 2
-offset_left = -6.10352e-05
-offset_top = 0.083374
-offset_right = 45.9999
-offset_bottom = 46.0834
-text = "S/↓"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Mouse" type="ColorRect" parent="Hints"]
-offset_left = 162.5
-offset_top = 12.5
-offset_right = 233.5
-offset_bottom = 95.5
-color = Color(1, 1, 1, 0.145098)
-
-[node name="mouse" parent="Hints/Mouse" instance=ExtResource("31_15bi6")]
-position = Vector2(35.6667, 41.4885)
-scale = Vector2(1.21264, 1.21264)
-animation = &"None"
+[node name="HighscoreSign" parent="." instance=ExtResource("32_ogyav")]
+position = Vector2(424, 278)
+sign_hover_text = "Highscore"
+sign_display_scene = ExtResource("32_771yv")
 
 [connection signal="body_exited" from="GameStartArea" to="GameStartArea" method="_on_body_exited"]
 [connection signal="body_entered" from="SettingsArea" to="SettingsArea" method="_on_body_entered"]

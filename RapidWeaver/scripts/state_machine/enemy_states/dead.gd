@@ -1,12 +1,11 @@
 extends EnemyState
 
 func _enter(_msg := {}) -> void:
+	enemy.dead()
+	enemy.disable_hitbox()
 	enemy.play_animation("Dead")
 	
 	EventBus._on_player_bounce.emit()
-	enemy.disable_hitbox()
-	enemy.dead()
-	
 	EventBus._on_enemy_killed.emit()
 	
 	get_tree().create_timer(enemy.death_animation_time).timeout.connect(enemy.die)

@@ -29,6 +29,7 @@ func enemy_killed() -> void:
 		save_highscore()
 		
 	EventBus._on_score_changed.emit(score)
+	EventBus._on_score_popup.emit(enemy_killed_score)
 
 func fly_eaten() -> void:
 	score += fly_pickup_score
@@ -36,6 +37,7 @@ func fly_eaten() -> void:
 		save_highscore()
 		
 	EventBus._on_score_changed.emit(score)
+	EventBus._on_score_popup.emit(fly_pickup_score)
 
 func section_passed() -> void:
 	score += section_passed_score
@@ -43,6 +45,7 @@ func section_passed() -> void:
 		save_highscore()
 	
 	EventBus._on_score_changed.emit(score)
+	EventBus._on_score_popup.emit(section_passed_score)
 
 func reset_score() -> void:
 	score = 0
