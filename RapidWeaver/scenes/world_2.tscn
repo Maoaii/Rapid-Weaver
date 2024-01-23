@@ -1,8 +1,9 @@
-[gd_scene load_steps=36 format=3 uid="uid://dya7qxd1tr3gq"]
+[gd_scene load_steps=37 format=3 uid="uid://dya7qxd1tr3gq"]
 
 [ext_resource type="PackedScene" uid="uid://druq273210d8b" path="res://scenes/sections/tile_map.tscn" id="1_04kq6"]
 [ext_resource type="PackedScene" uid="uid://cqvnliqs7mvfe" path="res://scenes/sections/background.tscn" id="2_dr1mk"]
 [ext_resource type="PackedScene" uid="uid://c8a3uhby50eog" path="res://scenes/menus/dust_particles.tscn" id="4_6h5e2"]
+[ext_resource type="PackedScene" uid="uid://jldit7o8sh0p" path="res://scenes/menus/death_warning.tscn" id="4_c4x3i"]
 [ext_resource type="PackedScene" uid="uid://lmt4yjrdw8kk" path="res://scenes/player.tscn" id="5_7wutl"]
 [ext_resource type="PackedScene" uid="uid://cydsd27rpksoo" path="res://scenes/sections/decorations.tscn" id="6_pgmhg"]
 [ext_resource type="Script" path="res://scripts/menus/settings_area.gd" id="7_fkrux"]
@@ -44,6 +45,7 @@ size = Vector2(49, 18)
 
 [node name="World" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [120.0]
+metadata/_edit_vertical_guides_ = [159.0, 482.0]
 
 [node name="TileMap" parent="." instance=ExtResource("1_04kq6")]
 layer_0/tile_data = PackedInt32Array(1900569, 720896, 6, 1835033, 720896, 5, 1900568, 720896, 6, 1835032, 720896, 5, 1900567, 720896, 6, 1835031, 720896, 5, 1900566, 720896, 6, 1835030, 720896, 5, 1900565, 720896, 6, 1835029, 720896, 5, 1900564, 720896, 6, 1835028, 720896, 5, 1900563, 720896, 6, 1835027, 720896, 5, 1900562, 720896, 6, 1835026, 720896, 5, 1900561, 720896, 6, 1835025, 720896, 5, 1900560, 720896, 6, 1835024, 720896, 5, 1900559, 720896, 6, 1835023, 720896, 5, 1900558, 720896, 6, 1835022, 720896, 5, 1900571, 720896, 6, 1835035, 720896, 5, 1900570, 720896, 6, 1835034, 720896, 5, 1900557, 720896, 6, 1835021, 720896, 5, 1900556, 720896, 6, 1835020, 720896, 5, 1900573, 720896, 6, 1835037, 720896, 6, 1900572, 720896, 6, 1835036, 720896, 5, 1900555, 720896, 6, 1835019, 720896, 5, 1900554, 720896, 6, 1835018, 720896, 6, 1769482, 786432, 6, 1703946, 786432, 6, 1638410, 786432, 6, 1572874, 786432, 6, 1507338, 786432, 6, 1441802, 786432, 6, 1376266, 786432, 6, 1310730, 786432, 6, 1245194, 786432, 6, 1179658, 786432, 6, 1114122, 786432, 6, 1048586, 786432, 6, 983050, 786432, 6, 1900553, 655360, 6, 1835017, 655360, 6, 1769481, 655360, 6, 1703945, 655360, 6, 1638409, 655360, 6, 1572873, 655360, 6, 1507337, 655360, 6, 1441801, 655360, 6, 1376265, 655360, 6, 1310729, 655360, 6, 1245193, 655360, 6, 1179657, 655360, 6, 1114121, 655360, 6, 1048585, 655360, 6, 983049, 655360, 6, 1835038, 786432, 6, 1769502, 786432, 6, 1703966, 786432, 6, 1638430, 786432, 6, 1572894, 786432, 6, 1507358, 786432, 6, 1441822, 786432, 6, 1376286, 786432, 6, 1310750, 786432, 6, 1245214, 786432, 6, 1179678, 786432, 6, 1114142, 786432, 6, 1048606, 786432, 6, 983070, 786432, 6, 1769501, 655360, 6, 1703965, 655360, 6, 1638429, 655360, 6, 1572893, 655360, 6, 1507357, 655360, 6, 1441821, 655360, 6, 1376285, 655360, 6, 1310749, 720896, 6, 1245213, 720896, 6, 1179677, 720896, 6, 1114141, 655360, 6, 1048605, 655360, 6, 983069, 655360, 6, 1900574, 786432, 6, 917514, 720896, 6, 917513, 655360, 6, 917534, 786432, 6, 917533, 720896, 6, 1966110, 786432, 7, 1966109, 720896, 7, 1966108, 720896, 7, 1966107, 720896, 7, 1966106, 720896, 7, 1966105, 720896, 7, 1966104, 720896, 7, 1966103, 720896, 7, 1966102, 720896, 7, 1966101, 720896, 7, 1966100, 720896, 7, 1966099, 720896, 7, 1966098, 720896, 7, 1966097, 720896, 7, 1966096, 720896, 7, 1966095, 720896, 7, 1966094, 720896, 7, 1966093, 720896, 7, 1966092, 720896, 7, 1966091, 720896, 7, 1966090, 720896, 7, 1966089, 655360, 7, 917516, 786432, 7, 917515, 720896, 7, 851980, 786432, 5, 851979, 720896, 5, 851978, 720896, 5, 851977, 655360, 5, 851998, 786432, 5, 851997, 720896, 5, 917532, 720896, 7, 851996, 720896, 5, 917531, 655360, 7, 851995, 655360, 5, 1376283, 786432, 7, 1376282, 720896, 7, 1376278, 786432, 7, 1376277, 720896, 7, 1376276, 720896, 7, 1179668, 720896, 5, 1245204, 720896, 6, 1310740, 720896, 6, 1179669, 720896, 5, 1245205, 720896, 6, 1310741, 720896, 6, 1179670, 720896, 5, 1245206, 720896, 6, 1310742, 720896, 6, 1179671, 720896, 5, 1245207, 720896, 6, 1310743, 720896, 7, 1179672, 720896, 5, 1245208, 720896, 6, 1310744, 720896, 7, 1179673, 720896, 5, 1245209, 720896, 6, 1310745, 720896, 6, 1179674, 720896, 5, 1245210, 720896, 6, 1310746, 720896, 6, 1179675, 720896, 5, 1245211, 720896, 6, 1310747, 720896, 6, 1376275, 655360, 7, 1310739, 655360, 6, 1245203, 655360, 6, 1179667, 655360, 5, 1376281, 655360, 7, 1179676, 720896, 5, 1245212, 720896, 6, 1310748, 720896, 7)
@@ -192,10 +194,11 @@ collision_mask = 4
 [node name="ScoreManager" parent="." instance=ExtResource("12_1t867")]
 enemy_killed_score = 10
 
-[node name="GameController" parent="." node_paths=PackedStringArray("camera", "death_area") instance=ExtResource("13_mxqul")]
+[node name="GameController" parent="." node_paths=PackedStringArray("camera", "death_area", "death_warning") instance=ExtResource("13_mxqul")]
 camera = NodePath("../Camera2D")
 enable_following_camera = true
 death_area = NodePath("../DeathArea")
+death_warning = NodePath("../DeathWarning")
 sections = Array[PackedScene]([ExtResource("14_bp0m6"), ExtResource("15_kdhey"), ExtResource("16_m2xuj"), ExtResource("17_4jwrd"), ExtResource("18_3pg6p"), ExtResource("19_1cbgp"), ExtResource("20_ei2g1"), ExtResource("21_2odth"), ExtResource("22_x2cpa"), ExtResource("23_w21sg"), ExtResource("24_rkorq"), ExtResource("25_l3ds6"), ExtResource("26_2ycy3"), ExtResource("27_krarm"), ExtResource("28_yshjn")])
 
 [node name="MovingPlatform" parent="." instance=ExtResource("29_fj62h")]
@@ -205,7 +208,7 @@ phase_time = 12.0
 debug = false
 
 [node name="ControlsSign" parent="." instance=ExtResource("32_ogyav")]
-position = Vector2(365, 438)
+position = Vector2(321, 438)
 sign_hover_text = "Controls"
 sign_display_scene = ExtResource("33_x7xa7")
 
@@ -213,6 +216,8 @@ sign_display_scene = ExtResource("33_x7xa7")
 position = Vector2(424, 278)
 sign_hover_text = "Highscore"
 sign_display_scene = ExtResource("32_771yv")
+
+[node name="DeathWarning" parent="." instance=ExtResource("4_c4x3i")]
 
 [connection signal="body_exited" from="GameStartArea" to="GameStartArea" method="_on_body_exited"]
 [connection signal="body_entered" from="SettingsArea" to="SettingsArea" method="_on_body_entered"]

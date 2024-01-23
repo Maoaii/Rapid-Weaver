@@ -8,6 +8,7 @@ extends Node2D
 
 @export_group("Death Area Variables")
 @export var death_area: DeathArea
+@export var death_warning: DeathWarning
 
 @export_group("Section Variables")
 @export var sections: Array[PackedScene]
@@ -38,7 +39,8 @@ func _ready() -> void:
 
 func start_game() -> void:
 	if not game_started:
-		get_tree().root.get_node("World").add_child(ui.instantiate())
+		var ui_instace = ui.instantiate()
+		get_tree().root.get_node("World").add_child(ui_instace)
 		Soundmanager.play_music("gameplay", true)
 	
 	game_started = true
@@ -50,6 +52,12 @@ func _process(delta: float) -> void:
 		# Increase camera movement
 		if game_started:
 			camera_speed += delta*2
+	
+
+	if player.global_position.distance_to(death_area.global_position) <= 400 and game_started:
+		death_warning.play_animation()
+	else:
+		death_warning.stop_animation()
 
 func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("quit"):
