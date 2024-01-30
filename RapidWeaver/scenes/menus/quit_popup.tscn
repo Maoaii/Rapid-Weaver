@@ -8,7 +8,6 @@ process_mode = 3
 title = "Escape?"
 initial_position = 2
 size = Vector2i(148, 139)
-visible = true
 theme = ExtResource("1_7u7jf")
 script = ExtResource("2_1v172")
 

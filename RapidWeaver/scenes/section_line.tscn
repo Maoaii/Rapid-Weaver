@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://fikthwf1ruin"]
+[gd_scene load_steps=4 format=3 uid="uid://fikthwf1ruin"]
 
 [ext_resource type="Texture2D" uid="uid://bcdlx37awpbyu" path="res://assets/dot.png" id="1_ewqid"]
 [ext_resource type="Script" path="res://scripts/sections/section_line.gd" id="1_keqjd"]
+[ext_resource type="Theme" uid="uid://pf3bem22ewj7" path="res://ui_theme.tres" id="3_nhalp"]
 
 [node name="SectionLine" type="Node2D"]
 script = ExtResource("1_keqjd")
@@ -19,6 +20,7 @@ offset_left = 412.0
 offset_top = -27.0
 offset_right = 462.0
 offset_bottom = -4.0
+theme = ExtResource("3_nhalp")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
