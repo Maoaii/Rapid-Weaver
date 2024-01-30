@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dwrwq0svk1grr"]
+[gd_scene load_steps=27 format=3 uid="uid://dwrwq0svk1grr"]
 
 [ext_resource type="PackedScene" uid="uid://cqvnliqs7mvfe" path="res://scenes/sections/background.tscn" id="1_1kev4"]
 [ext_resource type="PackedScene" uid="uid://lmt4yjrdw8kk" path="res://scenes/player.tscn" id="4_1iyyg"]
@@ -25,10 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://pkyto6ksnufj" path="res://scenes/sections/levels/section15.tscn" id="23_ek622"]
 [ext_resource type="PackedScene" uid="uid://cn821l32gn6dp" path="res://scenes/sections/foreground.tscn" id="24_21ghe"]
 [ext_resource type="PackedScene" uid="uid://cydsd27rpksoo" path="res://scenes/sections/decorations.tscn" id="25_p6c1k"]
-[ext_resource type="PackedScene" uid="uid://bpilkvcv6kwcy" path="res://scenes/obstacles/destructable_platform.tscn" id="26_ejic8"]
 [ext_resource type="PackedScene" uid="uid://c8a3uhby50eog" path="res://scenes/menus/dust_particles.tscn" id="27_f4daj"]
-[ext_resource type="PackedScene" uid="uid://osik8dchik80" path="res://scenes/enemies/caterpillar.tscn" id="28_dpnux"]
-[ext_resource type="PackedScene" uid="uid://ciljpcy8dvt4y" path="res://scenes/enemies/shooter.tscn" id="28_hd7m4"]
 
 [node name="World" type="Node2D"]
 
@@ -40,7 +37,9 @@ layer_0/tile_data = PackedInt32Array(1507339, 917504, 3, 1507356, 917504, 3, 150
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(320, 360)
+enabled = false
 zoom = Vector2(2, 2)
+limit_smoothed = true
 position_smoothing_enabled = true
 drag_vertical_enabled = true
 
@@ -72,12 +71,3 @@ camera = NodePath("../Camera2D")
 enable_following_camera = true
 death_area = NodePath("../DeathArea")
 sections = Array[PackedScene]([ExtResource("8_kpplr"), ExtResource("9_vfiup"), ExtResource("10_hxf2s"), ExtResource("11_gafvw"), ExtResource("12_tio3p"), ExtResource("13_libq4"), ExtResource("14_xvq43"), ExtResource("16_ssddy"), ExtResource("17_05yow"), ExtResource("18_a6gpd"), ExtResource("19_xko0e"), ExtResource("20_tfy7w"), ExtResource("21_rximh"), ExtResource("22_qt7sd"), ExtResource("23_ek622")])
-
-[node name="DestructablePlatform" parent="." instance=ExtResource("26_ejic8")]
-position = Vector2(197, 338)
-
-[node name="Caterpillar" parent="." instance=ExtResource("28_dpnux")]
-position = Vector2(205, 376)
-
-[node name="Shooter" parent="." instance=ExtResource("28_hd7m4")]
-position = Vector2(468, 376)

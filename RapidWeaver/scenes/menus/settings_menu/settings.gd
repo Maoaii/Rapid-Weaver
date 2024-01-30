@@ -4,10 +4,10 @@ extends VBoxContainer
 @onready var master_slider: HSlider = $MasterContainer/MasterSlider
 @onready var master_bus = AudioServer.get_bus_index("Master")
 
-@onready var music_slider: HSlider = $MusicContainer/MusicSlider
+@onready var music_slider: HSlider = $VBoxContainer2/MusicContainer/MusicSlider
 @onready var music_bus = AudioServer.get_bus_index("Music")
 
-@onready var sfx_slider: HSlider = $SFXContainer/SFXSlider
+@onready var sfx_slider: HSlider = $VBoxContainer2/SFXContainer/SFXSlider
 @onready var sfx_bus = AudioServer.get_bus_index("SFX")
 
 
@@ -59,4 +59,4 @@ func _on_sfx_slider_value_changed(value: float):
 
 
 func _on_back_pressed():
-	SceneTransition.change_scene("res://scenes/menus/main_menu/main_menu.tscn")
+	$"../../../..".hide()

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://be18lcttwk7jk"]
+[gd_scene load_steps=3 format=3 uid="uid://be18lcttwk7jk"]
 
 [ext_resource type="Script" path="res://scenes/menus/death_menu/death_menu.gd" id="1_25qhw"]
+[ext_resource type="Theme" uid="uid://pf3bem22ewj7" path="res://ui_theme.tres" id="1_tnidv"]
 
 [node name="DeathMenu" type="Control"]
 process_mode = 3
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_tnidv")
 script = ExtResource("1_25qhw")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -55,11 +57,6 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Restart" type="Button" parent="CenterContainer/VBoxContainer/Buttons" groups=["Button"]]
-layout_mode = 2
-text = "Restart"
-flat = true
-
 [node name="MainMenu" type="Button" parent="CenterContainer/VBoxContainer/Buttons" groups=["Button"]]
 layout_mode = 2
 text = "Main Menu"
@@ -70,6 +67,5 @@ layout_mode = 2
 text = "Quit"
 flat = true
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/Quit" to="." method="_on_quit_pressed"]

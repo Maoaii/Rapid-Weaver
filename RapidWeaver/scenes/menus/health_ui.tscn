@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bs7r4avccm60g"]
+
+[ext_resource type="Script" path="res://scripts/menus/health_ui.gd" id="1_m151l"]
+[ext_resource type="Texture2D" uid="uid://b1ng5r2yqpcms" path="res://assets/Player/heart_empty.aseprite" id="1_y7tii"]
+[ext_resource type="Texture2D" uid="uid://dm16vr4t5r0c4" path="res://assets/Player/heart_full.png" id="2_w3v8m"]
+
+[node name="HealthUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+script = ExtResource("1_m151l")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_right = 29.0
+offset_bottom = 12.0
+max_value = 2.0
+value = 2.0
+texture_under = ExtResource("1_y7tii")
+texture_progress = ExtResource("2_w3v8m")

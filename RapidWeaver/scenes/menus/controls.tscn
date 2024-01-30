@@ -1,0 +1,133 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx7qlh0o3clg0"]
+
+[ext_resource type="Theme" uid="uid://pf3bem22ewj7" path="res://ui_theme.tres" id="1_2ejsb"]
+[ext_resource type="Texture2D" uid="uid://byt81bnu2oanm" path="res://assets/mouse_clicked.png" id="2_lww6u"]
+
+[node name="Controls" type="Node2D"]
+
+[node name="Container" type="Panel" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -76.5
+offset_top = -76.0
+offset_right = 76.5
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_2ejsb")
+
+[node name="TextureRect" type="TextureRect" parent="Container"]
+layout_mode = 0
+offset_left = 95.5
+offset_top = 11.0
+offset_right = 146.5
+offset_bottom = 77.0
+texture = ExtResource("2_lww6u")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="Panel" type="Panel" parent="Container"]
+layout_mode = 0
+offset_left = 36.5
+offset_top = 10.0
+offset_right = 63.5
+offset_bottom = 37.0
+metadata/_edit_group_ = true
+
+[node name="W" type="Label" parent="Container/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = -7.5
+offset_right = 3.5
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "W/↑"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel2" type="Panel" parent="Container"]
+layout_mode = 0
+offset_left = 7.5
+offset_top = 39.0
+offset_right = 34.5
+offset_bottom = 66.0
+metadata/_edit_group_ = true
+
+[node name="A" type="Label" parent="Container/Panel2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = -7.5
+offset_right = 3.5
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "A/←"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel3" type="Panel" parent="Container"]
+layout_mode = 0
+offset_left = 36.5
+offset_top = 39.0
+offset_right = 63.5
+offset_bottom = 66.0
+metadata/_edit_group_ = true
+
+[node name="S" type="Label" parent="Container/Panel3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = -7.5
+offset_right = 3.5
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "S/↓"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel4" type="Panel" parent="Container"]
+layout_mode = 0
+offset_left = 65.5
+offset_top = 39.0
+offset_right = 92.5
+offset_bottom = 66.0
+metadata/_edit_group_ = true
+
+[node name="D" type="Label" parent="Container/Panel4"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = -7.5
+offset_right = 3.5
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "D/→"
+horizontal_alignment = 1
+vertical_alignment = 1

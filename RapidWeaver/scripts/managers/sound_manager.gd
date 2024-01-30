@@ -95,17 +95,28 @@ func play_sfx(sfx_name: String) -> void:
 		button_sound_player.pitch_scale = pitch_scale
 		button_sound_player.play()
 
-func play_music(type: String, at_pos: float = 0.0) -> void:
+func play_music(type: String, fade: bool = false, at_pos: float = 0.0) -> void:
 	if type_to_music.get(type) == null:
 		return
+	
 	
 	var music_object = type_to_music.get(type)
 	var music = music_object["asset"]
 	var volume = music_object["volume"]
 	
-	bg_music.stream = music
-	bg_music.volume_db = volume
-	bg_music.play(at_pos)
+	if fade:
+		var tween = get_tree().create_tween()
+		tween.tween_property(bg_music, "volume_db", -80, 0.2)
+		
+		bg_music.stream = music
+		#bg_music.volume_db = volume
+		
+		tween.tween_property(bg_music, "volume_db", volume, 0.2)
+		bg_music.play(at_pos)
+	else:
+		bg_music.stream = music
+		bg_music.volume_db = volume
+		bg_music.play(at_pos)
 
 func muffle_music() -> void:
 	bg_music.bus = "Muffle"

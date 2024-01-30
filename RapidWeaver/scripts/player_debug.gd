@@ -8,9 +8,7 @@ extends Control
 ## max web range
 @export var enable_web_range: bool = true
 
-
 @export var enable_velocity_debug: bool = true
-
 
 @export var enable_health_debug: bool = true
 
