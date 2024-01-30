@@ -1,17 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://bl4rvk81k11bl"]
+[gd_scene load_steps=4 format=3 uid="uid://bl4rvk81k11bl"]
 
 [ext_resource type="Script" path="res://scenes/menus/pause_menu/pause.gd" id="1_mt8we"]
+[ext_resource type="Theme" uid="uid://pf3bem22ewj7" path="res://ui_theme.tres" id="1_oof0o"]
 [ext_resource type="AudioStream" uid="uid://ca1pnqn48pwbi" path="res://assets/sound/sfx/ui/Pause.wav" id="2_wnbtp"]
 
 [node name="Pause" type="Control"]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_oof0o")
 script = ExtResource("1_mt8we")
 
 [node name="Background" type="ColorRect" parent="."]

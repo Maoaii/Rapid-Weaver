@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dya7qxd1tr3gq"]
+[gd_scene load_steps=38 format=3 uid="uid://dya7qxd1tr3gq"]
 
 [ext_resource type="PackedScene" uid="uid://druq273210d8b" path="res://scenes/sections/tile_map.tscn" id="1_04kq6"]
 [ext_resource type="PackedScene" uid="uid://cqvnliqs7mvfe" path="res://scenes/sections/background.tscn" id="2_dr1mk"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://scripts/menus/quit_area.gd" id="8_1losw"]
 [ext_resource type="PackedScene" uid="uid://cbc5jyuaxunxf" path="res://scenes/death_area.tscn" id="10_5im2o"]
 [ext_resource type="PackedScene" uid="uid://b5l843x4m6sg4" path="res://scenes/menus/settings_menu/settings.tscn" id="10_6vku2"]
+[ext_resource type="PackedScene" uid="uid://gvrle5ugsl27" path="res://scenes/menus/quit_popup.tscn" id="11_6xmeh"]
 [ext_resource type="PackedScene" uid="uid://kdubal300fkt" path="res://scenes/managers/score_manager.tscn" id="12_1t867"]
 [ext_resource type="PackedScene" uid="uid://cnhg6812dokbu" path="res://scenes/managers/game_controller.tscn" id="13_mxqul"]
 [ext_resource type="PackedScene" uid="uid://b0d6kta8yhr0b" path="res://scenes/sections/levels/section1.tscn" id="14_bp0m6"]
@@ -128,45 +129,7 @@ metadata/_edit_group_ = true
 position = Vector2(10.5, -1)
 shape = SubResource("RectangleShape2D_mcvy8")
 
-[node name="PopupPanel" type="PopupPanel" parent="QuitArea"]
-process_mode = 3
-title = "Escape?"
-initial_position = 2
-size = Vector2i(148, 139)
-
-[node name="MarginContainer" type="MarginContainer" parent="QuitArea/PopupPanel"]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 144.0
-offset_bottom = 135.0
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="VBoxContainer" type="VBoxContainer" parent="QuitArea/PopupPanel/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 32
-alignment = 1
-
-[node name="Label" type="Label" parent="QuitArea/PopupPanel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Escape?"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="QuitArea/PopupPanel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 32
-alignment = 1
-
-[node name="Yes" type="Button" parent="QuitArea/PopupPanel/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Yes"
-
-[node name="No" type="Button" parent="QuitArea/PopupPanel/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "No"
+[node name="PopupPanel" parent="QuitArea" instance=ExtResource("11_6xmeh")]
 
 [node name="QuitLabel" type="Label" parent="QuitArea"]
 offset_left = -61.0
@@ -228,5 +191,3 @@ sign_display_scene = ExtResource("32_771yv")
 [connection signal="mouse_entered" from="QuitArea" to="QuitArea" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="QuitArea" to="QuitArea" method="_on_mouse_exited"]
 [connection signal="popup_hide" from="QuitArea/PopupPanel" to="QuitArea" method="_on_popup_panel_popup_hide"]
-[connection signal="pressed" from="QuitArea/PopupPanel/MarginContainer/VBoxContainer/HBoxContainer/Yes" to="QuitArea" method="_on_yes_pressed"]
-[connection signal="pressed" from="QuitArea/PopupPanel/MarginContainer/VBoxContainer/HBoxContainer/No" to="QuitArea" method="_on_no_pressed"]

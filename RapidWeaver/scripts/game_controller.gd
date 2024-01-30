@@ -53,7 +53,6 @@ func _process(delta: float) -> void:
 		if game_started:
 			camera_speed += delta*2
 	
-
 	if player.global_position.distance_to(death_area.global_position) <= 400 and game_started:
 		death_warning.play_animation()
 	else:

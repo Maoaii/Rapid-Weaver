@@ -1,28 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckaeu18ux3mw1"]
+[gd_scene load_steps=4 format=3 uid="uid://ckaeu18ux3mw1"]
 
 [ext_resource type="Script" path="res://scripts/menus/highscore_ui_sign.gd" id="1_vjxq2"]
+[ext_resource type="Theme" uid="uid://pf3bem22ewj7" path="res://ui_theme.tres" id="2_0xfrm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mqjg0"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 3
-border_color = Color(0, 0, 0, 1)
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="HighscoreUISign" type="Node2D"]
 script = ExtResource("1_vjxq2")
 
-[node name="Label" type="Label" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -42.0
-offset_top = -15.0
-offset_right = 40.0
-offset_bottom = 12.0
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = -20.0
+offset_right = 41.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_0xfrm")
+
+[node name="Label" type="Label" parent="PanelContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 8
 theme_override_styles/normal = SubResource("StyleBoxFlat_mqjg0")
 text = "Highscore: XXX"

@@ -1,102 +1,133 @@
-[gd_scene load_steps=2 format=3 uid="uid://cx7qlh0o3clg0"]
+[gd_scene load_steps=3 format=3 uid="uid://cx7qlh0o3clg0"]
 
-[ext_resource type="PackedScene" uid="uid://cxefob7rm2dht" path="res://assets/mouse.aseprite" id="1_tuhbn"]
+[ext_resource type="Theme" uid="uid://pf3bem22ewj7" path="res://ui_theme.tres" id="1_2ejsb"]
+[ext_resource type="Texture2D" uid="uid://byt81bnu2oanm" path="res://assets/mouse_clicked.png" id="2_lww6u"]
 
 [node name="Controls" type="Node2D"]
 
-[node name="Container" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = -127.0
-offset_top = -87.0
-offset_right = 113.0
-offset_bottom = 14.0
+[node name="Container" type="Panel" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -76.5
+offset_top = -76.0
+offset_right = 76.5
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_2ejsb")
 
-[node name="DBG" type="ColorRect" parent="Container"]
-layout_mode = 2
-offset_left = 105.0
-offset_top = 61.0
-offset_right = 131.0
-offset_bottom = 87.0
-scale = Vector2(1, 1.00411)
-color = Color(0, 0, 0, 1)
+[node name="TextureRect" type="TextureRect" parent="Container"]
+layout_mode = 0
+offset_left = 95.5
+offset_top = 11.0
+offset_right = 146.5
+offset_bottom = 77.0
+texture = ExtResource("2_lww6u")
+expand_mode = 5
+stretch_mode = 4
 
-[node name="Label" type="Label" parent="Container/DBG"]
-layout_mode = 2
-offset_left = 4.0
-offset_top = 5.97542
-offset_right = 24.0
-offset_bottom = 22.9754
-theme_override_font_sizes/font_size = 8
-text = "D/→"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="Panel" type="Panel" parent="Container"]
+layout_mode = 0
+offset_left = 36.5
+offset_top = 10.0
+offset_right = 63.5
+offset_bottom = 37.0
+metadata/_edit_group_ = true
 
-[node name="ABG" type="ColorRect" parent="Container"]
-layout_mode = 2
-offset_left = 44.0
-offset_top = 61.0
-offset_right = 70.0
-offset_bottom = 87.0
-color = Color(0, 0, 0, 1)
-
-[node name="Label" type="Label" parent="Container/ABG"]
-layout_mode = 2
-offset_left = 3.0
-offset_top = 6.0
-offset_right = 23.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 8
-text = "A/←"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="WBG" type="ColorRect" parent="Container"]
-layout_mode = 2
-offset_left = 75.0
-offset_top = 30.0
-offset_right = 101.0
-offset_bottom = 56.0
-color = Color(0, 0, 0, 1)
-
-[node name="Label" type="Label" parent="Container/WBG"]
-layout_mode = 2
-offset_left = 3.0
-offset_top = 5.0
-offset_right = 23.0
-offset_bottom = 22.0
+[node name="W" type="Label" parent="Container/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = -7.5
+offset_right = 3.5
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_font_sizes/font_size = 8
 text = "W/↑"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SBG" type="ColorRect" parent="Container"]
-layout_mode = 2
-offset_left = 75.0
-offset_top = 61.0
-offset_right = 101.0
-offset_bottom = 87.0
-color = Color(0, 0, 0, 1)
+[node name="Panel2" type="Panel" parent="Container"]
+layout_mode = 0
+offset_left = 7.5
+offset_top = 39.0
+offset_right = 34.5
+offset_bottom = 66.0
+metadata/_edit_group_ = true
 
-[node name="Label" type="Label" parent="Container/SBG"]
-layout_mode = 2
-offset_left = 3.0
-offset_top = 6.0
-offset_right = 23.0
-offset_bottom = 23.0
+[node name="A" type="Label" parent="Container/Panel2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = -7.5
+offset_right = 3.5
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "A/←"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel3" type="Panel" parent="Container"]
+layout_mode = 0
+offset_left = 36.5
+offset_top = 39.0
+offset_right = 63.5
+offset_bottom = 66.0
+metadata/_edit_group_ = true
+
+[node name="S" type="Label" parent="Container/Panel3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = -7.5
+offset_right = 3.5
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_font_sizes/font_size = 8
 text = "S/↓"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Mouse" type="ColorRect" parent="Container"]
-layout_mode = 2
-offset_left = 141.0
-offset_top = 29.0
-offset_right = 193.0
-offset_bottom = 87.0
-color = Color(0, 0, 0, 1)
+[node name="Panel4" type="Panel" parent="Container"]
+layout_mode = 0
+offset_left = 65.5
+offset_top = 39.0
+offset_right = 92.5
+offset_bottom = 66.0
+metadata/_edit_group_ = true
 
-[node name="mouse" parent="Container/Mouse" instance=ExtResource("1_tuhbn")]
-position = Vector2(26, 29)
-scale = Vector2(0.787355, 0.787355)
+[node name="D" type="Label" parent="Container/Panel4"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = -7.5
+offset_right = 3.5
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "D/→"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,22 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5l843x4m6sg4"]
+[gd_scene load_steps=3 format=3 uid="uid://b5l843x4m6sg4"]
 
 [ext_resource type="Script" path="res://scenes/menus/settings_menu/settings.gd" id="1_i3dg3"]
+[ext_resource type="Theme" uid="uid://pf3bem22ewj7" path="res://ui_theme.tres" id="1_jta67"]
 
 [node name="PopupPanel" type="PopupPanel"]
 process_mode = 3
 title = "Settings Popup"
 initial_position = 2
-size = Vector2i(308, 544)
+size = Vector2i(336, 380)
 always_on_top = true
+theme = ExtResource("1_jta67")
 
 [node name="Background" type="ColorRect" parent="."]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 304.0
-offset_bottom = 540.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
@@ -25,22 +28,21 @@ color = Color(0, 0, 0, 1)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 304.0
-offset_bottom = 540.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 30
-theme_override_constants/margin_bottom = 50
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Settings"
@@ -85,31 +87,36 @@ layout_mode = 2
 max_value = 1.0
 step = 0.01
 
-[node name="MusicContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/SettingsContainer/Settings"]
+[node name="VBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SettingsContainer/Settings"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="MusicContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/SettingsContainer/Settings/VBoxContainer2"]
 layout_mode = 2
 alignment = 1
 
-[node name="MusicLabel" type="Label" parent="MarginContainer/VBoxContainer/SettingsContainer/Settings/MusicContainer"]
+[node name="MusicLabel" type="Label" parent="MarginContainer/VBoxContainer/SettingsContainer/Settings/VBoxContainer2/MusicContainer"]
 layout_mode = 2
 text = "Music Volume"
 horizontal_alignment = 1
 
-[node name="MusicSlider" type="HSlider" parent="MarginContainer/VBoxContainer/SettingsContainer/Settings/MusicContainer"]
+[node name="MusicSlider" type="HSlider" parent="MarginContainer/VBoxContainer/SettingsContainer/Settings/VBoxContainer2/MusicContainer"]
 layout_mode = 2
 max_value = 1.0
 step = 0.01
 
-[node name="SFXContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/SettingsContainer/Settings"]
+[node name="SFXContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/SettingsContainer/Settings/VBoxContainer2"]
 layout_mode = 2
 alignment = 1
 
-[node name="SFXLabel" type="Label" parent="MarginContainer/VBoxContainer/SettingsContainer/Settings/SFXContainer"]
+[node name="SFXLabel" type="Label" parent="MarginContainer/VBoxContainer/SettingsContainer/Settings/VBoxContainer2/SFXContainer"]
 layout_mode = 2
 text = "SFX Volume
 "
 horizontal_alignment = 1
 
-[node name="SFXSlider" type="HSlider" parent="MarginContainer/VBoxContainer/SettingsContainer/Settings/SFXContainer"]
+[node name="SFXSlider" type="HSlider" parent="MarginContainer/VBoxContainer/SettingsContainer/Settings/VBoxContainer2/SFXContainer"]
 layout_mode = 2
 max_value = 1.0
 step = 0.01
@@ -118,23 +125,9 @@ step = 0.01
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Back"
-flat = true
-
-[node name="Settings" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 304.0
-offset_bottom = 540.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [connection signal="toggled" from="MarginContainer/VBoxContainer/SettingsContainer/Settings/FullscreenContainer/CheckButton" to="MarginContainer/VBoxContainer/SettingsContainer/Settings" method="_on_check_button_toggled"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/SettingsContainer/Settings/MasterContainer/MasterSlider" to="MarginContainer/VBoxContainer/SettingsContainer/Settings" method="_on_master_slider_value_changed"]
-[connection signal="value_changed" from="MarginContainer/VBoxContainer/SettingsContainer/Settings/MusicContainer/MusicSlider" to="MarginContainer/VBoxContainer/SettingsContainer/Settings" method="_on_music_slider_value_changed"]
-[connection signal="value_changed" from="MarginContainer/VBoxContainer/SettingsContainer/Settings/SFXContainer/SFXSlider" to="MarginContainer/VBoxContainer/SettingsContainer/Settings" method="_on_sfx_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/SettingsContainer/Settings/VBoxContainer2/MusicContainer/MusicSlider" to="MarginContainer/VBoxContainer/SettingsContainer/Settings" method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/SettingsContainer/Settings/VBoxContainer2/SFXContainer/SFXSlider" to="MarginContainer/VBoxContainer/SettingsContainer/Settings" method="_on_sfx_slider_value_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SettingsContainer/Settings/Back" to="MarginContainer/VBoxContainer/SettingsContainer/Settings" method="_on_back_pressed"]

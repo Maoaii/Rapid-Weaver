@@ -3,10 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://bs064f5gildkm" path="res://assets/warning.png" id="1_g87c1"]
 [ext_resource type="Script" path="res://scripts/menus/death_warning.gd" id="1_qgw5t"]
 
-[sub_resource type="Animation" id="Animation_8f745"]
-resource_name = "float"
-length = 2.0
-
 [sub_resource type="Animation" id="Animation_84od8"]
 length = 0.001
 tracks/0/type = "value"
@@ -37,6 +33,10 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
+
+[sub_resource type="Animation" id="Animation_8f745"]
+resource_name = "float"
+length = 2.0
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_stixh"]
 _data = {
