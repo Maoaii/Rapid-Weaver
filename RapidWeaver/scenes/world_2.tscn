@@ -10,10 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://fikthwf1ruin" path="res://scenes/section_line.tscn" id="7_grw8f"]
 [ext_resource type="Script" path="res://scripts/menus/game_start_area.gd" id="7_xgp62"]
 [ext_resource type="Script" path="res://scripts/menus/quit_area.gd" id="8_1losw"]
+[ext_resource type="PackedScene" uid="uid://osik8dchik80" path="res://scenes/enemies/caterpillar.tscn" id="8_700st"]
 [ext_resource type="PackedScene" uid="uid://cbc5jyuaxunxf" path="res://scenes/death_area.tscn" id="10_5im2o"]
 [ext_resource type="PackedScene" uid="uid://b5l843x4m6sg4" path="res://scenes/menus/settings_menu/settings.tscn" id="10_6vku2"]
 [ext_resource type="PackedScene" uid="uid://gvrle5ugsl27" path="res://scenes/menus/quit_popup.tscn" id="11_6xmeh"]
-[ext_resource type="PackedScene" uid="uid://kdubal300fkt" path="res://scenes/managers/score_manager.tscn" id="12_1t867"]
 [ext_resource type="PackedScene" uid="uid://cnhg6812dokbu" path="res://scenes/managers/game_controller.tscn" id="13_mxqul"]
 [ext_resource type="PackedScene" uid="uid://b0d6kta8yhr0b" path="res://scenes/sections/levels/section1.tscn" id="14_bp0m6"]
 [ext_resource type="PackedScene" uid="uid://cjaivf8n4ryih" path="res://scenes/sections/levels/section2.tscn" id="15_kdhey"]
@@ -90,6 +90,10 @@ shape = SubResource("RectangleShape2D_msvqj")
 
 [node name="SectionLine" parent="GameStartArea" instance=ExtResource("7_grw8f")]
 position = Vector2(0, 225)
+can_score = false
+
+[node name="Caterpillar" parent="GameStartArea/SectionLine" instance=ExtResource("8_700st")]
+position = Vector2(182, -24)
 
 [node name="SettingsArea" type="Area2D" parent="."]
 position = Vector2(320, 345)
@@ -153,9 +157,6 @@ color = Color(1, 1, 1, 0.176471)
 [node name="DeathArea" parent="." instance=ExtResource("10_5im2o")]
 position = Vector2(0, 537)
 collision_mask = 4
-
-[node name="ScoreManager" parent="." instance=ExtResource("12_1t867")]
-enemy_killed_score = 10
 
 [node name="GameController" parent="." node_paths=PackedStringArray("camera", "death_area", "death_warning") instance=ExtResource("13_mxqul")]
 camera = NodePath("../Camera2D")

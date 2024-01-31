@@ -45,5 +45,6 @@ text = "Yes"
 layout_mode = 2
 text = "No"
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Yes" to="." method="_on_yes_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/No" to="." method="_on_no_pressed"]

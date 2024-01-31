@@ -125,7 +125,6 @@ func die() -> void:
 	if death_vfx:
 		death_vfx.restart()
 		sprite.visible = false
-		hurt_box.set_deferred("monitoring", false)
 	
 	is_dead = true
 

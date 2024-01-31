@@ -28,7 +28,7 @@ func _ready() -> void:
 	
 	player = get_tree().get_first_node_in_group("Player")
 	
-	EventBus._on_section_passed.connect(add_new_section)
+	EventBus._spawn_new_section.connect(add_new_section)
 	EventBus._on_death_area_touched.connect(restart_game)
 	EventBus._on_player_death.connect(restart_game)
 	EventBus._unfollow_camera.connect(func(): moving_camera = false)
@@ -67,8 +67,8 @@ func _unhandled_input(_event) -> void:
 
 
 func restart_game() -> void:
-	EventBus._on_game_restart.emit()
 	SceneTransition.change_scene("res://scenes/menus/death_menu/death_menu.tscn")
+	EventBus._on_game_restart.emit()
 	Soundmanager.muffle_music()
 
 
