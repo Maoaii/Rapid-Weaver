@@ -233,6 +233,7 @@ grow_vertical = 2
 script = ExtResource("11_xt54t")
 enable_state_debug = false
 enable_velocity_debug = false
+enable_health_debug = false
 
 [node name="CurrentState" type="Label" parent="PlayerDebug"]
 layout_mode = 1
@@ -307,6 +308,16 @@ limit_right = 480
 limit_bottom = 480
 limit_smoothed = true
 position_smoothing_enabled = true
+
+[node name="NudgeColliders" type="Node2D" parent="."]
+
+[node name="LeftNudge" type="RayCast2D" parent="NudgeColliders"]
+position = Vector2(-7, 0)
+target_position = Vector2(2.08165e-12, 10)
+
+[node name="RightNudge" type="RayCast2D" parent="NudgeColliders"]
+position = Vector2(7, 0)
+target_position = Vector2(2.08165e-12, 10)
 
 [connection signal="body_shape_entered" from="Collider" to="." method="_on_collider_body_shape_entered"]
 [connection signal="body_shape_exited" from="Collider" to="." method="_on_collider_body_shape_exited"]

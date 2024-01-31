@@ -65,5 +65,3 @@ func save_highscore() -> void:
 	
 	highscore = score
 	SaveGame.save_data("Highscore", highscore)
-	
-	var stored_highscore = SaveGame.load_data("Highscore").get("Highscore")

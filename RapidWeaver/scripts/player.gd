@@ -111,6 +111,10 @@ var web : Web = $Web
 ## Onready collision detector
 @onready var collision_detector: CollisionDetector = $CollisionDetector
 
+## Onready nudge detectors
+@onready var left_nudge: RayCast2D = $NudgeColliders/LeftNudge
+@onready var right_nudge: RayCast2D = $NudgeColliders/RightNudge
+
 ## Onready animation player
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hit_animation: AnimationPlayer = $HitAnimation
@@ -452,6 +456,12 @@ func knockback(knockback_origin: Vector2) -> void:
 """
 	Colliders functions
 """
+func right_nudge_colliding() -> bool:
+	return right_nudge.is_colliding()
+
+func left_nudge_colliding() -> bool:
+	return left_nudge.is_colliding()
+
 ## Checks if gravity is going up
 func is_stuck_up() -> bool:
 	return current_down == Vector2.UP
