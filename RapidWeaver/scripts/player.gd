@@ -305,6 +305,7 @@ func handle_jump(direction: Global.DIRECTIONS) -> void:
 	if direction == Global.DIRECTIONS.UP or not coyote_timer.is_stopped():
 		if not is_on_floor():
 			return
+		
 		velocity.y = jump_velocity
 	elif direction == Global.DIRECTIONS.LEFT or direction == Global.DIRECTIONS.RIGHT:
 		if direction == Global.DIRECTIONS.RIGHT:

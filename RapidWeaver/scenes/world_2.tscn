@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dya7qxd1tr3gq"]
+[gd_scene load_steps=38 format=3 uid="uid://dya7qxd1tr3gq"]
 
 [ext_resource type="PackedScene" uid="uid://druq273210d8b" path="res://scenes/sections/tile_map.tscn" id="1_04kq6"]
 [ext_resource type="PackedScene" uid="uid://cqvnliqs7mvfe" path="res://scenes/sections/background.tscn" id="2_dr1mk"]
@@ -33,6 +33,7 @@
 [ext_resource type="PackedScene" uid="uid://ckaeu18ux3mw1" path="res://scenes/menus/highscore_ui_sign.tscn" id="32_771yv"]
 [ext_resource type="PackedScene" uid="uid://dtvlmeppcinkd" path="res://scenes/menus/info_sign.tscn" id="32_ogyav"]
 [ext_resource type="PackedScene" uid="uid://cx7qlh0o3clg0" path="res://scenes/menus/controls.tscn" id="33_x7xa7"]
+[ext_resource type="PackedScene" uid="uid://cwawrjs36jqe5" path="res://scenes/enemies/wasp.tscn" id="34_afi5y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_msvqj"]
 size = Vector2(404, 4)
@@ -63,9 +64,6 @@ drag_vertical_enabled = true
 
 [node name="DustParticles" parent="Camera2D" instance=ExtResource("4_6h5e2")]
 position = Vector2(-320, -360)
-
-[node name="Player" parent="." instance=ExtResource("5_7wutl")]
-position = Vector2(321, 397)
 
 [node name="Decorations" parent="." instance=ExtResource("6_pgmhg")]
 layer_0/tile_data = PackedInt32Array(1769485, 1179648, 1, 1769487, 1179648, 1, 1769488, 1114112, 1, 1769496, 1114112, 1, 1769500, 1114112, 0, 1769498, 1114112, 1, 1114132, 1048576, 1, 1114133, 983040, 2, 1703948, 983040, 1, 1769484, 983040, 2, 1638412, 917504, 3, 1048597, 983040, 1, 983061, 917504, 3, 1114136, 1114112, 0, 1114137, 1179648, 1, 1114139, 1114112, 1, 1769493, 1179648, 1, 1441812, 1245184, 0, 1507348, 1245184, 1, 1441814, 1245184, 0, 1507350, 1245184, 0, 1572886, 1245184, 1, 1441818, 1245184, 0, 1507354, 1245184, 1, 983052, 1245184, 0, 1048588, 1245184, 0, 1179660, 1245184, 0, 1114124, 1245184, 0, 1245196, 1245184, 1)
@@ -178,6 +176,16 @@ sign_hover_text = "Highscore"
 sign_display_scene = ExtResource("32_771yv")
 
 [node name="DeathWarning" parent="." instance=ExtResource("4_c4x3i")]
+
+[node name="Wasp" parent="." instance=ExtResource("34_afi5y")]
+position = Vector2(389, 371)
+
+[node name="Player" parent="." instance=ExtResource("5_7wutl")]
+position = Vector2(321, 368)
+jump_time_to_peak = 0.2
+jump_time_to_descent = 0.3
+web_range = 80.0
+web_travelling_speed = 700.0
 
 [connection signal="body_exited" from="GameStartArea" to="GameStartArea" method="_on_body_exited"]
 [connection signal="body_entered" from="SettingsArea" to="SettingsArea" method="_on_body_entered"]
