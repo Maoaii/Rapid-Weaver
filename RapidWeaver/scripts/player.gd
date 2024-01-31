@@ -296,16 +296,19 @@ func cap_velocity_y(max_velocity: float) -> void:
 
 
 ## Function to handle player jumping
-func handle_jump(direction: Global.DIRECTIONS) -> void:	# Jump buffer
-	if is_on_floor() or not coyote_timer.is_stopped():
+func handle_jump(direction: Global.DIRECTIONS) -> void:
+	# Jump buffer
+	if direction == Global.DIRECTIONS.UP or not coyote_timer.is_stopped():
+		if not is_on_floor():
+			return
 		velocity.y = jump_velocity
-	elif is_on_wall():
+	elif direction == Global.DIRECTIONS.LEFT or direction == Global.DIRECTIONS.RIGHT:
 		if direction == Global.DIRECTIONS.RIGHT:
 			# Jump right
-			velocity = Vector2(wall_jump_velocity, -wall_jump_velocity)
+			velocity = Vector2(wall_jump_velocity, -wall_jump_velocity/2)
 		if direction == Global.DIRECTIONS.LEFT:
 			# Jump left
-			velocity = Vector2(-wall_jump_velocity, -wall_jump_velocity)
+			velocity = Vector2(-wall_jump_velocity, -wall_jump_velocity/2)
 	else:
 		jump_buffer_timer.start()
 
