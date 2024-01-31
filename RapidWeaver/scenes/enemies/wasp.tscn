@@ -16,11 +16,12 @@ size = Vector2(2, 2)
 [sub_resource type="CircleShape2D" id="CircleShape2D_mqycg"]
 radius = 59.0085
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_31pbl"]
-size = Vector2(8, 10)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ljgbl"]
+radius = 4.0
+height = 10.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v8u6t"]
-size = Vector2(10, 2)
+size = Vector2(6, 2)
 
 [sub_resource type="Curve" id="Curve_x12rx"]
 _data = [Vector2(0.0140263, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -64,7 +65,7 @@ shape = SubResource("CircleShape2D_mqycg")
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource("RectangleShape2D_31pbl")
+shape = SubResource("CapsuleShape2D_ljgbl")
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_mask = 4

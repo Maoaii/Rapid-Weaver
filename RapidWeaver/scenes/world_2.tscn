@@ -186,6 +186,7 @@ jump_time_to_peak = 0.2
 jump_time_to_descent = 0.3
 web_range = 80.0
 web_travelling_speed = 700.0
+knockback_force = Vector2(300, 150)
 
 [connection signal="body_exited" from="GameStartArea" to="GameStartArea" method="_on_body_exited"]
 [connection signal="body_entered" from="SettingsArea" to="SettingsArea" method="_on_body_entered"]

@@ -239,7 +239,6 @@ func apply_gravity(delta: float) -> void:
 		gravity = Vector2(-get_gravity(), 0)
 	
 	velocity += gravity * delta
-	
 	cap_velocity_y(terminal_velocity)
 
 
@@ -318,6 +317,9 @@ func handle_jump(direction: Global.DIRECTIONS) -> void:
 		jump_buffer_timer.start()
 
 func bounce() -> void:
+	if current_down != Vector2.DOWN:
+		return
+	
 	velocity.y = -bounce_force
 
 func reset_velocity() -> void:
@@ -444,6 +446,8 @@ func slow(speed_slow: float, zoom_slow: float, web_travel_slow: float, jump_heig
 func knockback(knockback_origin: Vector2) -> void:
 	if not invincibility_timer.is_stopped():
 		return
+	if current_down != Vector2.DOWN:
+		return 
 	
 	var dir: Vector2 = knockback_origin.direction_to(global_position).normalized()
 	
