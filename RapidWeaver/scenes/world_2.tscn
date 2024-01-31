@@ -39,7 +39,7 @@
 size = Vector2(404, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gxrhv"]
-size = Vector2(65, 18)
+size = Vector2(62, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mcvy8"]
 size = Vector2(49, 18)
@@ -95,7 +95,7 @@ collision_mask = 20
 script = ExtResource("7_fkrux")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SettingsArea"]
-position = Vector2(16.5, -3)
+position = Vector2(18, -3)
 shape = SubResource("RectangleShape2D_gxrhv")
 
 [node name="Settings" parent="SettingsArea" instance=ExtResource("10_6vku2")]
