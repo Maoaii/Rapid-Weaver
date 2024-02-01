@@ -111,6 +111,10 @@ var web : Web = $Web
 ## Onready collision detector
 @onready var collision_detector: CollisionDetector = $CollisionDetector
 
+## Onready nudge detectors
+@onready var left_nudge: RayCast2D = $NudgeColliders/LeftNudge
+@onready var right_nudge: RayCast2D = $NudgeColliders/RightNudge
+
 ## Onready animation player
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hit_animation: AnimationPlayer = $HitAnimation
@@ -235,7 +239,6 @@ func apply_gravity(delta: float) -> void:
 		gravity = Vector2(-get_gravity(), 0)
 	
 	velocity += gravity * delta
-	
 	cap_velocity_y(terminal_velocity)
 
 
@@ -296,20 +299,27 @@ func cap_velocity_y(max_velocity: float) -> void:
 
 
 ## Function to handle player jumping
-func handle_jump(direction: Global.DIRECTIONS) -> void:	# Jump buffer
-	if is_on_floor() or not coyote_timer.is_stopped():
+func handle_jump(direction: Global.DIRECTIONS) -> void:
+	# Jump buffer
+	if direction == Global.DIRECTIONS.UP or not coyote_timer.is_stopped():
+		if not is_on_floor():
+			return
+		
 		velocity.y = jump_velocity
-	elif is_on_wall():
+	elif direction == Global.DIRECTIONS.LEFT or direction == Global.DIRECTIONS.RIGHT:
 		if direction == Global.DIRECTIONS.RIGHT:
 			# Jump right
-			velocity = Vector2(wall_jump_velocity, -wall_jump_velocity)
+			velocity = Vector2(wall_jump_velocity, -wall_jump_velocity/2)
 		if direction == Global.DIRECTIONS.LEFT:
 			# Jump left
-			velocity = Vector2(-wall_jump_velocity, -wall_jump_velocity)
+			velocity = Vector2(-wall_jump_velocity, -wall_jump_velocity/2)
 	else:
 		jump_buffer_timer.start()
 
 func bounce() -> void:
+	if current_down != Vector2.DOWN:
+		return
+	
 	velocity.y = -bounce_force
 
 func reset_velocity() -> void:
@@ -417,6 +427,8 @@ func slow(speed_slow: float, zoom_slow: float, web_travel_slow: float, jump_heig
 		zooming_max_speed -= zoom_slow
 		web_travelling_speed -= web_travel_slow
 		jump_height -= jump_height_slow
+		#jump_time_to_peak -= 0.1
+		#jump_time_to_descent -= 0.1
 		set_jump_properties()
 		
 		# Set timer
@@ -436,6 +448,8 @@ func slow(speed_slow: float, zoom_slow: float, web_travel_slow: float, jump_heig
 func knockback(knockback_origin: Vector2) -> void:
 	if not invincibility_timer.is_stopped():
 		return
+	if current_down != Vector2.DOWN:
+		return 
 	
 	var dir: Vector2 = knockback_origin.direction_to(global_position).normalized()
 	
@@ -449,6 +463,12 @@ func knockback(knockback_origin: Vector2) -> void:
 """
 	Colliders functions
 """
+func right_nudge_colliding() -> bool:
+	return right_nudge.is_colliding()
+
+func left_nudge_colliding() -> bool:
+	return left_nudge.is_colliding()
+
 ## Checks if gravity is going up
 func is_stuck_up() -> bool:
 	return current_down == Vector2.UP

@@ -22,48 +22,48 @@ position = Vector2(320, 288)
 [node name="Fly2" parent="." index="4" instance=ExtResource("3_4qkau")]
 position = Vector2(320, 144)
 
-[node name="Caterpillar" parent="." index="5" instance=ExtResource("4_oylol")]
-position = Vector2(384, 217)
-
-[node name="Fungus" parent="." index="6" instance=ExtResource("5_o7dp2")]
+[node name="Fungus" parent="." index="5" instance=ExtResource("5_o7dp2")]
 position = Vector2(290, 134)
 rotation = 3.14159
 
-[node name="Fungus2" parent="." index="7" instance=ExtResource("5_o7dp2")]
+[node name="Fungus2" parent="." index="6" instance=ExtResource("5_o7dp2")]
 position = Vector2(348, 134)
 rotation = 3.14159
 
-[node name="Fungus3" parent="." index="8" instance=ExtResource("5_o7dp2")]
+[node name="Fungus3" parent="." index="7" instance=ExtResource("5_o7dp2")]
 position = Vector2(362, 134)
 rotation = 3.14159
 
-[node name="Fungus4" parent="." index="9" instance=ExtResource("5_o7dp2")]
+[node name="Fungus4" parent="." index="8" instance=ExtResource("5_o7dp2")]
 position = Vector2(276, 134)
 rotation = 3.14159
 
-[node name="Fungus5" parent="." index="10" instance=ExtResource("5_o7dp2")]
+[node name="Fungus5" parent="." index="9" instance=ExtResource("5_o7dp2")]
 position = Vector2(267, 278)
 rotation = 3.14159
 
-[node name="Fungus6" parent="." index="11" instance=ExtResource("5_o7dp2")]
+[node name="Fungus6" parent="." index="10" instance=ExtResource("5_o7dp2")]
 position = Vector2(253, 278)
 rotation = 3.14159
 
-[node name="Fungus7" parent="." index="12" instance=ExtResource("5_o7dp2")]
+[node name="Fungus7" parent="." index="11" instance=ExtResource("5_o7dp2")]
 position = Vector2(239, 278)
 rotation = 3.14159
 
-[node name="Fungus8" parent="." index="13" instance=ExtResource("5_o7dp2")]
+[node name="Fungus8" parent="." index="12" instance=ExtResource("5_o7dp2")]
 position = Vector2(395, 278)
 rotation = 3.14159
 
-[node name="Fungus9" parent="." index="14" instance=ExtResource("5_o7dp2")]
+[node name="Fungus9" parent="." index="13" instance=ExtResource("5_o7dp2")]
 position = Vector2(381, 278)
 rotation = 3.14159
 
-[node name="Fungus10" parent="." index="15" instance=ExtResource("5_o7dp2")]
+[node name="Fungus10" parent="." index="14" instance=ExtResource("5_o7dp2")]
 position = Vector2(367, 278)
 rotation = 3.14159
 
+[node name="Caterpillar" parent="." index="15" instance=ExtResource("4_oylol")]
+position = Vector2(277, 217)
+
 [node name="Caterpillar2" parent="." index="16" instance=ExtResource("4_oylol")]
-position = Vector2(281, 217)
+position = Vector2(347, 217)

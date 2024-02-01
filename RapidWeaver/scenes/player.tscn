@@ -110,10 +110,10 @@ script = ExtResource("1_utnx1")
 max_speed = 150.0
 move_acceleration = 10.0
 move_deceleration = 6.0
-jump_height = 60.0
+jump_height = 30.0
 jump_time_to_peak = 0.3
 jump_time_to_descent = 0.4
-wall_jump_velocity = 450.0
+wall_jump_velocity = 600.0
 bounce_force = 250.0
 jump_buffer_time = 0.1
 coyote_time = 0.15
@@ -233,6 +233,7 @@ grow_vertical = 2
 script = ExtResource("11_xt54t")
 enable_state_debug = false
 enable_velocity_debug = false
+enable_health_debug = false
 
 [node name="CurrentState" type="Label" parent="PlayerDebug"]
 layout_mode = 1
@@ -307,6 +308,16 @@ limit_right = 480
 limit_bottom = 480
 limit_smoothed = true
 position_smoothing_enabled = true
+
+[node name="NudgeColliders" type="Node2D" parent="."]
+
+[node name="LeftNudge" type="RayCast2D" parent="NudgeColliders"]
+position = Vector2(-7, 0)
+target_position = Vector2(2.08165e-12, 10)
+
+[node name="RightNudge" type="RayCast2D" parent="NudgeColliders"]
+position = Vector2(7, 0)
+target_position = Vector2(2.08165e-12, 10)
 
 [connection signal="body_shape_entered" from="Collider" to="." method="_on_collider_body_shape_entered"]
 [connection signal="body_shape_exited" from="Collider" to="." method="_on_collider_body_shape_exited"]

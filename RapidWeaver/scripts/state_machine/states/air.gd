@@ -15,6 +15,8 @@ func _enter(msg := {}) -> void:
 	# Set direction for gravity to work in
 	player.set_current_down(Global.DIRECTIONS.DOWN)
 	
+	
+	
 	# Play animation
 	player.set_animation("Air")
 	
@@ -26,6 +28,14 @@ func _enter(msg := {}) -> void:
 	# Keep momentum
 	if msg.has("momentum"):
 		momentum = msg.get("momentum")
+		
+	# Check if nudges are colliding
+	if player.right_nudge_colliding():
+		# Push left
+		player.velocity += Vector2(0, -100)
+	elif player.left_nudge_colliding():
+		# Push right
+		player.velocity += Vector2(0, -100)
 
 
 func _physics_update(delta: float) -> void:

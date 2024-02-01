@@ -12,13 +12,13 @@ var highscore: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	EventBus._on_game_restart.connect(reset_score)
-	EventBus._on_player_death.connect(reset_score)
+	EventBus._on_game_started.connect(reset_score)
 	EventBus._on_fly_eaten.connect(fly_eaten)
 	EventBus._on_section_passed.connect(section_passed)
 	EventBus._on_enemy_killed.connect(enemy_killed)
 	
 	# Load highscore
+	await SaveGame.ready
 	var stored_highscore = SaveGame.load_data("Highscore").get("Highscore")
 	if stored_highscore != null:
 		highscore = stored_highscore
@@ -35,7 +35,7 @@ func fly_eaten() -> void:
 	score += fly_pickup_score
 	if score > highscore:
 		save_highscore()
-		
+	
 	EventBus._on_score_changed.emit(score)
 	EventBus._on_score_popup.emit(fly_pickup_score)
 
@@ -55,8 +55,13 @@ func get_score() -> int:
 	return score
 
 func get_highscore() -> int:
+	var stored_highscore = SaveGame.load_data("Highscore").get("Highscore")
+	if stored_highscore != null:
+		return stored_highscore
+	
 	return highscore
 
 func save_highscore() -> void:
+	
 	highscore = score
 	SaveGame.save_data("Highscore", highscore)

@@ -4,6 +4,7 @@ signal _on_pause
 
 signal _on_fly_eaten()
 signal _on_section_passed()
+signal _spawn_new_section()
 
 signal _on_score_changed(new_score)
 

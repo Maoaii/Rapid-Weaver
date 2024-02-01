@@ -38,8 +38,11 @@ func _ready() -> void:
 	var selected_sprite = sprites.pick_random()
 	
 	sprite.set_sprite_frames(selected_sprite)
-	
+	sprite.play("Walking")
 	x_dir = [Vector2(-1, 0), Vector2(1, 0)].pick_random()
+	if x_dir == Vector2.LEFT:
+		flip_sprite()
+	
 	y_dir = y_start_direction
 	
 	death_audio_player = AudioStreamPlayer2D.new()
@@ -125,7 +128,6 @@ func die() -> void:
 	if death_vfx:
 		death_vfx.restart()
 		sprite.visible = false
-		hurt_box.set_deferred("monitoring", false)
 	
 	is_dead = true
 

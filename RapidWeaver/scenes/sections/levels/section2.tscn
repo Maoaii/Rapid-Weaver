@@ -29,4 +29,4 @@ position = Vector2(361, 276)
 rotation = -1.5708
 
 [node name="Caterpillar" parent="." index="6" instance=ExtResource("6_vjmii")]
-position = Vector2(232, 73)
+position = Vector2(233, 73)

@@ -35,10 +35,10 @@ position = Vector2(359, 70)
 position = Vector2(373, 70)
 
 [node name="Caterpillar" parent="." index="9" instance=ExtResource("5_dfqad")]
-position = Vector2(424, 73)
+position = Vector2(391, 345)
 
 [node name="Caterpillar2" parent="." index="10" instance=ExtResource("5_dfqad")]
-position = Vector2(211, 233)
+position = Vector2(204, 233)
 
 [node name="Caterpillar3" parent="." index="11" instance=ExtResource("5_dfqad")]
-position = Vector2(392, 345)
+position = Vector2(425, 73)

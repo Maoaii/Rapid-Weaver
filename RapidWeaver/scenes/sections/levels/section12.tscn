@@ -23,4 +23,4 @@ position = Vector2(320, 159)
 position = Vector2(320, 215)
 
 [node name="Wasp" parent="." index="5" instance=ExtResource("5_moaqx")]
-position = Vector2(320, 109)
+position = Vector2(320, 113)
