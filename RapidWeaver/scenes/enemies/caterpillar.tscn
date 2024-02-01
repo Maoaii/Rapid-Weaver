@@ -20,7 +20,7 @@ size = Vector2(10, 7)
 size = Vector2(10, 3)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chtyy"]
-size = Vector2(12, 8)
+size = Vector2(14, 8)
 
 [sub_resource type="Curve" id="Curve_dc6is"]
 _data = [Vector2(0.0140263, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -42,8 +42,7 @@ death_vfx = NodePath("PoofParticles")
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("11_thocf")]
 sprite_frames = ExtResource("5_fnj7x")
-animation = &"Walking"
-frame_progress = 0.426361
+animation = &"Idle"
 speed_scale = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -73,8 +72,10 @@ position = Vector2(9, 0)
 target_position = Vector2(0, 9)
 
 [node name="IdleTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="MovingTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_0gs7y")]
 

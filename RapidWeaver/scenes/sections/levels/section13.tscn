@@ -22,8 +22,8 @@ position = Vector2(320, 160)
 [node name="Fly2" parent="." index="4" instance=ExtResource("3_f4igb")]
 position = Vector2(320, 400)
 
-[node name="Wasp" parent="." index="5" instance=ExtResource("4_4vrm1")]
-position = Vector2(320, 288)
-
-[node name="Caterpillar" parent="." index="6" instance=ExtResource("5_h3a1r")]
+[node name="Caterpillar" parent="." index="5" instance=ExtResource("5_h3a1r")]
 position = Vector2(320, 73)
+
+[node name="Wasp" parent="." index="6" instance=ExtResource("4_4vrm1")]
+position = Vector2(320, 271)

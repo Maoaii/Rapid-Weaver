@@ -15,12 +15,11 @@ layer_0/tile_data = PackedInt32Array(1900559, 786432, 7, 1835023, 786432, 6, 176
 [node name="Fly" parent="." index="2" instance=ExtResource("2_hgv6y")]
 position = Vector2(320, 256)
 
-[node name="Wasp" parent="." index="3" instance=ExtResource("3_01o2k")]
-position = Vector2(320, 160)
-
-[node name="Wasp2" parent="." index="4" node_paths=PackedStringArray("health_component") instance=ExtResource("3_01o2k")]
-position = Vector2(320, 368)
-health_component = NodePath("../Wasp/HealthComponent")
-
-[node name="Decorations" parent="." index="5" instance=ExtResource("4_goek5")]
+[node name="Decorations" parent="." index="3" instance=ExtResource("4_goek5")]
 layer_0/tile_data = PackedInt32Array(262157, 1114112, 0, 262158, 1048576, 1, 262168, 1179648, 1, 262170, 1179648, 0)
+
+[node name="Wasp" parent="." index="4" instance=ExtResource("3_01o2k")]
+position = Vector2(320, 368)
+
+[node name="Wasp2" parent="." index="5" instance=ExtResource("3_01o2k")]
+position = Vector2(320, 176)

@@ -5,7 +5,8 @@ var bouncing: bool = false
 var reposition_direction: Vector2
 
 func _enter(_msg := {}) -> void:
-	enemy.play_animation("Moving")
+	#enemy.play_animation("Moving")
+	pass
 
 
 func _physics_update(delta: float) -> void:

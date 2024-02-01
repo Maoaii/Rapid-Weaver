@@ -11,8 +11,8 @@ func popup(score: int) -> void:
 	popup_instance.position = global_position
 	popup_instance.set_label(str(score))
 	
-	#var tween = get_tree().create_tween()
-	#tween.tween_property(popup_instance, "position", global_position + _get_direction(), 0.75)
+	var tween = get_tree().create_tween()
+	tween.tween_property(popup_instance, "position", global_position + _get_direction(), 0.75)
 	
 	get_tree().current_scene.add_child(popup_instance)
 

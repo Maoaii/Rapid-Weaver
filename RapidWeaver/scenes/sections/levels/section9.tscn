@@ -26,4 +26,4 @@ position = Vector2(232, 231)
 position = Vector2(403, 231)
 
 [node name="Caterpillar" parent="." index="6" instance=ExtResource("5_eto2a")]
-position = Vector2(320, 73)
+position = Vector2(309, 73)

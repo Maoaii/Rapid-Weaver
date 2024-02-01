@@ -42,7 +42,7 @@ death_vfx = NodePath("PoofParticles")
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("3_lp1mt")]
 position = Vector2(0, -1)
 sprite_frames = ExtResource("3_37lnf")
-animation = &"Moving"
+animation = &"Walking"
 speed_scale = 0.5
 
 [node name="LeftWallDetector" type="RayCast2D" parent="."]

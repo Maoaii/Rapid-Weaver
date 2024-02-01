@@ -9,9 +9,10 @@ func _enter(_msg := {}) -> void:
 	
 	enemy.x_dir = last_dir
 	
+	
 	enemy.moving_timer.start(enemy.move_length)
-	await enemy.moving_timer.timeout
-	moving_timer_ended()
+	if not enemy.moving_timer.timeout.is_connected(moving_timer_ended):
+		enemy.moving_timer.timeout.connect(moving_timer_ended)
 
 func _exit() -> void:
 	last_dir = enemy.x_dir
@@ -32,8 +33,9 @@ func _physics_update(_delta: float) -> void:
 func _on_hit_box_body_entered(body):
 	if body.is_in_group("Player"):
 		#state_machine.transition_to("Dead")
-		return
+		return 
 
 
 func moving_timer_ended() -> void:
 	state_machine.transition_to("Idle")
+	return

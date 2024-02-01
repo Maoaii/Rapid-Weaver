@@ -10,5 +10,9 @@ extends Enemy
 @onready var moving_timer: Timer = $MovingTimer
 @onready var hit_box: Area2D = $HitBox
 
+func _ready() -> void:
+	super._ready()
+	moving_timer.start()
+
 func disable_hitbox() -> void:
 	hit_box.set_deferred("monitoring", false)

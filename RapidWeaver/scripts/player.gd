@@ -427,6 +427,8 @@ func slow(speed_slow: float, zoom_slow: float, web_travel_slow: float, jump_heig
 		zooming_max_speed -= zoom_slow
 		web_travelling_speed -= web_travel_slow
 		jump_height -= jump_height_slow
+		#jump_time_to_peak -= 0.1
+		#jump_time_to_descent -= 0.1
 		set_jump_properties()
 		
 		# Set timer

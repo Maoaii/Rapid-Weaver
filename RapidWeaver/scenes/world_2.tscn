@@ -33,7 +33,7 @@
 [ext_resource type="PackedScene" uid="uid://ckaeu18ux3mw1" path="res://scenes/menus/highscore_ui_sign.tscn" id="32_771yv"]
 [ext_resource type="PackedScene" uid="uid://dtvlmeppcinkd" path="res://scenes/menus/info_sign.tscn" id="32_ogyav"]
 [ext_resource type="PackedScene" uid="uid://cx7qlh0o3clg0" path="res://scenes/menus/controls.tscn" id="33_x7xa7"]
-[ext_resource type="PackedScene" uid="uid://cwawrjs36jqe5" path="res://scenes/enemies/wasp.tscn" id="34_afi5y"]
+[ext_resource type="PackedScene" uid="uid://osik8dchik80" path="res://scenes/enemies/caterpillar.tscn" id="34_djoaj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_msvqj"]
 size = Vector2(404, 4)
@@ -155,6 +155,7 @@ collision_mask = 4
 [node name="GameController" parent="." node_paths=PackedStringArray("camera", "death_area", "death_warning") instance=ExtResource("13_mxqul")]
 camera = NodePath("../Camera2D")
 enable_following_camera = true
+camera_speed = 35.0
 death_area = NodePath("../DeathArea")
 death_warning = NodePath("../DeathWarning")
 sections = Array[PackedScene]([ExtResource("14_bp0m6"), ExtResource("15_kdhey"), ExtResource("16_m2xuj"), ExtResource("17_4jwrd"), ExtResource("18_3pg6p"), ExtResource("19_1cbgp"), ExtResource("20_ei2g1"), ExtResource("21_2odth"), ExtResource("22_x2cpa"), ExtResource("23_w21sg"), ExtResource("24_rkorq"), ExtResource("25_l3ds6"), ExtResource("26_2ycy3"), ExtResource("27_krarm"), ExtResource("28_yshjn")])
@@ -177,16 +178,19 @@ sign_display_scene = ExtResource("32_771yv")
 
 [node name="DeathWarning" parent="." instance=ExtResource("4_c4x3i")]
 
-[node name="Wasp" parent="." instance=ExtResource("34_afi5y")]
-position = Vector2(389, 371)
-
 [node name="Player" parent="." instance=ExtResource("5_7wutl")]
 position = Vector2(321, 368)
+max_speed = 120.0
 jump_time_to_peak = 0.2
 jump_time_to_descent = 0.3
-web_range = 80.0
 web_travelling_speed = 700.0
 knockback_force = Vector2(300, 150)
+
+[node name="Caterpillar3" parent="." instance=ExtResource("34_djoaj")]
+position = Vector2(381, 441)
+
+[node name="Caterpillar" parent="." instance=ExtResource("34_djoaj")]
+position = Vector2(232, 441)
 
 [connection signal="body_exited" from="GameStartArea" to="GameStartArea" method="_on_body_exited"]
 [connection signal="body_entered" from="SettingsArea" to="SettingsArea" method="_on_body_entered"]
