@@ -601,7 +601,7 @@ position = Vector2(321, 368)
 max_speed = 120.0
 jump_time_to_peak = 0.2
 jump_time_to_descent = 0.3
-web_travelling_speed = 700.0
+web_travelling_speed = 800.0
 knockback_force = Vector2(300, 150)
 
 [connection signal="body_exited" from="GameStartArea" to="GameStartArea" method="_on_body_exited"]
