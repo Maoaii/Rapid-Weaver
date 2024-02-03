@@ -61,9 +61,6 @@ func _process(delta: float) -> void:
 func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("quit"):
 		SceneTransition.change_scene("res://scenes/menus/main_menu/main_menu.tscn")
-	
-	if Input.is_action_just_pressed("restart"):
-		restart_game()
 
 
 func restart_game() -> void:
