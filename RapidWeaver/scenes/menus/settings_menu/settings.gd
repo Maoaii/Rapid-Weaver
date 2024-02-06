@@ -14,9 +14,14 @@ extends VBoxContainer
 func _ready():
 	fullscreen_button.grab_focus()
 	
-	master_slider.value = SaveGame.load_data("Master Volume").get("Master Volume")
-	music_slider.value = SaveGame.load_data("Music Volume").get("Music Volume")
-	sfx_slider.value = SaveGame.load_data("SFX Volume").get("SFX Volume")
+	if SaveGame.load_data("Master Volume").get("Master Volume") != null:
+		master_slider.value = SaveGame.load_data("Master Volume").get("Master Volume")
+		music_slider.value = SaveGame.load_data("Music Volume").get("Music Volume")
+		sfx_slider.value = SaveGame.load_data("SFX Volume").get("SFX Volume")
+	else:
+		master_slider.value = 1.0
+		music_slider.value = 1.0
+		sfx_slider.value = 1.0
 	
 	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
 		fullscreen_button.button_pressed = true
