@@ -116,15 +116,6 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_6c41w")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_n4cor")
 text = "Main Menu"
 
-[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer" groups=["Button"]]
-process_mode = 3
-layout_mode = 2
-theme = ExtResource("1_oof0o")
-theme_override_styles/normal = SubResource("StyleBoxFlat_r3404")
-theme_override_styles/hover = SubResource("StyleBoxFlat_6c41w")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_n4cor")
-text = "Quit"
-
 [node name="PauseSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_wnbtp")
 volume_db = -10.0
@@ -132,4 +123,3 @@ bus = &"SFX"
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Menu" to="." method="_on_menu_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

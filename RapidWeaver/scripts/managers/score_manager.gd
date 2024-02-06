@@ -2,9 +2,9 @@ extends Node2D
 
 
 @export_group("Score Variables")
-@export var fly_pickup_score: int = 5
+@export var fly_pickup_score: int = 10
 @export var section_passed_score: int = 10
-@export var enemy_killed_score: int = 5
+@export var enemy_killed_score: int = 10
 
 
 var score: int = 0

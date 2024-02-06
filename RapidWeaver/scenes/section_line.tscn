@@ -27,6 +27,7 @@ texture = ExtResource("1_ewqid")
 texture_mode = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
+z_index = 100
 offset_left = 412.0
 offset_top = -27.0
 offset_right = 462.0

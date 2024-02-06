@@ -31,9 +31,13 @@ var last_pitch: float = 1.0
 
 
 func _ready() -> void:
-	set_bus_volumes(linear_to_db(SaveGame.load_data("Master Volume").get("Master Volume")), \
-					linear_to_db(SaveGame.load_data("Music Volume").get("Music Volume")), \
-					linear_to_db(SaveGame.load_data("SFX Volume").get("SFX Volume")))
+	
+	if SaveGame.load_data("Master Volume").get("Master Volume") == null:
+		set_bus_volumes(linear_to_db(0.6), linear_to_db(0.6), linear_to_db(0.6))
+	else:
+		set_bus_volumes(linear_to_db(SaveGame.load_data("Master Volume").get("Master Volume")), \
+						linear_to_db(SaveGame.load_data("Music Volume").get("Music Volume")), \
+						linear_to_db(SaveGame.load_data("SFX Volume").get("SFX Volume")))
 	
 	await setup_audio_players()
 	

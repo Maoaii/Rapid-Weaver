@@ -16,7 +16,7 @@ point_count = 2
 
 [node name="DestructablePlatform" type="StaticBody2D" groups=["Destructable", "Obstacle"]]
 script = ExtResource("1_ebjbm")
-destroy_time = 3.0
+destroy_time = 2.0
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("1_uwo2t")]
 
