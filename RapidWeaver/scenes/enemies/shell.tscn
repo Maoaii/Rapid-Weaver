@@ -17,6 +17,7 @@ speed = 100.0
 gravity = 100.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.294118, 0.231373, 1)
 texture = ExtResource("2_jlnw5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

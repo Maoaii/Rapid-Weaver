@@ -5,6 +5,8 @@ extends Node2D
 @export var camera: Camera2D
 @export var enable_following_camera: bool = false
 @export var camera_speed: float = 50
+@export var camera_max_speed: float = 200
+
 
 @export_group("Death Area Variables")
 @export var death_area: DeathArea
@@ -52,6 +54,7 @@ func _process(delta: float) -> void:
 		# Increase camera movement
 		if game_started:
 			camera_speed += delta*2
+			camera_speed = min(camera_speed, camera_max_speed)
 	
 	if player.global_position.distance_to(death_area.global_position) <= 400 and game_started:
 		death_warning.play_animation()

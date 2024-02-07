@@ -38,12 +38,6 @@ death_sfx = ExtResource("4_hr4ie")
 health_component = NodePath("HealthComponent")
 death_vfx = NodePath("PoofParticles")
 
-[node name="AnimatedSprite2D" parent="." instance=ExtResource("3_lp1mt")]
-position = Vector2(0, -1)
-sprite_frames = ExtResource("3_37lnf")
-animation = &"Walking"
-speed_scale = 0.5
-
 [node name="LeftWallDetector" type="RayCast2D" parent="."]
 target_position = Vector2(-7, 0)
 
@@ -71,6 +65,13 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_v8u6t")
+
+[node name="AnimatedSprite2D" parent="." instance=ExtResource("3_lp1mt")]
+modulate = Color(1, 0.294118, 0.231373, 1)
+position = Vector2(0, -1)
+sprite_frames = ExtResource("3_37lnf")
+animation = &"Walking"
+speed_scale = 0.5
 
 [node name="PoofParticles" type="CPUParticles2D" parent="."]
 emitting = false

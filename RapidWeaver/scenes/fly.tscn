@@ -80,12 +80,13 @@ collision_layer = 32
 collision_mask = 20
 script = ExtResource("1_j2ue8")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_embv5")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2.08165e-12, -3)
 shape = SubResource("RectangleShape2D_13vpk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.815686, 0.815686, 0, 1)
+texture = ExtResource("1_embv5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

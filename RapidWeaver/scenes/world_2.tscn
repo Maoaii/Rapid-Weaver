@@ -539,7 +539,8 @@ collision_mask = 4
 [node name="GameController" parent="." node_paths=PackedStringArray("camera", "death_area", "death_warning") instance=ExtResource("13_mxqul")]
 camera = NodePath("../Camera2D")
 enable_following_camera = true
-camera_speed = 35.0
+camera_speed = 20.0
+camera_max_speed = 300.0
 death_area = NodePath("../DeathArea")
 death_warning = NodePath("../DeathWarning")
 sections = Array[PackedScene]([ExtResource("14_bp0m6"), ExtResource("15_kdhey"), ExtResource("16_m2xuj"), ExtResource("17_4jwrd"), ExtResource("18_3pg6p"), ExtResource("19_1cbgp"), ExtResource("20_ei2g1"), ExtResource("21_2odth"), ExtResource("22_x2cpa"), ExtResource("23_w21sg"), ExtResource("24_rkorq"), ExtResource("25_l3ds6"), ExtResource("26_2ycy3"), ExtResource("27_krarm"), ExtResource("28_yshjn")])

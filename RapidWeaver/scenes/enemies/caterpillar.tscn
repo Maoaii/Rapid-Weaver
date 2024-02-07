@@ -40,11 +40,6 @@ left_ledge_detector = NodePath("LeftLedgeDetector")
 right_ledge_detector = NodePath("RightLedgeDetector")
 death_vfx = NodePath("PoofParticles")
 
-[node name="AnimatedSprite2D" parent="." instance=ExtResource("11_thocf")]
-sprite_frames = ExtResource("5_fnj7x")
-animation = &"Idle"
-speed_scale = 0.5
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_wknqq")
@@ -70,6 +65,12 @@ target_position = Vector2(0, 9)
 [node name="RightLedgeDetector" type="RayCast2D" parent="."]
 position = Vector2(9, 0)
 target_position = Vector2(0, 9)
+
+[node name="AnimatedSprite2D" parent="." instance=ExtResource("11_thocf")]
+modulate = Color(1, 0.294118, 0.231373, 1)
+sprite_frames = ExtResource("5_fnj7x")
+animation = &"Idle"
+speed_scale = 0.5
 
 [node name="IdleTimer" type="Timer" parent="."]
 one_shot = true

@@ -37,6 +37,7 @@ health_component = NodePath("HealthComponent")
 death_vfx = NodePath("PoofParticles")
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("1_541tk")]
+modulate = Color(1, 0.294118, 0.231373, 1)
 animation = &"Shooting"
 speed_scale = 0.2
 
