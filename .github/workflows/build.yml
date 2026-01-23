@@ -1,0 +1,55 @@
+name: Build and Deploy Game
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+env:
+  GODOT_VERSION: "4.2.1"
+  EXPORT_NAME: game
+
+jobs:
+
+  build-html5:
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.2.1
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup export templates
+        run: |
+          mkdir -p ~/.local/share/godot/export_templates/4.2.1.stable
+          mv /root/.local/share/godot/export_templates/4.2.1.stable/* ~/.local/share/godot/export_templates/4.2.1.stable/
+      
+      - name: Build html5
+        run: |
+          mkdir -p build/html5
+          godot --headless --export-release "Web" build/html5/${{ env.EXPORT_NAME }}.html
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: html5-build
+          path: build/html5/
+
+  publish-itch:
+    needs: [build-html5]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+      
+      - name: Install butler
+        run: |
+          curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+          unzip butler.zip
+          chmod +x butler
+          ./butler -V
+
+      - name: Push html5 to itch.io
+        env:
+          BUTLER_API_KEY: ${{ secrets.ITCH_API_KEY }}
+        run: ./butler push artifacts/html5-build maoaii/rapid-weaver:html5
