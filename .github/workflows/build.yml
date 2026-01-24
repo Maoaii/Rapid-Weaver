@@ -4,6 +4,15 @@ on:
   push:
     branches: [main, master]
   workflow_dispatch:
+    inputs:
+      callback_url:
+        description: 'Callback URL for build status'
+        required: false
+        type: string
+      build_id:
+        description: 'Build ID for status tracking'
+        required: false
+        type: string
 
 env:
   GODOT_VERSION: "4.2.1"
@@ -22,6 +31,14 @@ jobs:
         run: |
           mkdir -p ~/.local/share/godot/export_templates/4.2.1.stable
           mv /root/.local/share/godot/export_templates/4.2.1.stable/* ~/.local/share/godot/export_templates/4.2.1.stable/
+      
+      - name: Check export presets
+        run: |
+          if [ ! -f "export_presets.cfg" ]; then
+            echo "::error::Missing export_presets.cfg! Create export presets in Godot: Project > Export, then add presets for your target platforms."
+            echo "Required preset name for html5: Web"
+            exit 1
+          fi
       
       - name: Build html5
         run: |
@@ -53,3 +70,17 @@ jobs:
         env:
           BUTLER_API_KEY: ${{ secrets.ITCH_API_KEY }}
         run: ./butler push artifacts/html5-build maoaii/rapid-weaver:html5
+
+  notify:
+    needs: [build-html5, publish-itch]
+    runs-on: ubuntu-latest
+    if: always() && github.event.inputs.callback_url != ''
+    steps:
+      - name: Send build status
+        run: |
+          STATUS="success"
+          if [ "${{ needs.build-html5.result }}" != "success" ]; then STATUS="failed"; fi
+          if [ "${{ needs.publish-itch.result }}" != "success" ]; then STATUS="failed"; fi
+          curl -X POST "${{ github.event.inputs.callback_url }}" \
+            -H "Content-Type: application/json" \
+            -d '{"build_id": "${{ github.event.inputs.build_id }}", "status": "'"$STATUS"'"}'
